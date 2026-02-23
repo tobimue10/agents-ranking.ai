@@ -170,50 +170,51 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-background to-muted/30">
-      {/* Hero Section - Redesigned */}
+      {/* Hero Section - Redesigned with Enhanced Visuals */}
       <section className="relative overflow-hidden min-h-[90vh] flex items-center">
-        {/* Animated Background */}
+        {/* Animated Background Layers */}
         <div className="absolute inset-0 hero-gradient" />
         
-        {/* Floating Orbs */}
-        <div className="absolute top-1/4 left-[10%] w-[500px] h-[500px] bg-violet-500/10 rounded-full blur-[100px] animate-pulse-glow" />
-        <div className="absolute bottom-1/4 right-[5%] w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-[100px] animate-pulse-glow delay-500" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-500/5 rounded-full blur-[120px] animate-pulse-glow delay-1000" />
+        {/* Floating Orbs with Enhanced Animation */}
+        <div className="absolute top-1/4 left-[5%] w-[600px] h-[600px] bg-violet-500/15 rounded-full blur-[120px] animate-pulse-glow animate-blob" />
+        <div className="absolute bottom-1/4 right-[5%] w-[500px] h-[500px] bg-fuchsia-500/12 rounded-full blur-[100px] animate-pulse-glow delay-700 animate-blob" style={{ animationDelay: '2s' }} />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-blue-500/8 rounded-full blur-[140px] animate-pulse-glow delay-1000" />
+        <div className="absolute top-[10%] right-[20%] w-[300px] h-[300px] bg-cyan-500/10 rounded-full blur-[80px] animate-pulse-glow delay-500" />
         
         {/* Grid Pattern Overlay */}
         <div 
-          className="absolute inset-0 opacity-[0.02] dark:opacity-[0.05]"
+          className="absolute inset-0 opacity-[0.03] dark:opacity-[0.06]"
           style={{
             backgroundImage: `linear-gradient(rgba(0,0,0,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 1px)`,
-            backgroundSize: '60px 60px'
+            backgroundSize: '80px 80px'
           }}
         />
         
-        <div className="relative container mx-auto px-4 py-20">
+        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
           <div className="max-w-4xl mx-auto text-center">
-            {/* Badge */}
+            {/* Badge with Enhanced Animation */}
             <div className="animate-fade-in-up">
               <Badge 
-                className="mb-8 text-sm px-5 py-2 bg-white/80 dark:bg-white/10 backdrop-blur-sm text-foreground border border-border/50 hover:bg-white dark:hover:bg-white/15 transition-all duration-300 shadow-sm"
+                className="mb-6 sm:mb-8 text-xs sm:text-sm px-4 sm:px-5 py-2 sm:py-2.5 bg-white/90 dark:bg-white/10 backdrop-blur-md text-foreground border border-border/50 hover:bg-white dark:hover:bg-white/15 transition-all duration-500 shadow-lg hover:shadow-xl hover:scale-105"
                 variant="outline"
               >
-                <span className="w-2 h-2 rounded-full bg-violet-500 mr-2 animate-pulse" />
+                <span className="w-2 h-2 rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500 mr-2 animate-pulse" />
                 {language === 'de' ? 'Deine KI-Vergleichsplattform' : language === 'es' ? 'Tu plataforma de comparación de IA' : language === 'fr' ? 'Votre plateforme de comparaison IA' : 'Your AI Comparison Platform'}
               </Badge>
             </div>
             
-            {/* Main Heading */}
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 leading-[1.1] tracking-tight animate-fade-in-up delay-100">
+            {/* Main Heading - Responsive */}
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-6 sm:mb-8 leading-[1.1] tracking-tight animate-fade-in-up delay-100">
               <span className="block text-foreground">
                 {language === 'de' ? 'Finde das' : language === 'es' ? 'Encuentra el' : language === 'fr' ? 'Trouvez le' : 'Find the'}
               </span>
-              <span className="block gradient-text mt-2">
+              <span className="block gradient-text mt-1 sm:mt-2">
                 {language === 'de' ? 'perfekte KI-Modell' : language === 'es' ? 'modelo de IA perfecto' : language === 'fr' ? "modèle d'IA parfait" : 'perfect AI model'}
               </span>
             </h1>
             
-            {/* Subtitle */}
-            <p className="text-lg md:text-xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed animate-fade-in-up delay-200">
+            {/* Subtitle - Responsive */}
+            <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed px-4 sm:px-0 animate-fade-in-up delay-200">
               {language === 'de' 
                 ? 'Der umfassendste KI Vergleich für LLMs, Agents und KI-Tools. Unabhängige Benchmarks, aktuelle Preise und detaillierte Analysen.'
                 : language === 'es'
@@ -223,12 +224,12 @@ export default function Home() {
                 : 'The most comprehensive AI comparison for LLMs, Agents and AI tools. Independent benchmarks, current prices and detailed analyses.'}
             </p>
             
-            {/* CTA Buttons */}
-            <div className="flex flex-wrap gap-4 justify-center animate-fade-in-up delay-300">
-              <Link href="#comparison-table">
+            {/* CTA Buttons - Responsive */}
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center animate-fade-in-up delay-300 px-4 sm:px-0">
+              <Link href="#comparison-table" className="w-full sm:w-auto">
                 <Button 
                   size="lg" 
-                  className="gap-2 min-w-[200px] h-14 text-base font-medium bg-foreground text-background hover:bg-foreground/90 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+                  className="gap-2 w-full sm:min-w-[200px] h-12 sm:h-14 text-sm sm:text-base font-medium bg-foreground text-background hover:bg-foreground/90 transition-all duration-300 shadow-lg hover:shadow-2xl hover:-translate-y-1 hover:scale-[1.02]"
                 >
                   <ArrowUpDown className="w-4 h-4" />
                   {language === 'de' ? 'Vergleich starten' : language === 'es' ? 'Iniciar comparación' : language === 'fr' ? 'Démarrer la comparaison' : 'Start Comparison'}
@@ -239,13 +240,13 @@ export default function Home() {
                   <Button 
                     size="lg" 
                     variant="outline" 
-                    className="gap-2 min-w-[200px] h-14 text-base font-medium border-2 hover:bg-muted/50 transition-all duration-300 hover:-translate-y-0.5"
+                    className="gap-2 w-full sm:min-w-[200px] h-12 sm:h-14 text-sm sm:text-base font-medium border-2 hover:bg-muted/50 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02]"
                   >
                     <Calculator className="w-4 h-4" />
                     {language === 'de' ? 'Preis-Rechner' : language === 'es' ? 'Calculadora de precios' : language === 'fr' ? 'Calculateur de prix' : 'Price Calculator'}
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+                <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto sm:rounded-2xl">
                   <DialogHeader>
                     <DialogTitle>{language === 'de' ? 'KI-Preis-Rechner' : language === 'es' ? 'Calculadora de precios de IA' : language === 'fr' ? "Calculateur de prix d'IA" : 'AI Price Calculator'}</DialogTitle>
                     <DialogDescription>
@@ -263,17 +264,17 @@ export default function Home() {
               </Dialog>
             </div>
             
-            {/* Stats Row */}
-            <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 animate-fade-in-up delay-500">
+            {/* Stats Row - Responsive */}
+            <div className="mt-12 sm:mt-16 md:mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 animate-fade-in-up delay-500 px-4 sm:px-0">
               {[
                 { value: "50+", label: language === 'de' ? 'KI-Modelle' : language === 'es' ? 'Modelos de IA' : language === 'fr' ? "Modèles d'IA" : 'AI Models' },
                 { value: "20+", label: language === 'de' ? 'Agents' : language === 'es' ? 'Agentes' : language === 'fr' ? 'Agents' : 'Agents' },
                 { value: "Daily", label: language === 'de' ? 'Updates' : language === 'es' ? 'Actualizaciones' : language === 'fr' ? 'Mises à jour' : 'Updates' },
                 { value: "100%", label: language === 'de' ? 'Unabhängig' : language === 'es' ? 'Independiente' : language === 'fr' ? 'Indépendant' : 'Independent' },
               ].map((stat) => (
-                <div key={stat.label} className="text-center">
-                  <div className="text-3xl md:text-4xl font-bold text-foreground mb-1">{stat.value}</div>
-                  <div className="text-sm text-muted-foreground">{stat.label}</div>
+                <div key={stat.label} className="text-center group">
+                  <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-1 group-hover:scale-110 transition-transform duration-300">{stat.value}</div>
+                  <div className="text-xs sm:text-sm text-muted-foreground">{stat.label}</div>
                 </div>
               ))}
             </div>
@@ -291,22 +292,23 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Price Calculator Section */}
-      <section id="price-section" data-reveal className="container mx-auto px-4 py-24">
-        <div className={`relative bg-muted/30 rounded-3xl p-10 md:p-16 transition-all duration-1000 ease-out overflow-hidden ${visibleItems.has('price-section') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
-          {/* Background decoration */}
-          <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-violet-500/5 rounded-full blur-[100px]" />
-          <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-blue-500/5 rounded-full blur-[80px]" />
+      {/* Price Calculator Section - Enhanced */}
+      <section id="price-section" data-reveal className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 md:py-24">
+        <div className={`relative bg-gradient-to-br from-muted/40 via-muted/20 to-muted/40 rounded-2xl sm:rounded-3xl p-6 sm:p-10 md:p-16 transition-all duration-1000 ease-out overflow-hidden ${visibleItems.has('price-section') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+          {/* Background decoration with enhanced animation */}
+          <div className="absolute top-0 right-0 w-[300px] sm:w-[400px] h-[300px] sm:h-[400px] bg-violet-500/8 rounded-full blur-[100px] animate-pulse-glow" />
+          <div className="absolute bottom-0 left-0 w-[200px] sm:w-[300px] h-[200px] sm:h-[300px] bg-blue-500/8 rounded-full blur-[80px] animate-pulse-glow delay-700" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-fuchsia-500/5 rounded-full blur-[120px] animate-pulse-glow delay-500" />
           
-          <div className="relative text-center mb-12">
-            <Badge variant="outline" className="mb-6 px-4 py-1.5">
+          <div className="relative text-center mb-8 sm:mb-12">
+            <Badge variant="outline" className="mb-4 sm:mb-6 px-3 sm:px-4 py-1.5 text-xs sm:text-sm hover:scale-105 transition-transform">
               <Calculator className="w-3.5 h-3.5 mr-1.5 inline" />
               {language === 'de' ? 'Kostenrechner' : 'Cost Calculator'}
             </Badge>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">
               {language === 'de' ? 'KI Preis-Rechner' : 'AI Price Calculator'}
             </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto text-lg leading-relaxed">
+            <p className="text-muted-foreground max-w-2xl mx-auto text-sm sm:text-base md:text-lg leading-relaxed px-4 sm:px-0">
               {language === 'de' 
                 ? 'Berechne die monatlichen Kosten für deine Token-Nutzung und vergleiche alle Modelle'
                 : 'Calculate monthly costs for your token usage and compare all models'}
@@ -316,35 +318,35 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Interactive Comparison Table */}
-      <section id="comparison-table" data-reveal className="container mx-auto px-4 py-24">
+      {/* Interactive Comparison Table - Enhanced */}
+      <section id="comparison-table" data-reveal className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 md:py-24">
         <div className={`transition-all duration-1000 ease-out ${visibleItems.has('comparison-table') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
-          <div className="text-center mb-12">
-            <Badge variant="outline" className="mb-6 px-4 py-1.5">
+          <div className="text-center mb-8 sm:mb-12">
+            <Badge variant="outline" className="mb-4 sm:mb-6 px-3 sm:px-4 py-1.5 text-xs sm:text-sm hover:scale-105 transition-transform">
               <ArrowUpDown className="w-3.5 h-3.5 mr-1.5 inline" />
               {language === 'de' ? 'Interaktiver Vergleich' : 'Interactive Comparison'}
             </Badge>            
-            <h2 className="text-3xl md:text-5xl font-bold mb-5 tracking-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-5 tracking-tight">
               {language === 'de' ? 'Interaktiver KI Vergleich' : 'Interactive AI Comparison'}
             </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto text-lg leading-relaxed">
+            <p className="text-muted-foreground max-w-2xl mx-auto text-sm sm:text-base md:text-lg leading-relaxed px-4 sm:px-0">
               {language === 'de' 
                 ? 'Vergleiche alle KI-Modelle mit Filter, Sortierung und direktem Modell-Vergleich'
                 : 'Compare all AI models with filters, sorting and direct model comparison'}
             </p>
           </div>
 
-          {/* Search and Filter Bar */}
-          <Card className="mb-6 border-0 shadow-soft">
-            <CardContent className="p-5">
-              <div className="flex flex-col md:flex-row gap-4">
+          {/* Search and Filter Bar - Responsive */}
+          <Card className="mb-4 sm:mb-6 border-0 shadow-soft hover:shadow-lg transition-shadow duration-300">
+            <CardContent className="p-4 sm:p-5">
+              <div className="flex flex-col lg:flex-row gap-3 sm:gap-4">
                 <div className="relative flex-1">
-                  <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                  <Search className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground" />
                   <Input
                     placeholder={language === 'de' ? 'Modelle suchen...' : 'Search models...'}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-12 h-12 text-base"
+                    className="pl-10 sm:pl-12 h-10 sm:h-12 text-sm sm:text-base"
                   />
                 </div>
                 <div className="flex flex-wrap gap-2">
@@ -352,12 +354,13 @@ export default function Home() {
                     <Button
                       key={filter.id}
                       variant={selectedFilters.includes(filter.id) ? "default" : "outline"}
-                      size="default"
+                      size="sm"
                       onClick={() => toggleFilter(filter.id)}
-                      className="gap-2 h-12 px-4"
+                      className="gap-1.5 sm:gap-2 h-9 sm:h-12 px-2.5 sm:px-4 text-xs sm:text-sm hover:scale-105 transition-transform"
                     >
-                      <filter.icon className="w-4 h-4" />
-                      {filter.label}
+                      <filter.icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                      <span className="hidden sm:inline">{filter.label}</span>
+                      <span className="sm:hidden">{filter.label.slice(0, 3)}</span>
                     </Button>
                   ))}
                 </div>
