@@ -16,7 +16,12 @@ import {
   Video,
   Calculator,
   Sparkles,
-  Brain
+  Brain,
+  TrendingUp,
+  Zap,
+  Newspaper,
+  Bot,
+  Cpu
 } from "lucide-react";
 import { 
   Dialog, 
@@ -36,7 +41,9 @@ import {
 } from "@/components/ui/table";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useLanguage } from "@/components/LanguageProvider";
-import { modelsData } from "@/lib/models-data";
+import { modelsData, topModels, newThisWeek, priceComparison } from "@/lib/models-data";
+import { agentsData } from "@/lib/agents-data";
+import { newsData, benchmarkUpdates } from "@/lib/news-data";
 import { PriceCalculator } from "@/components/PriceCalculator";
 import { UseCaseRecommendations } from "@/components/UseCaseRecommendations";
 import { NewsletterSignup } from "@/components/NewsletterSignup";
@@ -84,9 +91,9 @@ export default function Home() {
   const [compareModels, setCompareModels] = useState<string[]>([]);
   const [showComparison, setShowComparison] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState<'models' | 'agents' | 'news'>('models');
 
   useEffect(() => {
-    // Simulate loading for skeleton effect
     const timer = setTimeout(() => setIsLoading(false), 500);
     return () => clearTimeout(timer);
   }, []);
@@ -170,18 +177,14 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-background to-muted/30">
-      {/* Hero Section - Redesigned with Enhanced Visuals */}
+      {/* Hero Section */}
       <section className="relative overflow-hidden min-h-[90vh] flex items-center">
-        {/* Animated Background Layers */}
         <div className="absolute inset-0 hero-gradient" />
         
-        {/* Floating Orbs with Enhanced Animation */}
         <div className="absolute top-1/4 left-[5%] w-[600px] h-[600px] bg-violet-500/15 rounded-full blur-[120px] animate-pulse-glow animate-blob" />
         <div className="absolute bottom-1/4 right-[5%] w-[500px] h-[500px] bg-fuchsia-500/12 rounded-full blur-[100px] animate-pulse-glow delay-700 animate-blob" style={{ animationDelay: '2s' }} />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-blue-500/8 rounded-full blur-[140px] animate-pulse-glow delay-1000" />
-        <div className="absolute top-[10%] right-[20%] w-[300px] h-[300px] bg-cyan-500/10 rounded-full blur-[80px] animate-pulse-glow delay-500" />
         
-        {/* Grid Pattern Overlay */}
         <div 
           className="absolute inset-0 opacity-[0.03] dark:opacity-[0.06]"
           style={{
@@ -192,85 +195,59 @@ export default function Home() {
         
         <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
           <div className="max-w-4xl mx-auto text-center">
-            {/* Badge with Enhanced Animation */}
             <div className="animate-fade-in-up">
               <Badge 
                 className="mb-6 sm:mb-8 text-xs sm:text-sm px-4 sm:px-5 py-2 sm:py-2.5 bg-white/90 dark:bg-white/10 backdrop-blur-md text-foreground border border-border/50 hover:bg-white dark:hover:bg-white/15 transition-all duration-500 shadow-lg hover:shadow-xl hover:scale-105"
                 variant="outline"
               >
                 <span className="w-2 h-2 rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500 mr-2 animate-pulse" />
-                {language === 'de' ? 'Deine KI-Vergleichsplattform' : language === 'es' ? 'Tu plataforma de comparación de IA' : language === 'fr' ? 'Votre plateforme de comparaison IA' : 'Your AI Comparison Platform'}
+                {language === 'de' ? 'Stand: Februar 2025' : 'Updated: February 2025'}
               </Badge>
             </div>
             
-            {/* Main Heading - Responsive */}
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-6 sm:mb-8 leading-[1.1] tracking-tight animate-fade-in-up delay-100">
               <span className="block text-foreground">
-                {language === 'de' ? 'Finde das' : language === 'es' ? 'Encuentra el' : language === 'fr' ? 'Trouvez le' : 'Find the'}
+                {language === 'de' ? 'KI Modelle &' : 'AI Models &'}
               </span>
               <span className="block gradient-text mt-1 sm:mt-2">
-                {language === 'de' ? 'perfekte KI-Modell' : language === 'es' ? 'modelo de IA perfecto' : language === 'fr' ? "modèle d'IA parfait" : 'perfect AI model'}
+                {language === 'de' ? 'Agent Ranking' : 'Agent Ranking'}
               </span>
             </h1>
             
-            {/* Subtitle - Responsive */}
             <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed px-4 sm:px-0 animate-fade-in-up delay-200">
               {language === 'de' 
-                ? 'Der umfassendste KI Vergleich für LLMs, Agents und KI-Tools. Unabhängige Benchmarks, aktuelle Preise und detaillierte Analysen.'
-                : language === 'es'
-                ? 'La comparación de IA más completa para LLMs, Agentes y herramientas de IA. Benchmarks independientes, precios actualizados y análisis detallados.'
-                : language === 'fr'
-                ? "La comparaison d'IA la plus complète pour les LLMs, Agents et outils d'IA. Benchmarks indépendants, prix actuels et analyses détaillées."
-                : 'The most comprehensive AI comparison for LLMs, Agents and AI tools. Independent benchmarks, current prices and detailed analyses.'}
+                ? 'Der umfassendste Vergleich für LLMs, AI Agents und KI-Tools. Aktuelle Benchmarks, Preise und Analysen für Februar 2025.'
+                : 'The most comprehensive comparison for LLMs, AI Agents and AI tools. Current benchmarks, prices and analyses for February 2025.'}
             </p>
             
-            {/* CTA Buttons - Responsive */}
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center animate-fade-in-up delay-300 px-4 sm:px-0">
-              <Link href="#comparison-table" className="w-full sm:w-auto">
+              <Link href="#top-models" className="w-full sm:w-auto">
                 <Button 
                   size="lg" 
                   className="gap-2 w-full sm:min-w-[200px] h-12 sm:h-14 text-sm sm:text-base font-medium bg-foreground text-background hover:bg-foreground/90 transition-all duration-300 shadow-lg hover:shadow-2xl hover:-translate-y-1 hover:scale-[1.02]"
                 >
-                  <ArrowUpDown className="w-4 h-4" />
-                  {language === 'de' ? 'Vergleich starten' : language === 'es' ? 'Iniciar comparación' : language === 'fr' ? 'Démarrer la comparaison' : 'Start Comparison'}
+                  <TrendingUp className="w-4 h-4" />
+                  {language === 'de' ? 'Top 5 Modelle' : 'Top 5 Models'}
                 </Button>
               </Link>
-              <Dialog>
-                <DialogTrigger asChild>
-                  <Button 
-                    size="lg" 
-                    variant="outline" 
-                    className="gap-2 w-full sm:min-w-[200px] h-12 sm:h-14 text-sm sm:text-base font-medium border-2 hover:bg-muted/50 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02]"
-                  >
-                    <Calculator className="w-4 h-4" />
-                    {language === 'de' ? 'Preis-Rechner' : language === 'es' ? 'Calculadora de precios' : language === 'fr' ? 'Calculateur de prix' : 'Price Calculator'}
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto sm:rounded-2xl">
-                  <DialogHeader>
-                    <DialogTitle>{language === 'de' ? 'KI-Preis-Rechner' : language === 'es' ? 'Calculadora de precios de IA' : language === 'fr' ? "Calculateur de prix d'IA" : 'AI Price Calculator'}</DialogTitle>
-                    <DialogDescription>
-                      {language === 'de' 
-                        ? 'Vergleiche Kosten für alle Modelle mit interaktivem Slider'
-                        : language === 'es'
-                        ? 'Compara costos para todos los modelos con deslizador interactivo'
-                        : language === 'fr'
-                        ? "Comparez les coûts pour tous les modèles avec curseur interactif"
-                        : 'Compare costs for all models with interactive slider'}
-                    </DialogDescription>
-                  </DialogHeader>
-                  <PriceCalculator showComparison={true} />
-                </DialogContent>
-              </Dialog>
+              <Link href="#comparison-table" className="w-full sm:w-auto">
+                <Button 
+                  size="lg" 
+                  variant="outline" 
+                  className="gap-2 w-full sm:min-w-[200px] h-12 sm:h-14 text-sm sm:text-base font-medium border-2 hover:bg-muted/50 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02]"
+                >
+                  <ArrowUpDown className="w-4 h-4" />
+                  {language === 'de' ? 'Alle vergleichen' : 'Compare All'}
+                </Button>
+              </Link>
             </div>
             
-            {/* Stats Row - Responsive */}
             <div className="mt-12 sm:mt-16 md:mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 animate-fade-in-up delay-500 px-4 sm:px-0">
               {[
-                { value: "50+", label: language === 'de' ? 'KI-Modelle' : language === 'es' ? 'Modelos de IA' : language === 'fr' ? "Modèles d'IA" : 'AI Models' },
-                { value: "20+", label: language === 'de' ? 'Agents' : language === 'es' ? 'Agentes' : language === 'fr' ? 'Agents' : 'Agents' },
-                { value: "Daily", label: language === 'de' ? 'Updates' : language === 'es' ? 'Actualizaciones' : language === 'fr' ? 'Mises à jour' : 'Updates' },
-                { value: "100%", label: language === 'de' ? 'Unabhängig' : language === 'es' ? 'Independiente' : language === 'fr' ? 'Indépendant' : 'Independent' },
+                { value: "50+", label: language === 'de' ? 'KI-Modelle' : 'AI Models' },
+                { value: "10+", label: language === 'de' ? 'AI Agents' : 'AI Agents' },
+                { value: "Feb 2025", label: language === 'de' ? 'Aktualisiert' : 'Updated' },
+                { value: "100%", label: language === 'de' ? 'Unabhängig' : 'Independent' },
               ].map((stat) => (
                 <div key={stat.label} className="text-center group">
                   <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-1 group-hover:scale-110 transition-transform duration-300">{stat.value}</div>
@@ -281,44 +258,286 @@ export default function Home() {
           </div>
         </div>
         
-        {/* Bottom Fade */}
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
       </section>
 
-      {/* Use Case Recommendations Section */}
-      <section id="usecase-section" data-reveal className="container mx-auto px-4 py-24">
-        <div className={`transition-all duration-1000 ease-out ${visibleItems.has('usecase-section') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
-          <UseCaseRecommendations variant="full" />
-        </div>
-      </section>
-
-      {/* Price Calculator Section - Enhanced */}
-      <section id="price-section" data-reveal className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 md:py-24">
-        <div className={`relative bg-gradient-to-br from-muted/40 via-muted/20 to-muted/40 rounded-2xl sm:rounded-3xl p-6 sm:p-10 md:p-16 transition-all duration-1000 ease-out overflow-hidden ${visibleItems.has('price-section') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
-          {/* Background decoration with enhanced animation */}
-          <div className="absolute top-0 right-0 w-[300px] sm:w-[400px] h-[300px] sm:h-[400px] bg-violet-500/8 rounded-full blur-[100px] animate-pulse-glow" />
-          <div className="absolute bottom-0 left-0 w-[200px] sm:w-[300px] h-[200px] sm:h-[300px] bg-blue-500/8 rounded-full blur-[80px] animate-pulse-glow delay-700" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-fuchsia-500/5 rounded-full blur-[120px] animate-pulse-glow delay-500" />
-          
-          <div className="relative text-center mb-8 sm:mb-12">
-            <Badge variant="outline" className="mb-4 sm:mb-6 px-3 sm:px-4 py-1.5 text-xs sm:text-sm hover:scale-105 transition-transform">
-              <Calculator className="w-3.5 h-3.5 mr-1.5 inline" />
-              {language === 'de' ? 'Kostenrechner' : 'Cost Calculator'}
+      {/* Top 5 Modelle Section */}
+      <section id="top-models" data-reveal className="container mx-auto px-4 py-16 sm:py-20">
+        <div className={`transition-all duration-1000 ease-out ${visibleItems.has('top-models') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+          <div className="text-center mb-10">
+            <Badge variant="outline" className="mb-4 px-3 py-1.5">
+              <TrendingUp className="w-3.5 h-3.5 mr-1.5 inline" />
+              {language === 'de' ? 'LMSYS Arena Rankings' : 'LMSYS Arena Rankings'}
             </Badge>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">
-              {language === 'de' ? 'KI Preis-Rechner' : 'AI Price Calculator'}
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              {language === 'de' ? 'Top 5 KI-Modelle Februar 2025' : 'Top 5 AI Models February 2025'}
             </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto text-sm sm:text-base md:text-lg leading-relaxed px-4 sm:px-0">
+            <p className="text-muted-foreground max-w-2xl mx-auto">
               {language === 'de' 
-                ? 'Berechne die monatlichen Kosten für deine Token-Nutzung und vergleiche alle Modelle'
-                : 'Calculate monthly costs for your token usage and compare all models'}
+                ? 'Basierend auf LMSYS Arena Elo-Ratings und aktuellen Benchmarks'
+                : 'Based on LMSYS Arena Elo ratings and current benchmarks'}
             </p>
           </div>
-          <PriceCalculator showComparison={true} />
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+            {topModels.map((model, index) => (
+              <Card key={model.name} className={`relative overflow-hidden border-0 shadow-soft hover:shadow-lg transition-all duration-300 hover:-translate-y-1 ${index === 0 ? 'ring-2 ring-violet-500/50' : ''}`}>
+                {index === 0 && (
+                  <div className="absolute top-0 right-0 bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-xs px-2 py-1 rounded-bl-lg font-medium">
+                    #1
+                  </div>
+                )}
+                <CardHeader className="pb-3">
+                  <div className="flex items-center justify-between mb-2">
+                    <Badge variant="outline" className="text-xs">{model.provider}</Badge>
+                    <span className="text-2xl font-bold text-muted-foreground">#{model.rank}</span>
+                  </div>
+                  <CardTitle className="text-lg">{model.name}</CardTitle>
+                  <CardDescription className="text-xs">{model.highlight}</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="grid grid-cols-2 gap-2 text-sm">
+                    <div className="bg-muted/50 rounded-lg p-2 text-center">
+                      <div className="font-semibold text-primary">{model.arena_elo}</div>
+                      <div className="text-xs text-muted-foreground">Elo</div>
+                    </div>
+                    <div className="bg-muted/50 rounded-lg p-2 text-center">
+                      <div className="font-semibold">{model.mmlu}%</div>
+                      <div className="text-xs text-muted-foreground">MMLU</div>
+                    </div>
+                  </div>
+                  <div className="text-xs text-muted-foreground space-y-1">
+                    <div className="flex justify-between">
+                      <span>Kontext:</span>
+                      <span className="font-medium">{model.context}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Input:</span>
+                      <span className="font-medium">${model.price_input}/1M</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Output:</span>
+                      <span className="font-medium">${model.price_output}/1M</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Interactive Comparison Table - Enhanced */}
+      {/* Neu diese Woche Section */}
+      <section id="new-this-week" data-reveal className="container mx-auto px-4 py-16 sm:py-20">
+        <div className={`transition-all duration-1000 ease-out ${visibleItems.has('new-this-week') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+          <div className="text-center mb-10">
+            <Badge variant="outline" className="mb-4 px-3 py-1.5 bg-green-500/10 text-green-600 border-green-500/20">
+              <Zap className="w-3.5 h-3.5 mr-1.5 inline" />
+              {language === 'de' ? 'Neu diese Woche' : 'New This Week'}
+            </Badge>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              {language === 'de' ? 'Neue Releases & Updates' : 'New Releases & Updates'}
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {newThisWeek.map((item) => (
+              <Card key={item.name} className="border-0 shadow-soft hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                <CardHeader className="pb-3">
+                  <div className="flex items-center justify-between mb-2">
+                    <Badge className="bg-green-500/10 text-green-600 border-green-500/20 text-xs">
+                      {item.release_date}
+                    </Badge>
+                    <Badge variant="outline" className="text-xs">{item.category}</Badge>
+                  </div>
+                  <CardTitle className="text-lg">{item.name}</CardTitle>
+                  <CardDescription className="text-xs">{item.provider}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground">{item.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Preis-Vergleich Section */}
+      <section id="price-comparison" data-reveal className="container mx-auto px-4 py-16 sm:py-20">
+        <div className={`transition-all duration-1000 ease-out ${visibleItems.has('price-comparison') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+          <div className="text-center mb-10">
+            <Badge variant="outline" className="mb-4 px-3 py-1.5">
+              <Calculator className="w-3.5 h-3.5 mr-1.5 inline" />
+              {language === 'de' ? 'Preisvergleich' : 'Price Comparison'}
+            </Badge>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              {language === 'de' ? 'API-Preise pro 1M Tokens' : 'API Prices per 1M Tokens'}
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              {language === 'de' 
+                ? 'Vergleich der Input/Output-Preise für beliebte Modelle (in USD)'
+                : 'Comparison of input/output prices for popular models (in USD)'}
+            </p>
+          </div>
+
+          <Card className="border-0 shadow-soft overflow-hidden">
+            <div className="overflow-x-auto">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Modell</TableHead>
+                    <TableHead>Anbieter</TableHead>
+                    <TableHead className="text-right">Input/1M</TableHead>
+                    <TableHead className="text-right">Output/1M</TableHead>
+                    <TableHead className="text-right">Kontext</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {priceComparison.map((item) => (
+                    <TableRow key={item.model} className="hover:bg-muted/50">
+                      <TableCell className="font-medium">{item.model}</TableCell>
+                      <TableCell className="text-muted-foreground">{item.provider}</TableCell>
+                      <TableCell className="text-right">
+                        <span className={item.input < 0.5 ? "text-green-600 font-medium" : ""}>
+                          ${item.input.toFixed(2)}
+                        </span>
+                      </TableCell>
+                      <TableCell className="text-right">
+                        <span className={item.output < 1 ? "text-green-600 font-medium" : ""}>
+                          ${item.output.toFixed(2)}
+                        </span>
+                      </TableCell>
+                      <TableCell className="text-right text-muted-foreground">{item.context}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+          </Card>
+        </div>
+      </section>
+
+      {/* AI Agents Section */}
+      <section id="ai-agents" data-reveal className="container mx-auto px-4 py-16 sm:py-20">
+        <div className={`transition-all duration-1000 ease-out ${visibleItems.has('ai-agents') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+          <div className="text-center mb-10">
+            <Badge variant="outline" className="mb-4 px-3 py-1.5">
+              <Bot className="w-3.5 h-3.5 mr-1.5 inline" />
+              {language === 'de' ? 'AI Agents' : 'AI Agents'}
+            </Badge>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              {language === 'de' ? 'Coding Agents & AI IDEs' : 'Coding Agents & AI IDEs'}
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              {language === 'de' 
+                ? 'Die besten Tools für agentisches Coding: Cursor, Windsurf, Devin und mehr'
+                : 'The best tools for agentic coding: Cursor, Windsurf, Devin and more'}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {agentsData.slice(0, 6).map((agent) => (
+              <Card key={agent.id} className={`border-0 shadow-soft hover:shadow-lg transition-all duration-300 hover:-translate-y-1 ${agent.is_new ? 'ring-1 ring-green-500/30' : ''}`}>
+                <CardHeader className="pb-3">
+                  <div className="flex items-center justify-between mb-2">
+                    <Badge variant="outline" className="text-xs">{agent.category}</Badge>
+                    {agent.is_new && (
+                      <Badge className="bg-green-500/10 text-green-600 border-green-500/20 text-xs">Neu</Badge>
+                    )}
+                  </div>
+                  <CardTitle className="text-lg">{agent.name}</CardTitle>
+                  <CardDescription className="text-xs">{agent.provider}</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <p className="text-sm text-muted-foreground line-clamp-2">{agent.description}</p>
+                  <div className="flex flex-wrap gap-1">
+                    {agent.features.slice(0, 3).map((feature) => (
+                      <Badge key={feature} variant="secondary" className="text-xs">
+                        {feature}
+                      </Badge>
+                    ))}
+                  </div>
+                  <div className="flex items-center justify-between pt-2 border-t">
+                    <span className="text-sm text-muted-foreground">Preis:</span>
+                    <span className="font-medium">
+                      {agent.pricing.free ? 'Kostenlos' : `$${agent.pricing.monthly}/Monat`}
+                    </span>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Benchmarks Section */}
+      <section id="benchmarks" data-reveal className="container mx-auto px-4 py-16 sm:py-20">
+        <div className={`transition-all duration-1000 ease-out ${visibleItems.has('benchmarks') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+          <div className="text-center mb-10">
+            <Badge variant="outline" className="mb-4 px-3 py-1.5">
+              <Cpu className="w-3.5 h-3.5 mr-1.5 inline" />
+              {language === 'de' ? 'Benchmarks' : 'Benchmarks'}
+            </Badge>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              {language === 'de' ? 'Aktuelle Benchmark-Scores' : 'Current Benchmark Scores'}
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              {language === 'de' 
+                ? `Letztes Update: ${benchmarkUpdates.last_updated} | Quelle: ${benchmarkUpdates.source}`
+                : `Last updated: ${benchmarkUpdates.last_updated} | Source: ${benchmarkUpdates.source}`}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <Card className="border-0 shadow-soft">
+              <CardHeader>
+                <CardTitle className="text-lg">LMSYS Arena Top 5</CardTitle>
+                <CardDescription>Elo-Ratings basierend auf Community-Votes</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  {benchmarkUpdates.top_5.map((model) => (
+                    <div key={model.model} className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
+                      <div className="flex items-center gap-3">
+                        <span className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-xs font-medium">
+                          {model.rank}
+                        </span>
+                        <div>
+                          <div className="font-medium">{model.model}</div>
+                          <div className="text-xs text-muted-foreground">{model.provider}</div>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className="font-semibold">{model.elo}</div>
+                        <div className="text-xs text-muted-foreground">Elo</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="border-0 shadow-soft">
+              <CardHeader>
+                <CardTitle className="text-lg">Wichtige Änderungen</CardTitle>
+                <CardDescription>Neue Entwicklungen im Ranking</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2">
+                  {benchmarkUpdates.notable_changes.map((change, index) => (
+                    <li key={index} className="flex items-start gap-2 text-sm">
+                      <span className="text-green-500 mt-0.5">•</span>
+                      <span>{change}</span>
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Interactive Comparison Table */}
       <section id="comparison-table" data-reveal className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 md:py-24">
         <div className={`transition-all duration-1000 ease-out ${visibleItems.has('comparison-table') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
           <div className="text-center mb-8 sm:mb-12">
@@ -327,16 +546,16 @@ export default function Home() {
               {language === 'de' ? 'Interaktiver Vergleich' : 'Interactive Comparison'}
             </Badge>            
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-5 tracking-tight">
-              {language === 'de' ? 'Interaktiver KI Vergleich' : 'Interactive AI Comparison'}
+              {language === 'de' ? 'Alle KI-Modelle im Vergleich' : 'All AI Models Compared'}
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto text-sm sm:text-base md:text-lg leading-relaxed px-4 sm:px-0">
               {language === 'de' 
-                ? 'Vergleiche alle KI-Modelle mit Filter, Sortierung und direktem Modell-Vergleich'
-                : 'Compare all AI models with filters, sorting and direct model comparison'}
+                ? 'Vergleiche alle Modelle mit Filter, Sortierung und direktem Modell-Vergleich'
+                : 'Compare all models with filters, sorting and direct model comparison'}
             </p>
           </div>
 
-          {/* Search and Filter Bar - Responsive */}
+          {/* Search and Filter Bar */}
           <Card className="mb-4 sm:mb-6 border-0 shadow-soft hover:shadow-lg transition-shadow duration-300">
             <CardContent className="p-4 sm:p-5">
               <div className="flex flex-col lg:flex-row gap-3 sm:gap-4">
@@ -459,11 +678,6 @@ export default function Home() {
                           <span className="text-2xl font-bold">${model.pricing_input}</span>
                         </div>
                       </div>
-                      <Link href={`/models/${model.id}`}>
-                        <Button className="w-full mt-4">
-                          {language === 'de' ? 'Details ansehen' : 'View Details'}
-                        </Button>
-                      </Link>
                     </CardContent>
                   </Card>
                 ))}
@@ -523,7 +737,7 @@ export default function Home() {
                     {filteredModels.map((model, index) => (
                       <TableRow 
                         key={model.id} 
-                        className="group transition-colors hover:bg-muted/50"
+                        className={`group transition-colors hover:bg-muted/50 ${model.is_new ? 'bg-green-500/5' : ''}`}
                         style={{ animationDelay: `${index * 50}ms` }}
                       >
                         <TableCell>
@@ -534,12 +748,12 @@ export default function Home() {
                           />
                         </TableCell>
                         <TableCell className="font-medium">
-                          <Link 
-                            href={`/models/${model.id}`} 
-                            className="hover:text-primary transition-colors"
-                          >
+                          <div className="flex items-center gap-2">
                             {model.name}
-                          </Link>
+                            {model.is_new && (
+                              <Badge className="bg-green-500/10 text-green-600 border-green-500/20 text-[10px]">Neu</Badge>
+                            )}
+                          </div>
                         </TableCell>
                         <TableCell className="text-muted-foreground">{model.provider}</TableCell>
                         <TableCell>
@@ -563,11 +777,9 @@ export default function Home() {
                           )}
                         </TableCell>
                         <TableCell>
-                          <Link href={`/models/${model.id}`}>
-                            <Button size="sm" variant="ghost" className="hover:bg-primary/10 hover:text-primary">
-                              {language === 'de' ? 'Details' : 'Details'}
-                            </Button>
-                          </Link>
+                          <Button size="sm" variant="ghost" className="hover:bg-primary/10 hover:text-primary">
+                            {language === 'de' ? 'Details' : 'Details'}
+                          </Button>
                         </TableCell>
                       </TableRow>
                     ))}
@@ -597,58 +809,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Video Section */}
-      <section id="video-section" data-reveal className="container mx-auto px-4 py-16">
-        <div className={`transition-all duration-700 ${visibleItems.has('video-section') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <div className="text-center mb-10">
-            <Badge variant="outline" className="mb-4">
-              <Video className="w-3.5 h-3.5 mr-1.5 inline" />
-              {language === 'de' ? 'Reviews & Tutorials' : 'Reviews & Tutorials'}
-            </Badge>
-            
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              {language === 'de' ? 'KI-Modell Reviews & Tutorials' : 'AI Model Reviews & Tutorials'}
-            </h2>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {modelsData.slice(0, 6).map((model, index) => (
-              <Card 
-                key={model.id} 
-                className="overflow-hidden group border-0 shadow-soft"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <div className="aspect-video bg-muted relative overflow-hidden">
-                  <iframe
-                    width="100%"
-                    height="100%"
-                    src={model.video_url}
-                    title={`${model.name} Review`}
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    className="transition-transform duration-500 group-hover:scale-105"
-                  />
-                </div>
-                <CardHeader className="pb-3">
-                  <CardTitle className="text-lg group-hover:text-primary transition-colors">{model.name}</CardTitle>
-                  <CardDescription>{model.provider}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed">{model.description}</p>
-                  <Link href={`/models/${model.id}`}>
-                    <Button variant="ghost" size="sm" className="mt-4 group/btn">
-                      {language === 'de' ? 'Mehr erfahren' : 'Learn more'}
-                      <span className="ml-1 transition-transform group-hover/btn:translate-x-1">→</span>
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Newsletter Section */}
       <section id="newsletter-section" data-reveal className="container mx-auto px-4 py-16">
         <div className={`transition-all duration-700 ${visibleItems.has('newsletter-section') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
@@ -661,13 +821,13 @@ export default function Home() {
         <div className={`transition-all duration-700 ${visibleItems.has('seo-section') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <Card className="border-0 shadow-soft">
             <CardHeader className="pb-6">
-              <CardTitle className="text-2xl">{language === 'de' ? 'Was ist der beste KI Vergleich?' : 'What is the best AI Comparison?'}</CardTitle>
+              <CardTitle className="text-2xl">{language === 'de' ? 'Über agents-ranking.ai' : 'About agents-ranking.ai'}</CardTitle>
             </CardHeader>
             <CardContent className="prose dark:prose-invert max-w-none">
               <p className="text-muted-foreground leading-relaxed">
                 {language === 'de' 
-                  ? 'agents-ranking.ai ist die führende Plattform für Agent Vergleich und KI Vergleich. Wir bieten unabhängige Benchmarks, aktuelle Preise und detaillierte Analysen aller führenden KI-Modelle.'
-                  : 'agents-ranking.ai is the leading platform for agent comparison and AI comparison. We offer independent benchmarks, current prices and detailed analyses of all leading AI models.'}
+                  ? 'agents-ranking.ai ist die führende Plattform für KI-Vergleiche. Wir bieten unabhängige Benchmarks, aktuelle Preise und detaillierte Analysen aller führenden KI-Modelle und AI Agents. Unsere Daten werden täglich aktualisiert und basieren auf offiziellen Quellen wie LMSYS Arena, Hersteller-Websites und eigenen Tests.'
+                  : 'agents-ranking.ai is the leading platform for AI comparisons. We offer independent benchmarks, current prices and detailed analyses of all leading AI models and AI agents. Our data is updated daily and based on official sources such as LMSYS Arena, manufacturer websites and our own tests.'}
               </p>
               
               <h3 className="text-xl font-semibold mt-8 mb-4">
@@ -701,13 +861,13 @@ export default function Home() {
                 
                 <div className="p-5 rounded-xl bg-muted/50 hover:bg-muted transition-colors">
                   <h4 className="font-semibold mb-2 flex items-center gap-2">
-                    <span className="w-8 h-8 rounded-lg bg-info/10 flex items-center justify-center text-info text-sm">M</span>
-                    MATH
+                    <span className="w-8 h-8 rounded-lg bg-info/10 flex items-center justify-center text-info text-sm">E</span>
+                    Elo (LMSYS)
                   </h4>
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     {language === 'de' 
-                      ? 'Bewertet mathematisches Reasoning auf Wettkampfniveau.'
-                      : 'Evaluates mathematical reasoning at competition level.'}
+                      ? 'Community-basiertes Ranking basierend auf direkten Modell-Vergleichen.'
+                      : 'Community-based ranking based on direct model comparisons.'}
                   </p>
                 </div>
                 
@@ -722,6 +882,15 @@ export default function Home() {
                       : 'Graduate-Level Google-Proof Q&A for expert knowledge.'}
                   </p>
                 </div>
+              </div>
+
+              <div className="mt-8 p-5 rounded-xl bg-violet-500/5 border border-violet-500/10">
+                <h4 className="font-semibold mb-2">{language === 'de' ? 'Quellen & Methodik' : 'Sources & Methodology'}</h4>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  {language === 'de' 
+                    ? 'Unsere Daten stammen aus folgenden Quellen: LMSYS Chatbot Arena (Elo-Rankings), Artificial Analysis (Benchmarks), offizielle API-Dokumentationen der Anbieter (Preise), eigene Tests und Community-Feedback. Letzte Aktualisierung: Februar 2025.'
+                    : 'Our data comes from the following sources: LMSYS Chatbot Arena (Elo rankings), Artificial Analysis (benchmarks), official API documentation from providers (prices), our own tests and community feedback. Last updated: February 2025.'}
+                </p>
               </div>
             </CardContent>
           </Card>
