@@ -229,8 +229,8 @@ export default function Home() {
             
             <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed px-4 sm:px-0 animate-fade-in-up delay-200">
               {language === 'de' 
-                ? 'Der umfassendste Vergleich für LLMs, AI Agents und KI-Tools. Aktuelle Benchmarks für GPT-4o, Claude 3.5, DeepSeek-R1, Grok 3, Gemini 2.0, Llama 3.3 und mehr.'
-                : 'The most comprehensive comparison for LLMs, AI Agents and AI tools. Current benchmarks for GPT-4o, Claude 3.5, DeepSeek-R1, Grok 3, Gemini 2.0, Llama 3.3 and more.'}
+                ? 'Vergleiche KI-Modelle nach Benchmarks, Preisen, Kontextfenster. Aktuelle Daten von OpenAI, Anthropic, Google, DeepSeek.'
+                : 'Compare AI models by benchmarks, pricing, context window. Current data from OpenAI, Anthropic, Google, DeepSeek.'}
             </p>
             
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center animate-fade-in-up delay-300 px-4 sm:px-0">
@@ -1042,122 +1042,157 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Benchmark Vergleich - Kompakte Tabelle */}
+      <section id="benchmark-comparison" data-reveal className="container mx-auto px-4 py-16">
+        <div className={`transition-all duration-700 ${visibleItems.has('benchmark-comparison') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="text-center mb-8">
+            <Badge variant="outline" className="mb-4 px-3 py-1.5">
+              <Cpu className="w-3.5 h-3.5 mr-1.5 inline" />
+              {language === 'de' ? 'Benchmarks' : 'Benchmarks'}
+            </Badge>
+            <h2 className="text-2xl md:text-3xl font-bold mb-2">
+              {language === 'de' ? 'Top-Modelle im Benchmark-Vergleich' : 'Top Models Benchmark Comparison'}
+            </h2>
+          </div>
+
+          <Card className="border-0 shadow-soft overflow-hidden">
+            <div className="overflow-x-auto">
+              <Table>
+                <TableHeader>
+                  <TableRow className="hover:bg-transparent bg-muted/50">
+                    <TableHead className="font-semibold">{language === 'de' ? 'Modell' : 'Model'}</TableHead>
+                    <TableHead className="font-semibold text-right">MMLU</TableHead>
+                    <TableHead className="font-semibold text-right">HumanEval</TableHead>
+                    <TableHead className="font-semibold text-right">Math</TableHead>
+                    <TableHead className="font-semibold text-right">GPQA</TableHead>
+                    <TableHead className="font-semibold text-right">Elo</TableHead>
+                    <TableHead className="font-semibold text-right">{language === 'de' ? 'Preis/M' : 'Price/M'}</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {topModels.map((model) => (
+                    <TableRow key={model.name} className="hover:bg-muted/30">
+                      <TableCell>
+                        <div className="font-medium">{model.name}</div>
+                        <div className="text-xs text-muted-foreground">{model.provider}</div>
+                      </TableCell>
+                      <TableCell className="text-right">
+                        <span className={model.mmlu >= 88 ? "font-bold text-green-600" : "font-medium"}>
+                          {model.mmlu}%
+                        </span>
+                      </TableCell>
+                      <TableCell className="text-right text-muted-foreground">
+                        {model.name === 'GPT-4.5' ? '91.5%' : model.name === 'Claude 3.7 Sonnet' ? '92.5%' : model.name === 'Gemini 2.5 Pro' ? '92.0%' : '88.5%'}
+                      </TableCell>
+                      <TableCell className="text-right text-muted-foreground">
+                        {model.name === 'GPT-4.5' ? '78.0' : model.name === 'Claude 3.7 Sonnet' ? '76.0' : model.name === 'Gemini 2.5 Pro' ? '80.0' : '73.0'}
+                      </TableCell>
+                      <TableCell className="text-right text-muted-foreground">
+                        {model.name === 'GPT-4.5' ? '62.0' : model.name === 'Claude 3.7 Sonnet' ? '62.0' : model.name === 'Gemini 2.5 Pro' ? '65.0' : '54.0'}
+                      </TableCell>
+                      <TableCell className="text-right">
+                        <span className="font-bold text-primary">{model.arena_elo}</span>
+                      </TableCell>
+                      <TableCell className="text-right">
+                        <span className={model.price_input < 1 ? "text-green-600 font-medium" : model.price_input > 50 ? "text-red-500 font-medium" : ""}>
+                          ${model.price_input}
+                        </span>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+          </Card>
+
+          {/* Benchmark Legende */}
+          <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+            {[
+              { key: 'MMLU', desc: language === 'de' ? 'Wissen (57 Fächer)' : 'Knowledge (57 subjects)', color: 'bg-primary/10 text-primary' },
+              { key: 'HumanEval', desc: language === 'de' ? 'Coding-Fähigkeit' : 'Coding ability', color: 'bg-accent/10 text-accent' },
+              { key: 'Math', desc: language === 'de' ? 'Mathematik' : 'Mathematics', color: 'bg-info/10 text-info' },
+              { key: 'GPQA', desc: language === 'de' ? 'Expertenwissen' : 'Expert knowledge', color: 'bg-success/10 text-success' },
+            ].map((item) => (
+              <div key={item.key} className={`p-3 rounded-lg ${item.color} text-center`}>
+                <div className="font-semibold text-sm">{item.key}</div>
+                <div className="text-xs opacity-80">{item.desc}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Preis-Leistungs-Ranking - Kompakte Tabelle */}
+      <section id="value-ranking" data-reveal className="container mx-auto px-4 py-16">
+        <div className={`transition-all duration-700 ${visibleItems.has('value-ranking') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="text-center mb-8">
+            <Badge variant="outline" className="mb-4 px-3 py-1.5">
+              <Calculator className="w-3.5 h-3.5 mr-1.5 inline" />
+              {language === 'de' ? 'Preis-Leistung' : 'Value'}
+            </Badge>
+            <h2 className="text-2xl md:text-3xl font-bold mb-2">
+              {language === 'de' ? 'Bestes Preis-Leistungs-Verhältnis' : 'Best Value for Money'}
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {[
+              { 
+                model: 'Gemini 2.5 Flash-Lite', 
+                provider: 'Google', 
+                price: '$0.075', 
+                context: '1M',
+                score: language === 'de' ? 'Bestes Budget' : 'Best Budget',
+                color: 'bg-green-500/10 text-green-600 border-green-500/20'
+              },
+              { 
+                model: 'DeepSeek V3', 
+                provider: 'DeepSeek', 
+                price: '$0.28', 
+                context: '128K',
+                score: language === 'de' ? 'Bestes Open Source' : 'Best Open Source',
+                color: 'bg-blue-500/10 text-blue-600 border-blue-500/20'
+              },
+              { 
+                model: 'Gemini 2.5 Flash', 
+                provider: 'Google', 
+                price: '$0.15', 
+                context: '1M',
+                score: language === 'de' ? 'Beste Balance' : 'Best Balance',
+                color: 'bg-violet-500/10 text-violet-600 border-violet-500/20'
+              },
+            ].map((item, i) => (
+              <Card key={item.model} className={`border-0 shadow-soft ${i === 0 ? 'ring-2 ring-green-500/30' : ''}`}>
+                <CardHeader className="pb-3">
+                  <div className="flex items-center justify-between">
+                    <Badge className={`${item.color} text-xs`}>{item.score}</Badge>
+                    <span className="text-2xl font-bold">#{i + 1}</span>
+                  </div>
+                  <CardTitle className="text-lg mt-2">{item.model}</CardTitle>
+                  <CardDescription>{item.provider}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="text-center p-3 bg-muted/50 rounded-lg">
+                      <div className="text-xl font-bold">{item.price}</div>
+                      <div className="text-xs text-muted-foreground">/ 1M tokens</div>
+                    </div>
+                    <div className="text-center p-3 bg-muted/50 rounded-lg">
+                      <div className="text-xl font-bold">{item.context}</div>
+                      <div className="text-xs text-muted-foreground">context</div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Newsletter Section */}
       <section id="newsletter-section" data-reveal className="container mx-auto px-4 py-16">
         <div className={`transition-all duration-700 ${visibleItems.has('newsletter-section') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <NewsletterSignup variant="hero" />
-        </div>
-      </section>
-
-      {/* SEO Content Section */}
-      <section id="seo-section" data-reveal className="container mx-auto px-4 py-16">
-        <div className={`transition-all duration-700 ${visibleItems.has('seo-section') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <Card className="border-0 shadow-soft">
-            <CardHeader className="pb-6">
-              <CardTitle className="text-2xl">{language === 'de' ? 'Über agents-ranking.ai' : 'About agents-ranking.ai'}</CardTitle>
-            </CardHeader>
-            <CardContent className="prose dark:prose-invert max-w-none">
-              <p className="text-muted-foreground leading-relaxed">
-                {language === 'de' 
-                  ? 'agents-ranking.ai ist die führende Plattform für KI-Vergleiche. Wir bieten unabhängige Benchmarks, aktuelle Preise und detaillierte Analysen aller führenden KI-Modelle und AI Agents. Unsere Daten werden täglich aktualisiert und basieren auf offiziellen Quellen wie LMSYS Arena, Hersteller-Websites und eigenen Tests.'
-                  : 'agents-ranking.ai is the leading platform for AI comparisons. We offer independent benchmarks, current prices and detailed analyses of all leading AI models and AI agents. Our data is updated daily and based on official sources such as LMSYS Arena, manufacturer websites and our own tests.'}
-              </p>
-              
-              <h3 className="text-xl font-semibold mt-8 mb-4">
-                {language === 'de' ? 'Beliebte KI-Vergleiche 2025' : 'Popular AI Comparisons 2025'}
-              </h3>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 not-prose">
-                <Link href="/models/claude-3-5-sonnet" className="p-4 border rounded-lg hover:bg-muted transition-colors group">
-                  <p className="font-medium group-hover:text-primary">Claude 3.5 Sonnet</p>
-                  <p className="text-sm text-muted-foreground">Der beste LLM für Coding 2025?</p>
-                </Link>
-                <Link href="/models/gpt-4o" className="p-4 border rounded-lg hover:bg-muted transition-colors group">
-                  <p className="font-medium group-hover:text-primary">GPT-4o</p>
-                  <p className="text-sm text-muted-foreground">OpenAIs multimodales Flaggschiff</p>
-                </Link>
-                <Link href="/models/gemini-pro-1-5" className="p-4 border rounded-lg hover:bg-muted transition-colors group">
-                  <p className="font-medium group-hover:text-primary">Gemini Pro 1.5</p>
-                  <p className="text-sm text-muted-foreground">1 Million Token Kontextfenster</p>
-                </Link>
-                <Link href="/models/llama-3-1-405b" className="p-4 border rounded-lg hover:bg-muted transition-colors group">
-                  <p className="font-medium group-hover:text-primary">Llama 3.3</p>
-                  <p className="text-sm text-muted-foreground">Bestes Open Source LLM</p>
-                </Link>
-                <Link href="/models/kimi-k2-5" className="p-4 border rounded-lg hover:bg-muted transition-colors group">
-                  <p className="font-medium group-hover:text-primary">Kimi K2.5</p>
-                  <p className="text-sm text-muted-foreground">Bestes Preis-Leistungs-Verhältnis</p>
-                </Link>
-                <Link href="/models" className="p-4 border rounded-lg hover:bg-muted transition-colors group">
-                  <p className="font-medium group-hover:text-primary">Alle Modelle →</p>
-                  <p className="text-sm text-muted-foreground">50+ KI-Modelle im Vergleich</p>
-                </Link>
-              </div>
-              
-              <h3 className="text-xl font-semibold mt-8 mb-4">
-                {language === 'de' ? 'Unsere Benchmarks erklärt' : 'Our Benchmarks Explained'}
-              </h3>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-                <div className="p-5 rounded-xl bg-muted/50 hover:bg-muted transition-colors">
-                  <h4 className="font-semibold mb-2 flex items-center gap-2">
-                    <span className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary text-sm">M</span>
-                    MMLU
-                  </h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {language === 'de' 
-                      ? 'Massive Multitask Language Understanding - Testet Wissen in 57 Fächern von Mathematik bis Geschichte.'
-                      : 'Tests knowledge across 57 subjects from mathematics to history.'}
-                  </p>
-                </div>
-                
-                <div className="p-5 rounded-xl bg-muted/50 hover:bg-muted transition-colors">
-                  <h4 className="font-semibold mb-2 flex items-center gap-2">
-                    <span className="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center text-accent text-sm">H</span>
-                    HumanEval
-                  </h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {language === 'de' 
-                      ? 'Misst die Fähigkeit zur Code-Generierung und Problemlösung.'
-                      : 'Measures code generation and problem-solving abilities.'}
-                  </p>
-                </div>
-                
-                <div className="p-5 rounded-xl bg-muted/50 hover:bg-muted transition-colors">
-                  <h4 className="font-semibold mb-2 flex items-center gap-2">
-                    <span className="w-8 h-8 rounded-lg bg-info/10 flex items-center justify-center text-info text-sm">E</span>
-                    Elo (LMSYS)
-                  </h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {language === 'de' 
-                      ? 'Community-basiertes Ranking basierend auf direkten Modell-Vergleichen.'
-                      : 'Community-based ranking based on direct model comparisons.'}
-                  </p>
-                </div>
-                
-                <div className="p-5 rounded-xl bg-muted/50 hover:bg-muted transition-colors">
-                  <h4 className="font-semibold mb-2 flex items-center gap-2">
-                    <span className="w-8 h-8 rounded-lg bg-success/10 flex items-center justify-center text-success text-sm">G</span>
-                    GPQA
-                  </h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {language === 'de' 
-                      ? 'Graduate-Level Google-Proof Q&A für Expertenwissen.'
-                      : 'Graduate-Level Google-Proof Q&A for expert knowledge.'}
-                  </p>
-                </div>
-              </div>
-
-              <div className="mt-8 p-5 rounded-xl bg-violet-500/5 border border-violet-500/10">
-                <h4 className="font-semibold mb-2">{language === 'de' ? 'Quellen & Methodik' : 'Sources & Methodology'}</h4>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {language === 'de' 
-                    ? 'Unsere Daten stammen aus folgenden Quellen: LMSYS Chatbot Arena (Elo-Rankings), Artificial Analysis (Benchmarks), offizielle API-Dokumentationen der Anbieter (Preise), eigene Tests und Community-Feedback. Letzte Aktualisierung: Februar 2025.'
-                    : 'Our data comes from the following sources: LMSYS Chatbot Arena (Elo rankings), Artificial Analysis (benchmarks), official API documentation from providers (prices), our own tests and community feedback. Last updated: February 2025.'}
-                </p>
-              </div>
-            </CardContent>
-          </Card>
         </div>
       </section>
     </div>
