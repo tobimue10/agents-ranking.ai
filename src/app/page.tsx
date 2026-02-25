@@ -1074,21 +1074,21 @@ export default function Home() {
                     <TableRow key={model.name} className="hover:bg-muted/30">
                       <TableCell>
                         <div className="font-medium">{model.name}</div>
-                        <div className="text-xs text-muted-foreground">{model.provider}</div>
+                        <div className="text-xs text-muted-foreground">{model.provider} • {model.release_date?.slice(0, 7)}</div>
                       </TableCell>
                       <TableCell className="text-right">
-                        <span className={model.mmlu >= 88 ? "font-bold text-green-600" : "font-medium"}>
+                        <span className={model.mmlu >= 89 ? "font-bold text-green-600" : "font-medium"}>
                           {model.mmlu}%
                         </span>
                       </TableCell>
                       <TableCell className="text-right text-muted-foreground">
-                        {model.name === 'GPT-4.5' ? '91.5%' : model.name === 'Claude 3.7 Sonnet' ? '92.5%' : model.name === 'Gemini 2.5 Pro' ? '92.0%' : '88.5%'}
+                        {model.name === 'Gemini 2.5 Pro' ? '92.0%' : model.name === 'Claude 3.7 Sonnet' ? '92.5%' : model.name === 'GPT-4.5' ? '91.5%' : model.name === 'DeepSeek R1' ? '91.5%' : '88.5%'}
                       </TableCell>
                       <TableCell className="text-right text-muted-foreground">
-                        {model.name === 'GPT-4.5' ? '78.0' : model.name === 'Claude 3.7 Sonnet' ? '76.0' : model.name === 'Gemini 2.5 Pro' ? '80.0' : '73.0'}
+                        {model.name === 'Gemini 2.5 Pro' ? '80.0' : model.name === 'GPT-4.5' ? '78.0' : model.name === 'Claude 3.7 Sonnet' ? '76.0' : model.name === 'DeepSeek R1' ? '91.2' : '73.0'}
                       </TableCell>
                       <TableCell className="text-right text-muted-foreground">
-                        {model.name === 'GPT-4.5' ? '62.0' : model.name === 'Claude 3.7 Sonnet' ? '62.0' : model.name === 'Gemini 2.5 Pro' ? '65.0' : '54.0'}
+                        {model.name === 'Gemini 2.5 Pro' ? '65.0' : model.name === 'DeepSeek R1' ? '65.0' : model.name === 'GPT-4.5' ? '62.0' : model.name === 'Claude 3.7 Sonnet' ? '62.0' : '54.0'}
                       </TableCell>
                       <TableCell className="text-right">
                         <span className="font-bold text-primary">{model.arena_elo}</span>
