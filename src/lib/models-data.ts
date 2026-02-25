@@ -26,10 +26,11 @@ export interface ModelData {
   best_for: string[];
   video_url: string;
   is_new?: boolean;
+  is_archived?: boolean;
 }
 
 export const modelsData: ModelData[] = [
-  // NEU: Claude 3.7 Sonnet (Feb 2025)
+  // Claude 3.7 Sonnet (Feb 2025)
   {
     id: "claude-3-7-sonnet",
     name: "Claude 3.7 Sonnet",
@@ -49,7 +50,7 @@ export const modelsData: ModelData[] = [
     video_url: "https://www.youtube.com/embed/-AJoByRGkgU",
     is_new: true,
   },
-  // NEU: Gemini 2.0 Flash (Feb 2025)
+  // Gemini 2.0 Flash (Feb 2025)
   {
     id: "gemini-2-0-flash",
     name: "Gemini 2.0 Flash",
@@ -67,9 +68,8 @@ export const modelsData: ModelData[] = [
     cons: ["Weniger präzise als Pro", "Inkonsistent bei komplexen Aufgaben"],
     best_for: ["Lange Dokumente", "Video-Analyse", "Agent-Apps", "Kostenbewusste Projekte"],
     video_url: "https://www.youtube.com/embed/-AJoByRGkgU",
-    is_new: true,
   },
-  // NEU: Gemini 2.0 Pro (Feb 2025)
+  // Gemini 2.0 Pro (Feb 2025)
   {
     id: "gemini-2-0-pro",
     name: "Gemini 2.0 Pro",
@@ -87,7 +87,6 @@ export const modelsData: ModelData[] = [
     cons: ["Noch experimentell", "Höhere Latenz"],
     best_for: ["Riesige Dokumente", "Codebases", "Forschung", "Enterprise"],
     video_url: "https://www.youtube.com/embed/-AJoByRGkgU",
-    is_new: true,
   },
   // DeepSeek V3 (aktualisiert)
   {
@@ -183,7 +182,6 @@ export const modelsData: ModelData[] = [
     cons: ["Nur über X/Twitter", "Weniger reif"],
     best_for: ["News-Analyse", "Social Media", "Echtzeit-Informationen"],
     video_url: "https://www.youtube.com/embed/-AJoByRGkgU",
-    is_new: true,
   },
   // GPT-4.5 (OpenAI - Feb 27, 2025)
   {
@@ -223,7 +221,6 @@ export const modelsData: ModelData[] = [
     cons: ["Weniger bekannt außerhalb Chinas", "Begrenzte Dokumentation"],
     best_for: ["Coding", "Asiatische Märkte", "Mehrsprachige Apps"],
     video_url: "https://www.youtube.com/embed/-AJoByRGkgU",
-    is_new: true,
   },
   // Llama 3.3 70B
   {
@@ -263,6 +260,8 @@ export const modelsData: ModelData[] = [
     best_for: ["Einfache Aufgaben", "Prototyping", "Low-Budget"],
     video_url: "https://www.youtube.com/embed/-AJoByRGkgU",
   },
+  // ARCHIV: Modelle älter als 6 Monate (vor August 2024)
+  // Diese Modelle sind noch im Datenbestand für historische Vergleiche
   // Mistral Large 2
   {
     id: "mistral-large-2",
@@ -282,14 +281,38 @@ export const modelsData: ModelData[] = [
     best_for: ["Europäische Unternehmen", "Multilingual", "GDPR"],
     video_url: "https://www.youtube.com/embed/-AJoByRGkgU",
   },
-  // Bildgenerierung
+  // === ARCHIV SECTION: Modelle älter als 6 Monate (Release vor August 2024) ===
+  // Diese Modelle sind veraltet und nur noch für historische Vergleiche relevant
+  // Nicht mehr in aktiven Vergleichen oder Top-Listen angezeigt
+
+  // ARCHIV: Claude 3.5 Sonnet (veraltet durch 3.7)
+  {
+    id: "claude-3-5-sonnet",
+    name: "Claude 3.5 Sonnet",
+    provider: "Anthropic",
+    type: "llm",
+    category: ["llm", "coding", "reasoning", "archiv"],
+    description: "[ARCHIV] Ausgezeichnetes Preis-Leistungs-Verhältnis. Von Claude 3.7 Sonnet abgelöst.",
+    context_window: 200000,
+    pricing_input: 3.00,
+    pricing_output: 15.00,
+    api_available: true,
+    release_date: "2024-06-20",
+    benchmarks: { mmlu: 85.4, humaneval: 92.0, math: 71.1, gpqa: 59.4, arena_elo: 1301 },
+    pros: ["Exzellentes Coding", "Großes Kontextfenster", "Natürliche Konversation"],
+    cons: ["Von 3.7 abgelöst", "Kein Reasoning-Modus"],
+    best_for: ["Coding", "Dokumentenanalyse", "Schreiben"],
+    video_url: "https://www.youtube.com/embed/-AJoByRGkgU",
+    is_archived: true,
+  },
+  // ARCHIV: Midjourney v6
   {
     id: "midjourney-v6",
     name: "Midjourney v6",
     provider: "Midjourney",
     type: "image",
-    category: ["image", "art"],
-    description: "Führendes KI-Bildgenerierungsmodell für künstlerische Bilder.",
+    category: ["image", "art", "archiv"],
+    description: "[ARCHIV] Führendes KI-Bildgenerierungsmodell für künstlerische Bilder.",
     context_window: 0,
     pricing_input: 8.00,
     pricing_output: 0,
@@ -300,14 +323,16 @@ export const modelsData: ModelData[] = [
     cons: ["Keine API", "Discord erforderlich", "Teuer"],
     best_for: ["Kunst", "Marketing", "Konzept-Design"],
     video_url: "https://www.youtube.com/embed/-AJoByRGkgU",
+    is_archived: true,
   },
+  // ARCHIV: DALL-E 3
   {
     id: "dall-e-3",
     name: "DALL-E 3",
     provider: "OpenAI",
     type: "image",
-    category: ["image", "api"],
-    description: "OpenAIs Bildgenerierungsmodell mit exzellenter Prompt-Einhaltung.",
+    category: ["image", "api", "archiv"],
+    description: "[ARCHIV] OpenAIs Bildgenerierungsmodell mit exzellenter Prompt-Einhaltung.",
     context_window: 0,
     pricing_input: 4.00,
     pricing_output: 0,
@@ -318,15 +343,16 @@ export const modelsData: ModelData[] = [
     cons: ["Weniger künstlerisch", "Eingeschränkte Kontrolle"],
     best_for: ["API-Integration", "Content-Erstellung", "ChatGPT-User"],
     video_url: "https://www.youtube.com/embed/-AJoByRGkgU",
+    is_archived: true,
   },
-  // Video
+  // ARCHIV: Sora
   {
     id: "sora",
     name: "Sora",
     provider: "OpenAI",
     type: "video",
-    category: ["video", "multimodal"],
-    description: "KI-Modell für die Generierung realistischer Videos aus Text.",
+    category: ["video", "multimodal", "archiv"],
+    description: "[ARCHIV] KI-Modell für die Generierung realistischer Videos aus Text.",
     context_window: 0,
     pricing_input: 0,
     pricing_output: 0,
@@ -337,6 +363,7 @@ export const modelsData: ModelData[] = [
     cons: ["Nur für ausgewählte User", "Hohe Kosten"],
     best_for: ["Video-Produktion", "Storyboarding", "Marketing"],
     video_url: "https://www.youtube.com/embed/-AJoByRGkgU",
+    is_archived: true,
   },
 ];
 
@@ -414,20 +441,6 @@ export const newThisWeek = [
     release_date: "2025-02-24",
     description: "Erstes Hybrid-Reasoning-Modell mit Claude Code Agent",
     category: "LLM / Coding",
-  },
-  {
-    name: "Grok 3",
-    provider: "xAI",
-    release_date: "2025-02-17",
-    description: "xAIs neuestes Modell mit Reasoning und Echtzeit-Daten",
-    category: "LLM / Real-time",
-  },
-  {
-    name: "Gemini 2.0 Flash & Pro",
-    provider: "Google",
-    release_date: "2025-02-05",
-    description: "Neue Generation mit 1M/2M Kontextfenster",
-    category: "Multimodal",
   },
 ];
 
