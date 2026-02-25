@@ -52,6 +52,15 @@ export default function Footer() {
     ],
   };
 
+  const FooterLink = ({ href, label }: { href: string; label: string }) => (
+    <Link 
+      href={href} 
+      className="text-sm text-muted-foreground hover:text-foreground transition-all duration-200 hover:translate-x-1 inline-block"
+    >
+      {label}
+    </Link>
+  );
+
   return (
     <footer className="border-t bg-muted/50">
       <div className="container mx-auto px-4 py-12">
@@ -78,7 +87,7 @@ export default function Footer() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
-              <Button type="submit" disabled={subscribed}>
+              <Button type="submit" disabled={subscribed} className="transition-all duration-200 hover:scale-105">
                 {subscribed 
                   ? (language === "de" ? "✓" : "✓")
                   : <ArrowRight className="w-4 h-4" />
@@ -91,11 +100,11 @@ export default function Footer() {
         {/* Links Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 py-12">
           <div className="col-span-2 md:col-span-4 lg:col-span-1">
-            <Link href="/" className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 bg-gradient-to-br from-primary to-purple-600 rounded-lg flex items-center justify-center">
+            <Link href="/" className="flex items-center gap-2 mb-4 group">
+              <div className="w-8 h-8 bg-gradient-to-br from-primary to-purple-600 rounded-lg flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
                 <span className="text-white font-bold text-sm">AR</span>
               </div>
-              <span className="font-bold">agents-ranking.ai</span>
+              <span className="font-bold transition-colors duration-200 group-hover:text-primary">agents-ranking.ai</span>
             </Link>
             <p className="text-sm text-muted-foreground mb-4">
               {language === "de"
@@ -103,17 +112,17 @@ export default function Footer() {
                 : "The leading independent comparison platform for AI models and agents."}
             </p>
             <div className="flex gap-2">
-              <Button variant="ghost" size="icon" className="h-8 w-8" asChild>
+              <Button variant="ghost" size="icon" className="h-8 w-8 transition-all duration-200 hover:scale-110 hover:bg-primary/10" asChild>
                 <a href="https://twitter.com/agentsranking" target="_blank" rel="noopener noreferrer">
                   <Twitter className="w-4 h-4" />
                 </a>
               </Button>
-              <Button variant="ghost" size="icon" className="h-8 w-8" asChild>
+              <Button variant="ghost" size="icon" className="h-8 w-8 transition-all duration-200 hover:scale-110 hover:bg-primary/10" asChild>
                 <a href="https://linkedin.com/company/agents-ranking" target="_blank" rel="noopener noreferrer">
                   <Linkedin className="w-4 h-4" />
                 </a>
               </Button>
-              <Button variant="ghost" size="icon" className="h-8 w-8" asChild>
+              <Button variant="ghost" size="icon" className="h-8 w-8 transition-all duration-200 hover:scale-110 hover:bg-primary/10" asChild>
                 <a href="https://github.com/agents-ranking" target="_blank" rel="noopener noreferrer">
                   <Github className="w-4 h-4" />
                 </a>
@@ -128,12 +137,7 @@ export default function Footer() {
             <ul className="space-y-2">
               {footerLinks.product.map((link) => (
                 <li key={link.href}>
-                  <Link 
-                    href={link.href} 
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {link.label}
-                  </Link>
+                  <FooterLink href={link.href} label={link.label} />
                 </li>
               ))}
             </ul>
@@ -146,12 +150,7 @@ export default function Footer() {
             <ul className="space-y-2">
               {footerLinks.resources.map((link) => (
                 <li key={link.href}>
-                  <Link 
-                    href={link.href} 
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {link.label}
-                  </Link>
+                  <FooterLink href={link.href} label={link.label} />
                 </li>
               ))}
             </ul>
@@ -164,12 +163,7 @@ export default function Footer() {
             <ul className="space-y-2">
               {footerLinks.company.map((link) => (
                 <li key={link.href}>
-                  <Link 
-                    href={link.href} 
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {link.label}
-                  </Link>
+                  <FooterLink href={link.href} label={link.label} />
                 </li>
               ))}
             </ul>
@@ -182,12 +176,7 @@ export default function Footer() {
             <ul className="space-y-2">
               {footerLinks.legal.map((link) => (
                 <li key={link.href}>
-                  <Link 
-                    href={link.href} 
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {link.label}
-                  </Link>
+                  <FooterLink href={link.href} label={link.label} />
                 </li>
               ))}
             </ul>

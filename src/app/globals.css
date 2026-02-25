@@ -476,10 +476,206 @@
 .table-scroll {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--muted-foreground) / 0.3) transparent;
 }
 
 .table-scroll::-webkit-scrollbar {
-  height: 6px;
+  height: 8px;
+}
+
+.table-scroll::-webkit-scrollbar-track {
+  background: hsl(var(--muted) / 0.5);
+  border-radius: 4px;
+}
+
+.table-scroll::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground) / 0.4);
+  border-radius: 4px;
+}
+
+.table-scroll::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.6);
+}
+
+/* Enhanced Table Row Animations */
+@keyframes rowSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-row-in {
+  animation: rowSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Table Row Hover Glow Effect */
+.table-row-glow {
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.table-row-glow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    hsl(var(--brand-violet) / 0.03) 50%, 
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.table-row-glow:hover::before {
+  opacity: 1;
+}
+
+.table-row-glow:hover {
+  background: hsl(var(--muted) / 0.6);
+  transform: translateX(4px);
+}
+
+/* Staggered Animation Delays for Table Rows */
+.stagger-1 { animation-delay: 50ms; }
+.stagger-2 { animation-delay: 100ms; }
+.stagger-3 { animation-delay: 150ms; }
+.stagger-4 { animation-delay: 200ms; }
+.stagger-5 { animation-delay: 250ms; }
+.stagger-6 { animation-delay: 300ms; }
+.stagger-7 { animation-delay: 350ms; }
+.stagger-8 { animation-delay: 400ms; }
+.stagger-9 { animation-delay: 450ms; }
+.stagger-10 { animation-delay: 500ms; }
+
+/* Enhanced Card Hover Effects */
+.card-lift {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-lift:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 
+    0 20px 40px -12px rgba(0, 0, 0, 0.15),
+    0 0 0 1px hsl(var(--brand-violet) / 0.1);
+}
+
+.dark .card-lift:hover {
+  box-shadow: 
+    0 20px 40px -12px rgba(0, 0, 0, 0.4),
+    0 0 0 1px hsl(var(--brand-violet) / 0.2),
+    0 0 40px hsl(var(--brand-violet) / 0.1);
+}
+
+/* Badge Animation */
+@keyframes badgePulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 hsl(var(--brand-violet) / 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 4px hsl(var(--brand-violet) / 0);
+  }
+}
+
+.badge-new {
+  animation: badgePulse 2s ease-in-out infinite;
+}
+
+/* Smooth Section Reveal */
+@keyframes sectionReveal {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.section-reveal {
+  animation: sectionReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Interactive Button Shine Effect */
+@keyframes buttonShine {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 200%;
+  }
+}
+
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-shine::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: none;
+}
+
+.btn-shine:hover::after {
+  animation: buttonShine 0.6s ease-out;
+}
+
+/* Mobile-optimized touch feedback */
+@media (hover: none) {
+  .card-lift:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+  
+  .table-row-glow:active {
+    background: hsl(var(--muted) / 0.8);
+  }
+}
+
+/* Focus ring improvements */
+.focus-ring:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px hsl(var(--background)), 0 0 0 4px hsl(var(--ring));
+}
+
+/* Loading shimmer for async content */
+@keyframes contentShimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.content-shimmer {
+  background: linear-gradient(
+    90deg,
+    hsl(var(--muted)) 0%,
+    hsl(var(--muted) / 0.5) 50%,
+    hsl(var(--muted)) 100%
+  );
+  background-size: 200% 100%;
+  animation: contentShimmer 1.5s ease-in-out infinite;
 }
 
 /* Focus Visible */
@@ -502,5 +698,13 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+  
+  .animate-row-in,
+  .section-reveal,
+  .card-lift,
+  .table-row-glow {
+    animation: none !important;
+    transform: none !important;
   }
 }

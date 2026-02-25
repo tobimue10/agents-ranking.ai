@@ -11,6 +11,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'kimi-k2-5',
     'gpt-4o',
     'claude-3-opus',
+    'deepseek-r1',
+    'deepseek-v3',
+    'grok-3',
+    'gemini-2-0-flash',
+    'gemini-2-0-pro',
+    'llama-3-3-70b',
+    'o3-mini',
+    'o1',
+    'mistral-large-2',
+    'qwen-2-5',
+    'command-r-plus',
   ];
   
   return [
@@ -43,6 +54,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/agents`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/preise`,
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 0.8,
     },
   ];
 }

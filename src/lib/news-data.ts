@@ -12,6 +12,17 @@ export interface NewsItem {
 
 export const newsData: NewsItem[] = [
   {
+    id: "gpt-4-5-release",
+    title: "OpenAI veröffentlicht GPT-4.5",
+    date: "2025-02-27",
+    category: "release",
+    summary: "OpenAIs größtes und bestes Chat-Modell jetzt verfügbar",
+    details: "GPT-4.5 ist das Ergebnis erweiterten unsupervised learning. Das Modell bietet höhere 'EQ', natürlichere Konversationen und weniger Halluzinationen. Verfügbar für Pro-User ab sofort, Plus/Team ab nächster Woche.",
+    source: "OpenAI",
+    source_url: "https://openai.com/index/introducing-gpt-4-5/",
+    is_highlight: true,
+  },
+  {
     id: "claude-3-7-release",
     title: "Claude 3.7 Sonnet veröffentlicht",
     date: "2025-02-24",
@@ -99,25 +110,31 @@ export const newsData: NewsItem[] = [
 
 // Benchmark Updates
 export const benchmarkUpdates = {
-  last_updated: "2025-02-24",
+  last_updated: "2025-02-27",
   source: "LMSYS Arena",
   top_5: [
-    { rank: 1, model: "Gemini 2.5 Pro", provider: "Google", elo: 1368 },
-    { rank: 2, model: "GPT-4o", provider: "OpenAI", elo: 1345 },
-    { rank: 3, model: "Claude 3.7 Sonnet", provider: "Anthropic", elo: 1335 },
-    { rank: 4, model: "Qwen 2.5 Max", provider: "Alibaba", elo: 1332 },
-    { rank: 5, model: "Grok 3", provider: "xAI", elo: 1310 },
+    { rank: 1, model: "GPT-4.5", provider: "OpenAI", elo: 1340 },
+    { rank: 2, model: "Claude 3.7 Sonnet", provider: "Anthropic", elo: 1335 },
+    { rank: 3, model: "Qwen 2.5 Max", provider: "Alibaba", elo: 1332 },
+    { rank: 4, model: "Gemini 2.0 Pro", provider: "Google", elo: 1320 },
+    { rank: 5, model: "GPT-4o", provider: "OpenAI", elo: 1312 },
   ],
   notable_changes: [
-    "Claude 3.7 Sonnet springt auf Platz 3 (neu)",
-    "Qwen 2.5 Max überholt DeepSeek V3 und Claude 3.5 Sonnet",
-    "Grok 3 erreicht Top 5 bei Debüt",
-    "Gemini 2.0 Pro klettert auf Platz 6",
+    "GPT-4.5 debütiert auf Platz 1 (neu)",
+    "Claude 3.7 Sonnet auf Platz 2 (neu)",
+    "Qwen 2.5 Max überholt Gemini 2.0 Pro",
+    "Top 3 komplett neu durch OpenAI und Anthropic",
   ],
 };
 
 // Preis-Updates
 export const pricingUpdates = [
+  {
+    date: "2025-02-27",
+    provider: "OpenAI",
+    change: "Neues Premium-Modell",
+    details: "GPT-4.5: $75/1M Input, $150/1M Output - OpenAIs teuerstes Modell",
+  },
   {
     date: "2025-02-01",
     provider: "DeepSeek",

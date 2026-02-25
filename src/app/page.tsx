@@ -19,7 +19,6 @@ import {
   Brain,
   TrendingUp,
   Zap,
-  Newspaper,
   Bot,
   Cpu
 } from "lucide-react";
@@ -27,9 +26,7 @@ import {
   Dialog, 
   DialogContent, 
   DialogHeader, 
-  DialogTitle, 
-  DialogTrigger,
-  DialogDescription
+  DialogTitle
 } from "@/components/ui/dialog";
 import { 
   Table, 
@@ -43,10 +40,9 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useLanguage } from "@/components/LanguageProvider";
 import { modelsData, topModels, newThisWeek, priceComparison } from "@/lib/models-data";
 import { agentsData } from "@/lib/agents-data";
-import { newsData, benchmarkUpdates } from "@/lib/news-data";
-import { PriceCalculator } from "@/components/PriceCalculator";
-import { UseCaseRecommendations } from "@/components/UseCaseRecommendations";
+import { benchmarkUpdates } from "@/lib/news-data";
 import { NewsletterSignup } from "@/components/NewsletterSignup";
+import { MobileModelCard } from "@/components/MobileModelCard";
 
 // Animation hook for scroll reveal
 function useScrollReveal() {
@@ -91,7 +87,6 @@ export default function Home() {
   const [compareModels, setCompareModels] = useState<string[]>([]);
   const [showComparison, setShowComparison] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'models' | 'agents' | 'news'>('models');
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 500);
@@ -216,15 +211,15 @@ export default function Home() {
             
             <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed px-4 sm:px-0 animate-fade-in-up delay-200">
               {language === 'de' 
-                ? 'Der umfassendste Vergleich für LLMs, AI Agents und KI-Tools. Aktuelle Benchmarks, Preise und Analysen für Februar 2025.'
-                : 'The most comprehensive comparison for LLMs, AI Agents and AI tools. Current benchmarks, prices and analyses for February 2025.'}
+                ? 'Der umfassendste Vergleich für LLMs, AI Agents und KI-Tools. Aktuelle Benchmarks für GPT-4o, Claude 3.5, DeepSeek-R1, Grok 3, Gemini 2.0, Llama 3.3 und mehr.'
+                : 'The most comprehensive comparison for LLMs, AI Agents and AI tools. Current benchmarks for GPT-4o, Claude 3.5, DeepSeek-R1, Grok 3, Gemini 2.0, Llama 3.3 and more.'}
             </p>
             
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center animate-fade-in-up delay-300 px-4 sm:px-0">
               <Link href="#top-models" className="w-full sm:w-auto">
                 <Button 
                   size="lg" 
-                  className="gap-2 w-full sm:min-w-[200px] h-12 sm:h-14 text-sm sm:text-base font-medium bg-foreground text-background hover:bg-foreground/90 transition-all duration-300 shadow-lg hover:shadow-2xl hover:-translate-y-1 hover:scale-[1.02]"
+                  className="gap-2 w-full sm:min-w-[200px] h-12 sm:h-14 text-sm sm:text-base font-medium bg-foreground text-background hover:bg-foreground/90 transition-all duration-300 shadow-lg hover:shadow-2xl hover:-translate-y-1 hover:scale-[1.02] btn-shine"
                 >
                   <TrendingUp className="w-4 h-4" />
                   {language === 'de' ? 'Top 5 Modelle' : 'Top 5 Models'}
@@ -234,7 +229,7 @@ export default function Home() {
                 <Button 
                   size="lg" 
                   variant="outline" 
-                  className="gap-2 w-full sm:min-w-[200px] h-12 sm:h-14 text-sm sm:text-base font-medium border-2 hover:bg-muted/50 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02]"
+                  className="gap-2 w-full sm:min-w-[200px] h-12 sm:h-14 text-sm sm:text-base font-medium border-2 hover:bg-muted/50 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] btn-shine"
                 >
                   <ArrowUpDown className="w-4 h-4" />
                   {language === 'de' ? 'Alle vergleichen' : 'Compare All'}
@@ -281,7 +276,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
             {topModels.map((model, index) => (
-              <Card key={model.name} className={`relative overflow-hidden border-0 shadow-soft hover:shadow-lg transition-all duration-300 hover:-translate-y-1 ${index === 0 ? 'ring-2 ring-violet-500/50' : ''}`}>
+              <Card key={model.name} className={`relative overflow-hidden border-0 shadow-soft card-lift ${index === 0 ? 'ring-2 ring-violet-500/50' : ''}`}>
                 {index === 0 && (
                   <div className="absolute top-0 right-0 bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-xs px-2 py-1 rounded-bl-lg font-medium">
                     #1
@@ -342,7 +337,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {newThisWeek.map((item) => (
-              <Card key={item.name} className="border-0 shadow-soft hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+              <Card key={item.name} className="border-0 shadow-soft card-lift">
                 <CardHeader className="pb-3">
                   <div className="flex items-center justify-between mb-2">
                     <Badge className="bg-green-500/10 text-green-600 border-green-500/20 text-xs">
@@ -437,7 +432,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {agentsData.slice(0, 6).map((agent) => (
-              <Card key={agent.id} className={`border-0 shadow-soft hover:shadow-lg transition-all duration-300 hover:-translate-y-1 ${agent.is_new ? 'ring-1 ring-green-500/30' : ''}`}>
+              <Card key={agent.id} className={`border-0 shadow-soft card-lift ${agent.is_new ? 'ring-1 ring-green-500/30' : ''}`}>
                 <CardHeader className="pb-3">
                   <div className="flex items-center justify-between mb-2">
                     <Badge variant="outline" className="text-xs">{agent.category}</Badge>
@@ -575,7 +570,7 @@ export default function Home() {
                       variant={selectedFilters.includes(filter.id) ? "default" : "outline"}
                       size="sm"
                       onClick={() => toggleFilter(filter.id)}
-                      className="gap-1.5 sm:gap-2 h-9 sm:h-12 px-2.5 sm:px-4 text-xs sm:text-sm hover:scale-105 transition-transform"
+                      className="gap-1.5 sm:gap-2 h-9 sm:h-12 px-2.5 sm:px-4 text-xs sm:text-sm transition-all duration-200 hover:scale-105 active:scale-95 focus-ring"
                     >
                       <filter.icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                       <span className="hidden sm:inline">{filter.label}</span>
@@ -685,8 +680,8 @@ export default function Home() {
             </DialogContent>
           </Dialog>
 
-          {/* Models Table */}
-          <Card className="border-0 shadow-soft overflow-hidden">
+          {/* Models Table - Desktop */}
+          <Card className="border-0 shadow-soft overflow-hidden hidden md:block">
             <div className="table-scroll">
               {isLoading ? (
                 <div className="p-8 space-y-4">
@@ -737,8 +732,8 @@ export default function Home() {
                     {filteredModels.map((model, index) => (
                       <TableRow 
                         key={model.id} 
-                        className={`group transition-colors hover:bg-muted/50 ${model.is_new ? 'bg-green-500/5' : ''}`}
-                        style={{ animationDelay: `${index * 50}ms` }}
+                        index={index}
+                        className={`group ${model.is_new ? 'bg-green-500/[0.02]' : ''}`}
                       >
                         <TableCell>
                           <Checkbox
@@ -751,7 +746,7 @@ export default function Home() {
                           <div className="flex items-center gap-2">
                             {model.name}
                             {model.is_new && (
-                              <Badge className="bg-green-500/10 text-green-600 border-green-500/20 text-[10px]">Neu</Badge>
+                              <Badge className="bg-green-500/10 text-green-600 border-green-500/20 text-[10px] badge-new">Neu</Badge>
                             )}
                           </div>
                         </TableCell>
@@ -788,6 +783,19 @@ export default function Home() {
               )}
             </div>
           </Card>
+
+          {/* Mobile Cards Grid */}
+          <div className="md:hidden grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {filteredModels.map((model, index) => (
+              <MobileModelCard
+                key={model.id}
+                model={model}
+                isSelected={compareModels.includes(model.id)}
+                onToggleCompare={() => toggleCompare(model.id)}
+                index={index}
+              />
+            ))}
+          </div>
 
           {filteredModels.length === 0 && !isLoading && (
             <div className="text-center py-16">
@@ -829,6 +837,37 @@ export default function Home() {
                   ? 'agents-ranking.ai ist die führende Plattform für KI-Vergleiche. Wir bieten unabhängige Benchmarks, aktuelle Preise und detaillierte Analysen aller führenden KI-Modelle und AI Agents. Unsere Daten werden täglich aktualisiert und basieren auf offiziellen Quellen wie LMSYS Arena, Hersteller-Websites und eigenen Tests.'
                   : 'agents-ranking.ai is the leading platform for AI comparisons. We offer independent benchmarks, current prices and detailed analyses of all leading AI models and AI agents. Our data is updated daily and based on official sources such as LMSYS Arena, manufacturer websites and our own tests.'}
               </p>
+              
+              <h3 className="text-xl font-semibold mt-8 mb-4">
+                {language === 'de' ? 'Beliebte KI-Vergleiche 2025' : 'Popular AI Comparisons 2025'}
+              </h3>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 not-prose">
+                <Link href="/models/claude-3-5-sonnet" className="p-4 border rounded-lg hover:bg-muted transition-colors group">
+                  <p className="font-medium group-hover:text-primary">Claude 3.5 Sonnet</p>
+                  <p className="text-sm text-muted-foreground">Der beste LLM für Coding 2025?</p>
+                </Link>
+                <Link href="/models/gpt-4o" className="p-4 border rounded-lg hover:bg-muted transition-colors group">
+                  <p className="font-medium group-hover:text-primary">GPT-4o</p>
+                  <p className="text-sm text-muted-foreground">OpenAIs multimodales Flaggschiff</p>
+                </Link>
+                <Link href="/models/gemini-pro-1-5" className="p-4 border rounded-lg hover:bg-muted transition-colors group">
+                  <p className="font-medium group-hover:text-primary">Gemini Pro 1.5</p>
+                  <p className="text-sm text-muted-foreground">1 Million Token Kontextfenster</p>
+                </Link>
+                <Link href="/models/llama-3-1-405b" className="p-4 border rounded-lg hover:bg-muted transition-colors group">
+                  <p className="font-medium group-hover:text-primary">Llama 3.3</p>
+                  <p className="text-sm text-muted-foreground">Bestes Open Source LLM</p>
+                </Link>
+                <Link href="/models/kimi-k2-5" className="p-4 border rounded-lg hover:bg-muted transition-colors group">
+                  <p className="font-medium group-hover:text-primary">Kimi K2.5</p>
+                  <p className="text-sm text-muted-foreground">Bestes Preis-Leistungs-Verhältnis</p>
+                </Link>
+                <Link href="/models" className="p-4 border rounded-lg hover:bg-muted transition-colors group">
+                  <p className="font-medium group-hover:text-primary">Alle Modelle →</p>
+                  <p className="text-sm text-muted-foreground">50+ KI-Modelle im Vergleich</p>
+                </Link>
+              </div>
               
               <h3 className="text-xl font-semibold mt-8 mb-4">
                 {language === 'de' ? 'Unsere Benchmarks erklärt' : 'Our Benchmarks Explained'}

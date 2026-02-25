@@ -22,9 +22,9 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "agents-ranking.ai | KI Vergleich 2025 - Agent & LLM Vergleichsplattform",
-  description: "Der umfassendste KI Vergleich 2025: Vergleiche GPT-4o, Claude 3.5, Gemini Pro, Llama 3.1 & 50+ weitere KI-Modelle. Unabhängige Benchmarks, aktuelle Preise, detaillierte Tests. Finde das beste LLM für Coding, Text & mehr!",
-  keywords: ["KI Vergleich", "KI Vergleich 2025", "LLM Vergleich", "Agent Vergleich", "GPT-4o vs Claude 3.5", "bestes KI Modell", "KI Modelle Vergleich", "AI Vergleich", "ChatGPT Alternative", "Claude vs GPT", "Llama 3.1 Test", "Künstliche Intelligenz Vergleich", "KI Benchmarks", "LLM Ranking", "beste AI 2025"],
+  title: "agents-ranking.ai | KI Vergleich 2025 - 50+ Modelle: GPT-4o, Claude 3.5, DeepSeek, Grok 3",
+  description: "Der umfassendste KI Vergleich 2025: Vergleiche GPT-4o, Claude 3.5, DeepSeek-R1, Grok 3, Gemini 2.0, Llama 3.3 & 50+ weitere KI-Modelle. Unabhängige Benchmarks, aktuelle Preise, detaillierte Tests. Finde das beste LLM für Coding, Reasoning & mehr! Aktualisiert: Februar 2025.",
+  keywords: ["KI Vergleich", "KI Vergleich 2025", "LLM Vergleich", "Agent Vergleich", "GPT-4o vs Claude 3.5", "bestes KI Modell", "KI Modelle Vergleich", "AI Vergleich", "ChatGPT Alternative", "Claude vs GPT", "Llama 3.1 Test", "Künstliche Intelligenz Vergleich", "KI Benchmarks", "LLM Ranking", "beste AI 2025", "DeepSeek vs GPT-4", "Kimi K2.5 Test", "o3 mini Test", "Grok 3 Benchmarks", "KI Modelle Februar 2025"],
   authors: [{ name: "agents-ranking.ai" }],
   creator: "agents-ranking.ai",
   publisher: "agents-ranking.ai",
@@ -37,8 +37,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "agents-ranking.ai | KI Vergleich 2025 - Agent & LLM Vergleichsplattform",
-    description: "Der umfassendste KI Vergleich 2025: Vergleiche GPT-4o, Claude 3.5, Gemini Pro, Llama 3.1 & 50+ weitere KI-Modelle. Unabhängige Benchmarks & aktuelle Preise.",
+    title: "agents-ranking.ai | KI Vergleich 2025 - 50+ Modelle: GPT-4o, Claude 3.5, DeepSeek, Grok 3",
+    description: "Der umfassendste KI Vergleich 2025: Vergleiche GPT-4o, Claude 3.5, DeepSeek-R1, Grok 3, Gemini 2.0, Llama 3.3 & 50+ weitere KI-Modelle. Unabhängige Benchmarks & aktuelle Preise. Aktualisiert: Februar 2025.",
     url: "https://agents-ranking.ai",
     siteName: "agents-ranking.ai",
     locale: "de_DE",
@@ -48,14 +48,14 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "agents-ranking.ai - KI Vergleich 2025: GPT-4o, Claude 3.5, Gemini Pro, Llama 3.1 Vergleich",
+        alt: "agents-ranking.ai - KI Vergleich 2025: GPT-4o, Claude 3.5, DeepSeek, Grok 3, Gemini 2.0, Llama 3.3 Vergleich",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "agents-ranking.ai | KI Vergleich 2025 - Agent & LLM Vergleichsplattform",
-    description: "Der umfassendste KI Vergleich 2025: Vergleiche GPT-4o, Claude 3.5, Gemini Pro, Llama 3.1 & mehr!",
+    title: "agents-ranking.ai | KI Vergleich 2025 - 50+ Modelle: GPT-4o, Claude 3.5, DeepSeek, Grok 3",
+    description: "Der umfassendste KI Vergleich 2025: Vergleiche GPT-4o, Claude 3.5, DeepSeek-R1, Grok 3 & mehr! Aktualisiert: Februar 2025.",
     images: ["/og-image.jpg"],
   },
   robots: {

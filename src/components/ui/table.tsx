@@ -22,7 +22,7 @@ const TableHeader = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <thead 
     ref={ref} 
-    className={cn("[&_tr]:border-b bg-muted/30 sticky top-0 z-10", className)} 
+    className={cn("[&_tr]:border-b bg-muted/50 sticky top-0 z-10 backdrop-blur-sm", className)} 
     {...props} 
   />
 ))
@@ -57,12 +57,13 @@ TableFooter.displayName = "TableFooter"
 
 const TableRow = React.forwardRef<
   HTMLTableRowElement,
-  React.HTMLAttributes<HTMLTableRowElement>
->(({ className, ...props }, ref) => (
+  React.HTMLAttributes<HTMLTableRowElement> & { index?: number }
+>(({ className, index, ...props }, ref) => (
   <tr
     ref={ref}
     className={cn(
-      "border-b transition-colors duration-200 hover:bg-muted/60 data-[state=selected]:bg-muted",
+      "border-b transition-all duration-300 ease-out data-[state=selected]:bg-muted table-row-glow",
+      index !== undefined && `animate-row-in stagger-${Math.min(index + 1, 10)}`,
       className
     )}
     {...props}
@@ -77,7 +78,12 @@ const TableHead = React.forwardRef<
   <th
     ref={ref}
     className={cn(
-      "h-12 px-4 text-left align-middle font-semibold text-muted-foreground whitespace-nowrap",
+      "h-14 px-4 text-left align-middle font-semibold text-muted-foreground whitespace-nowrap",
+      "transition-colors duration-200",
+      "[&[data-sortable=true]]:cursor-pointer [&[data-sortable=true]]:hover:text-foreground",
+      "[&[data-sortable=true]]:select-none",
+      "[&[data-sortable=true]]:hover:bg-muted/50",
+      "[&[data-sortable=true]]:active:bg-muted",
       "[&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]",
       className
     )}
@@ -93,7 +99,7 @@ const TableCell = React.forwardRef<
   <td
     ref={ref}
     className={cn(
-      "p-4 align-middle whitespace-nowrap",
+      "p-4 align-middle whitespace-nowrap transition-colors duration-200",
       "[&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]",
       className
     )}

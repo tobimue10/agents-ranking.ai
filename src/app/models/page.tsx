@@ -174,15 +174,15 @@ const typeLabels: Record<string, string> = {
 
 // Generate metadata for SEO
 export const metadata = {
-  title: "KI Modelle Vergleich 2025 | GPT-4o, Claude 3.5, Gemini, Llama 3.1",
-  description: "Vergleiche über 50 KI-Modelle 2025: GPT-4o, Claude 3.5 Sonnet, Gemini Pro 1.5, Llama 3.1 405B, Kimi K2.5 & mehr. Aktuelle Benchmarks, Preise & Features. Finde das beste LLM für Coding, Text & KI-Agents!",
-  keywords: ["KI Modelle 2025", "LLM Vergleich", "KI Modelle Vergleich", "GPT-4o", "Claude 3.5", "Gemini Pro", "Llama 3.1", "Kimi K2.5", "bestes KI Modell", "AI Agents", "KI Benchmarks"],
+  title: "KI Modelle Vergleich 2025 | GPT-4o, Claude 3.5, DeepSeek, Grok 3, Gemini 2.0",
+  description: "Vergleiche über 50 KI-Modelle 2025: GPT-4o, Claude 3.5 Sonnet, DeepSeek-R1, Grok 3, Gemini 2.0, Llama 3.3, Kimi K2.5 & mehr. Aktuelle Benchmarks, Preise & Features. Finde das beste LLM für Coding, Reasoning & KI-Agents! Aktualisiert: Februar 2025.",
+  keywords: ["KI Modelle 2025", "LLM Vergleich", "KI Modelle Vergleich", "GPT-4o", "Claude 3.5", "DeepSeek-R1", "Grok 3", "Gemini 2.0", "Llama 3.3", "Kimi K2.5", "bestes KI Modell", "AI Agents", "KI Benchmarks", "DeepSeek Test", "Grok 3 Test"],
   alternates: {
     canonical: "https://agents-ranking.ai/models",
   },
   openGraph: {
-    title: "KI Modelle Vergleich 2025 | GPT-4o, Claude 3.5, Gemini, Llama 3.1",
-    description: "Vergleiche über 50 KI-Modelle 2025: GPT-4o, Claude 3.5, Gemini Pro, Llama 3.1 & mehr. Aktuelle Benchmarks & Preise.",
+    title: "KI Modelle Vergleich 2025 | GPT-4o, Claude 3.5, DeepSeek, Grok 3, Gemini 2.0",
+    description: "Vergleiche über 50 KI-Modelle 2025: GPT-4o, Claude 3.5, DeepSeek-R1, Grok 3, Gemini 2.0, Llama 3.3 & mehr. Aktuelle Benchmarks & Preise. Aktualisiert: Februar 2025.",
     url: "https://agents-ranking.ai/models",
   },
 };

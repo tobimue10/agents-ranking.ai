@@ -185,6 +185,26 @@ export const modelsData: ModelData[] = [
     video_url: "https://www.youtube.com/embed/-AJoByRGkgU",
     is_new: true,
   },
+  // GPT-4.5 (OpenAI - Feb 27, 2025)
+  {
+    id: "gpt-4-5",
+    name: "GPT-4.5",
+    provider: "OpenAI",
+    type: "llm",
+    category: ["llm", "multimodal", "reasoning"],
+    description: "OpenAIs größtes und bestes Chat-Modell. Erweitertes unsupervised learning für natürlichere Interaktionen.",
+    context_window: 128000,
+    pricing_input: 75.00,
+    pricing_output: 150.00,
+    api_available: true,
+    release_date: "2025-02-27",
+    benchmarks: { mmlu: 89.0, humaneval: 91.5, math: 78.0, gpqa: 62.0, arena_elo: 1340 },
+    pros: ["Höchste 'EQ' aller GPT-Modelle", "Weniger Halluzinationen", "Natürlichere Konversation", "Starke Kreativität"],
+    cons: ["Extrem teuer", "Kein Reasoning wie o1", "Nur für Pro/Plus User"],
+    best_for: ["Writing", "Coaching", "Brainstorming", "Kreative Aufgaben"],
+    video_url: "https://www.youtube.com/embed/-AJoByRGkgU",
+    is_new: true,
+  },
   // Qwen 2.5 Max (Alibaba)
   {
     id: "qwen-2-5-max",
@@ -324,6 +344,17 @@ export const modelsData: ModelData[] = [
 export const topModels = [
   {
     rank: 1,
+    name: "GPT-4.5",
+    provider: "OpenAI",
+    arena_elo: 1340,
+    mmlu: 89.0,
+    context: "128K",
+    price_input: 75.00,
+    price_output: 150.00,
+    highlight: "OpenAIs größtes Chat-Modell",
+  },
+  {
+    rank: 2,
     name: "Claude 3.7 Sonnet",
     provider: "Anthropic",
     arena_elo: 1335,
@@ -334,7 +365,7 @@ export const topModels = [
     highlight: "Erstes Hybrid-Reasoning-Modell",
   },
   {
-    rank: 2,
+    rank: 3,
     name: "Qwen 2.5 Max",
     provider: "Alibaba",
     arena_elo: 1332,
@@ -345,7 +376,7 @@ export const topModels = [
     highlight: "Top 10 auf LMSYS Arena",
   },
   {
-    rank: 3,
+    rank: 4,
     name: "Gemini 2.0 Pro",
     provider: "Google",
     arena_elo: 1320,
@@ -356,7 +387,7 @@ export const topModels = [
     highlight: "Größtes Kontextfenster (2M)",
   },
   {
-    rank: 4,
+    rank: 5,
     name: "GPT-4o",
     provider: "OpenAI",
     arena_elo: 1312,
@@ -366,21 +397,17 @@ export const topModels = [
     price_output: 10.00,
     highlight: "Beste Multimodal-Fähigkeiten",
   },
-  {
-    rank: 5,
-    name: "Grok 3",
-    provider: "xAI",
-    arena_elo: 1310,
-    mmlu: 86.5,
-    context: "128K",
-    price_input: 3.00,
-    price_output: 15.00,
-    highlight: "Echtzeit-X-Integration",
-  },
 ];
 
 // Neue Modelle diese Woche
 export const newThisWeek = [
+  {
+    name: "GPT-4.5",
+    provider: "OpenAI",
+    release_date: "2025-02-27",
+    description: "OpenAIs größtes Chat-Modell mit höherer EQ und weniger Halluzinationen",
+    category: "LLM / Multimodal",
+  },
   {
     name: "Claude 3.7 Sonnet",
     provider: "Anthropic",
@@ -402,13 +429,6 @@ export const newThisWeek = [
     description: "Neue Generation mit 1M/2M Kontextfenster",
     category: "Multimodal",
   },
-  {
-    name: "Qwen 2.5 Max",
-    provider: "Alibaba",
-    release_date: "2025-01-28",
-    description: "Alibabas stärkstes Modell - Top 10 auf LMSYS",
-    category: "LLM / Coding",
-  },
 ];
 
 // Preisvergleich
@@ -421,4 +441,5 @@ export const priceComparison = [
   { model: "Claude 3.7 Sonnet", provider: "Anthropic", input: 3.00, output: 15.00, context: "200K" },
   { model: "GPT-4o", provider: "OpenAI", input: 2.50, output: 10.00, context: "128K" },
   { model: "Gemini 2.0 Pro", provider: "Google", input: 1.25, output: 10.00, context: "2M" },
+  { model: "GPT-4.5", provider: "OpenAI", input: 75.00, output: 150.00, context: "128K" },
 ];
