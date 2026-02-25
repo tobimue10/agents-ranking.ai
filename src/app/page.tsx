@@ -210,13 +210,13 @@ export default function Home() {
           <div className="max-w-4xl mx-auto text-center">
             <div className="animate-fade-in-up">
               <Badge 
-                className="mb-6 sm:mb-8 text-xs sm:text-sm px-4 sm:px-5 py-2 sm:py-2.5 bg-red-500/10 backdrop-blur-md text-red-600 border border-red-500/30 hover:bg-red-500/20 transition-all duration-500"
+                className="mb-6 sm:mb-8 text-xs sm:text-sm px-4 sm:px-5 py-2 sm:py-2.5 bg-green-500/10 backdrop-blur-md text-green-600 border border-green-500/30 hover:bg-green-500/20 transition-all duration-500"
                 variant="outline"
               >
-                <span className="w-2 h-2 rounded-full bg-red-500 mr-2 animate-pulse" />
+                <span className="w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse" />
                 {language === 'de' 
-                  ? 'DATEN VERALTET - Letztes Update: Juli 2025' 
-                  : 'DATA OUTDATED - Last update: July 2025'}
+                  ? 'AKTUELL - Stand: 25. Februar 2026' 
+                  : 'CURRENT - As of: February 25, 2026'}
               </Badge>
             </div>
             
