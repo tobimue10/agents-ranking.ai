@@ -562,14 +562,14 @@ export const topModels = [
   },
   {
     rank: 5,
-    name: "GPT-4o",
-    provider: "OpenAI",
-    arena_elo: 1312,
-    mmlu: 87.2,
-    context: "128K",
-    price_input: 2.50,
-    price_output: 10.00,
-    highlight: "Beste Multimodal-Fähigkeiten",
+    name: "Claude 3.7 Sonnet",
+    provider: "Anthropic",
+    arena_elo: 1335,
+    mmlu: 88.5,
+    context: "200K",
+    price_input: 3.00,
+    price_output: 15.00,
+    highlight: "Bestes Coding-Modell",
   },
 ];
 

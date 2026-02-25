@@ -1142,24 +1142,27 @@ export default function Home() {
                 provider: 'Google', 
                 price: '$0.075', 
                 context: '1M',
+                release: '2025-07',
                 score: language === 'de' ? 'Bestes Budget' : 'Best Budget',
                 color: 'bg-green-500/10 text-green-600 border-green-500/20'
-              },
-              { 
-                model: 'DeepSeek V3', 
-                provider: 'DeepSeek', 
-                price: '$0.28', 
-                context: '128K',
-                score: language === 'de' ? 'Bestes Open Source' : 'Best Open Source',
-                color: 'bg-blue-500/10 text-blue-600 border-blue-500/20'
               },
               { 
                 model: 'Gemini 2.5 Flash', 
                 provider: 'Google', 
                 price: '$0.15', 
                 context: '1M',
+                release: '2025-06',
                 score: language === 'de' ? 'Beste Balance' : 'Best Balance',
                 color: 'bg-violet-500/10 text-violet-600 border-violet-500/20'
+              },
+              { 
+                model: 'Claude 3.7 Sonnet', 
+                provider: 'Anthropic', 
+                price: '$3.00', 
+                context: '200K',
+                release: '2025-02',
+                score: language === 'de' ? 'Bestes Coding' : 'Best Coding',
+                color: 'bg-blue-500/10 text-blue-600 border-blue-500/20'
               },
             ].map((item, i) => (
               <Card key={item.model} className={`border-0 shadow-soft ${i === 0 ? 'ring-2 ring-green-500/30' : ''}`}>
@@ -1169,7 +1172,7 @@ export default function Home() {
                     <span className="text-2xl font-bold">#{i + 1}</span>
                   </div>
                   <CardTitle className="text-lg mt-2">{item.model}</CardTitle>
-                  <CardDescription>{item.provider}</CardDescription>
+                  <CardDescription>{item.provider} • {item.release}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-2 gap-4">
@@ -1185,6 +1188,14 @@ export default function Home() {
                 </CardContent>
               </Card>
             ))}
+          </div>
+          
+          <div className="mt-4 text-center">
+            <p className="text-xs text-muted-foreground">
+              {language === 'de' 
+                ? 'Nur Modelle < 6 Monate alt (Stand: Feb 2026). Aktuelle Preise von Hersteller-Websites.'
+                : 'Only models < 6 months old (as of Feb 2026). Current prices from manufacturer websites.'}
+            </p>
           </div>
         </div>
       </section>
