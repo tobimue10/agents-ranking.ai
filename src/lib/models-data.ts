@@ -1,8 +1,17 @@
+// === SEKTIONEN ===
+// Die Modelle sind in 3 Hauptsektionen eingeteilt:
+// 1. CHATBOTS & LLMs - Einfache Text-Modelle für Konversation und Reasoning
+// 2. AI AGENTS - Autonome Agenten für Coding und komplexe Workflows
+// 3. SPEZIAL-KI - Video, Audio, Bildgenerierung, Multimodal-Spezialisten
+
+export type ModelSection = 'chatbot' | 'agent' | 'specialist';
+
 export interface ModelData {
   id: string;
   name: string;
   provider: string;
   type: string;
+  section: ModelSection; // Hauptsektion für die Gruppierung
   category: string[];
   description: string;
   context_window: number;
@@ -30,13 +39,19 @@ export interface ModelData {
 }
 
 export const modelsData: ModelData[] = [
+  // ============================================
+  // SEKTION 1: CHATBOTS & LLMs
+  // Einfache Text-Modelle für Konversation, Reasoning, Coding
+  // ============================================
+
   // Claude 3.7 Sonnet (Feb 2025)
   {
     id: "claude-3-7-sonnet",
     name: "Claude 3.7 Sonnet",
     provider: "Anthropic",
     type: "llm",
-    category: ["llm", "coding", "reasoning", "agent"],
+    section: "chatbot",
+    category: ["llm", "coding", "reasoning"],
     description: "Erstes Hybrid-Reasoning-Modell am Markt. Kann zwischen schnellen und erweiterten Denkprozessen wechseln. State-of-the-art bei Coding.",
     context_window: 200000,
     pricing_input: 3.00,
@@ -44,144 +59,11 @@ export const modelsData: ModelData[] = [
     api_available: true,
     release_date: "2025-02-24",
     benchmarks: { mmlu: 88.5, humaneval: 92.5, math: 76.0, gpqa: 62.0, arena_elo: 1335 },
-    pros: ["Hybrid-Reasoning: Schnell oder tiefgründig", "Bestes Coding-Modell", "Claude Code Agent", "Kontrollierbares Thinking-Budget"],
+    pros: ["Hybrid-Reasoning: Schnell oder tiefgründig", "Bestes Coding-Modell", "Kontrollierbares Thinking-Budget"],
     cons: ["Teuer im Extended-Thinking-Modus", "Thinking Tokens kosten extra"],
-    best_for: ["Coding", "Agentic Workflows", "Debugging", "Refactoring"],
+    best_for: ["Coding", "Debugging", "Refactoring", "Reasoning"],
     video_url: "https://www.youtube.com/embed/-AJoByRGkgU",
     is_new: true,
-  },
-  // Gemini 2.0 Flash (Feb 2025)
-  {
-    id: "gemini-2-0-flash",
-    name: "Gemini 2.0 Flash",
-    provider: "Google",
-    type: "multimodal",
-    category: ["llm", "multimodal", "vision", "fast"],
-    description: "Schnelles multimodales Modell mit 1M Token Kontextfenster. Optimiert für Agent-Anwendungen.",
-    context_window: 1000000,
-    pricing_input: 0.10,
-    pricing_output: 0.40,
-    api_available: true,
-    release_date: "2025-02-05",
-    benchmarks: { mmlu: 84.5, humaneval: 87.0, math: 72.0, gpqa: 52.0, arena_elo: 1280 },
-    pros: ["Riesiges 1M Kontextfenster", "Sehr günstig", "Native Tool-Nutzung", "Multimodal"],
-    cons: ["Weniger präzise als Pro", "Inkonsistent bei komplexen Aufgaben"],
-    best_for: ["Lange Dokumente", "Video-Analyse", "Agent-Apps", "Kostenbewusste Projekte"],
-    video_url: "https://www.youtube.com/embed/-AJoByRGkgU",
-  },
-  // Gemini 2.0 Pro (Feb 2025)
-  {
-    id: "gemini-2-0-pro",
-    name: "Gemini 2.0 Pro",
-    provider: "Google",
-    type: "multimodal",
-    category: ["llm", "multimodal", "reasoning"],
-    description: "Googles leistungsstärkstes Modell mit 2M Token Kontextfenster (experimentell).",
-    context_window: 2000000,
-    pricing_input: 1.25,
-    pricing_output: 10.00,
-    api_available: true,
-    release_date: "2025-02-05",
-    benchmarks: { mmlu: 87.8, humaneval: 90.2, math: 75.0, gpqa: 58.0, arena_elo: 1320 },
-    pros: ["Größtes Kontextfenster (2M)", "Hervorragendes Reasoning", "Multimodal"],
-    cons: ["Noch experimentell", "Höhere Latenz"],
-    best_for: ["Riesige Dokumente", "Codebases", "Forschung", "Enterprise"],
-    video_url: "https://www.youtube.com/embed/-AJoByRGkgU",
-  },
-  // DeepSeek V3 (aktualisiert)
-  {
-    id: "deepseek-v3",
-    name: "DeepSeek V3",
-    provider: "DeepSeek",
-    type: "llm",
-    category: ["llm", "coding", "open-source", "reasoning"],
-    description: "Open-Source-Modell mit extrem günstigen Preisen. 128K Kontext, hervorragendes Reasoning.",
-    context_window: 128000,
-    pricing_input: 0.28,
-    pricing_output: 0.42,
-    api_available: true,
-    release_date: "2024-12-26",
-    benchmarks: { mmlu: 85.2, humaneval: 89.8, math: 74.0, gpqa: 55.0, arena_elo: 1278 },
-    pros: ["Extrem günstig", "Open Source", "Hervorragendes Reasoning", "128K Kontext"],
-    cons: ["Zensur bei sensiblen Themen", "Weniger bekannt"],
-    best_for: ["Budget-Projekte", "Coding", "Reasoning", "API-Integration"],
-    video_url: "https://www.youtube.com/embed/-AJoByRGkgU",
-  },
-  // DeepSeek R1 (Reasoning)
-  {
-    id: "deepseek-r1",
-    name: "DeepSeek R1",
-    provider: "DeepSeek",
-    type: "llm",
-    category: ["llm", "reasoning", "open-source"],
-    description: "Reasoning-Modell mit Chain-of-Thought. Konkurrenzfähig mit o1, aber viel günstiger.",
-    context_window: 128000,
-    pricing_input: 0.55,
-    pricing_output: 2.19,
-    api_available: true,
-    release_date: "2025-01-20",
-    benchmarks: { mmlu: 87.5, humaneval: 91.5, math: 91.2, gpqa: 65.0, arena_elo: 1295 },
-    pros: ["Hervorragendes Reasoning", "Sichtbares Chain-of-Thought", "Sehr günstig", "Open Source"],
-    cons: ["Nur Englisch/Chinesisch", "Zensur"],
-    best_for: ["Mathematik", "Wissenschaft", "Logik", "Reasoning"],
-    video_url: "https://www.youtube.com/embed/-AJoByRGkgU",
-  },
-  // GPT-4o (aktualisiert)
-  {
-    id: "gpt-4o",
-    name: "GPT-4o",
-    provider: "OpenAI",
-    type: "multimodal",
-    category: ["llm", "multimodal", "vision", "audio"],
-    description: "OpenAIs multimodales Flaggschiff. Text, Bild, Audio und Video in Echtzeit.",
-    context_window: 128000,
-    pricing_input: 2.50,
-    pricing_output: 10.00,
-    api_available: true,
-    release_date: "2024-05-13",
-    benchmarks: { mmlu: 87.2, humaneval: 90.1, math: 76.6, gpqa: 53.6, arena_elo: 1312 },
-    pros: ["Multimodal", "Großes Ökosystem", "Zuverlässige API", "Echtzeit-Audio"],
-    cons: ["Höherer Preis", "Weniger transparent"],
-    best_for: ["Multimodale Apps", "Echtzeit-Anwendungen", "API-Integration"],
-    video_url: "https://www.youtube.com/embed/-AJoByRGkgU",
-  },
-  // Claude 3.5 Sonnet (Legacy, aber noch relevant)
-  {
-    id: "claude-3-5-sonnet",
-    name: "Claude 3.5 Sonnet",
-    provider: "Anthropic",
-    type: "llm",
-    category: ["llm", "coding", "reasoning"],
-    description: "Ausgezeichnetes Preis-Leistungs-Verhältnis. Noch sehr beliebt für Coding.",
-    context_window: 200000,
-    pricing_input: 3.00,
-    pricing_output: 15.00,
-    api_available: true,
-    release_date: "2024-06-20",
-    benchmarks: { mmlu: 85.4, humaneval: 92.0, math: 71.1, gpqa: 59.4, arena_elo: 1301 },
-    pros: ["Exzellentes Coding", "Großes Kontextfenster", "Natürliche Konversation"],
-    cons: ["Kein Internet-Zugriff", "Kein Reasoning-Modus wie 3.7"],
-    best_for: ["Coding", "Dokumentenanalyse", "Schreiben"],
-    video_url: "https://www.youtube.com/embed/-AJoByRGkgU",
-  },
-  // Grok 3 (xAI)
-  {
-    id: "grok-3",
-    name: "Grok 3",
-    provider: "xAI",
-    type: "llm",
-    category: ["llm", "real-time", "reasoning"],
-    description: "xAIs neuestes Modell mit Echtzeit-X-Integration und Reasoning-Fähigkeiten.",
-    context_window: 128000,
-    pricing_input: 3.00,
-    pricing_output: 15.00,
-    api_available: true,
-    release_date: "2025-02-17",
-    benchmarks: { mmlu: 86.5, humaneval: 89.0, math: 78.0, gpqa: 58.0, arena_elo: 1310 },
-    pros: ["Echtzeit-X-Integration", "Weniger zensiert", "Reasoning-Modus"],
-    cons: ["Nur über X/Twitter", "Weniger reif"],
-    best_for: ["News-Analyse", "Social Media", "Echtzeit-Informationen"],
-    video_url: "https://www.youtube.com/embed/-AJoByRGkgU",
   },
   // GPT-4.5 (OpenAI - Feb 27, 2025)
   {
@@ -189,7 +71,8 @@ export const modelsData: ModelData[] = [
     name: "GPT-4.5",
     provider: "OpenAI",
     type: "llm",
-    category: ["llm", "multimodal", "reasoning"],
+    section: "chatbot",
+    category: ["llm", "reasoning"],
     description: "OpenAIs größtes und bestes Chat-Modell. Erweitertes unsupervised learning für natürlichere Interaktionen.",
     context_window: 128000,
     pricing_input: 75.00,
@@ -203,12 +86,53 @@ export const modelsData: ModelData[] = [
     video_url: "https://www.youtube.com/embed/-AJoByRGkgU",
     is_new: true,
   },
+  // DeepSeek R1 (Reasoning)
+  {
+    id: "deepseek-r1",
+    name: "DeepSeek R1",
+    provider: "DeepSeek",
+    type: "llm",
+    section: "chatbot",
+    category: ["llm", "reasoning", "open-source"],
+    description: "Reasoning-Modell mit Chain-of-Thought. Konkurrenzfähig mit o1, aber viel günstiger.",
+    context_window: 128000,
+    pricing_input: 0.55,
+    pricing_output: 2.19,
+    api_available: true,
+    release_date: "2025-01-20",
+    benchmarks: { mmlu: 87.5, humaneval: 91.5, math: 91.2, gpqa: 65.0, arena_elo: 1295 },
+    pros: ["Hervorragendes Reasoning", "Sichtbares Chain-of-Thought", "Sehr günstig", "Open Source"],
+    cons: ["Nur Englisch/Chinesisch", "Zensur"],
+    best_for: ["Mathematik", "Wissenschaft", "Logik", "Reasoning"],
+    video_url: "https://www.youtube.com/embed/-AJoByRGkgU",
+  },
+  // DeepSeek V3
+  {
+    id: "deepseek-v3",
+    name: "DeepSeek V3",
+    provider: "DeepSeek",
+    type: "llm",
+    section: "chatbot",
+    category: ["llm", "coding", "open-source"],
+    description: "Open-Source-Modell mit extrem günstigen Preisen. 128K Kontext, hervorragendes Reasoning.",
+    context_window: 128000,
+    pricing_input: 0.28,
+    pricing_output: 0.42,
+    api_available: true,
+    release_date: "2024-12-26",
+    benchmarks: { mmlu: 85.2, humaneval: 89.8, math: 74.0, gpqa: 55.0, arena_elo: 1278 },
+    pros: ["Extrem günstig", "Open Source", "Hervorragendes Reasoning", "128K Kontext"],
+    cons: ["Zensur bei sensiblen Themen", "Weniger bekannt"],
+    best_for: ["Budget-Projekte", "Coding", "Reasoning", "API-Integration"],
+    video_url: "https://www.youtube.com/embed/-AJoByRGkgU",
+  },
   // Qwen 2.5 Max (Alibaba)
   {
     id: "qwen-2-5-max",
     name: "Qwen 2.5 Max",
     provider: "Alibaba",
     type: "llm",
+    section: "chatbot",
     category: ["llm", "coding", "open-source"],
     description: "Alibabas stärkstes Modell. Top 10 auf LMSYS Arena.",
     context_window: 128000,
@@ -222,12 +146,33 @@ export const modelsData: ModelData[] = [
     best_for: ["Coding", "Asiatische Märkte", "Mehrsprachige Apps"],
     video_url: "https://www.youtube.com/embed/-AJoByRGkgU",
   },
+  // Grok 3 (xAI)
+  {
+    id: "grok-3",
+    name: "Grok 3",
+    provider: "xAI",
+    type: "llm",
+    section: "chatbot",
+    category: ["llm", "real-time"],
+    description: "xAIs neuestes Modell mit Echtzeit-X-Integration und Reasoning-Fähigkeiten.",
+    context_window: 128000,
+    pricing_input: 3.00,
+    pricing_output: 15.00,
+    api_available: true,
+    release_date: "2025-02-17",
+    benchmarks: { mmlu: 86.5, humaneval: 89.0, math: 78.0, gpqa: 58.0, arena_elo: 1310 },
+    pros: ["Echtzeit-X-Integration", "Weniger zensiert", "Reasoning-Modus"],
+    cons: ["Nur über X/Twitter", "Weniger reif"],
+    best_for: ["News-Analyse", "Social Media", "Echtzeit-Informationen"],
+    video_url: "https://www.youtube.com/embed/-AJoByRGkgU",
+  },
   // Llama 3.3 70B
   {
     id: "llama-3-3-70b",
     name: "Llama 3.3 70B",
     provider: "Meta",
     type: "llm",
+    section: "chatbot",
     category: ["llm", "open-source"],
     description: "Effizientes Open-Source-Modell. Fast gleiche Performance wie 405B.",
     context_window: 128000,
@@ -246,8 +191,9 @@ export const modelsData: ModelData[] = [
     id: "gpt-4o-mini",
     name: "GPT-4o Mini",
     provider: "OpenAI",
-    type: "multimodal",
-    category: ["llm", "budget", "multimodal"],
+    type: "llm",
+    section: "chatbot",
+    category: ["llm", "budget"],
     description: "Günstige Alternative zu GPT-4o. Für einfache Aufgaben ideal.",
     context_window: 128000,
     pricing_input: 0.15,
@@ -260,14 +206,13 @@ export const modelsData: ModelData[] = [
     best_for: ["Einfache Aufgaben", "Prototyping", "Low-Budget"],
     video_url: "https://www.youtube.com/embed/-AJoByRGkgU",
   },
-  // ARCHIV: Modelle älter als 6 Monate (vor August 2024)
-  // Diese Modelle sind noch im Datenbestand für historische Vergleiche
   // Mistral Large 2
   {
     id: "mistral-large-2",
     name: "Mistral Large 2",
     provider: "Mistral AI",
     type: "llm",
+    section: "chatbot",
     category: ["llm", "european"],
     description: "Europäisches Modell mit starken Multilingual-Fähigkeiten.",
     context_window: 128000,
@@ -281,16 +226,150 @@ export const modelsData: ModelData[] = [
     best_for: ["Europäische Unternehmen", "Multilingual", "GDPR"],
     video_url: "https://www.youtube.com/embed/-AJoByRGkgU",
   },
-  // === ARCHIV SECTION: Modelle älter als 6 Monate (Release vor August 2024) ===
-  // Diese Modelle sind veraltet und nur noch für historische Vergleiche relevant
-  // Nicht mehr in aktiven Vergleichen oder Top-Listen angezeigt
 
+  // ============================================
+  // SEKTION 2: AI AGENTS
+  // Autonome Agenten für Coding, Planung, Workflows
+  // ============================================
+
+  // Devin - Cognition AI
+  {
+    id: "devin",
+    name: "Devin",
+    provider: "Cognition AI",
+    type: "agent",
+    section: "agent",
+    category: ["agent", "coding", "autonomous"],
+    description: "Autonomer Software-Engineering-Agent. Kann komplette Projekte von der Planung bis zur Implementierung durchführen.",
+    context_window: 128000,
+    pricing_input: 0,
+    pricing_output: 0,
+    api_available: false,
+    release_date: "2024-03-12",
+    benchmarks: { humaneval: 95.0 },
+    pros: ["Vollautonom", "End-to-End-Workflow", "Echtzeit-Zusammenarbeit"],
+    cons: ["Sehr teuer ($500+/Monat)", "Warteliste", "Nicht für alle Use-Cases"],
+    best_for: ["Enterprise", "Komplexe Projekte", "Full-Stack-Entwicklung"],
+    video_url: "https://www.youtube.com/embed/-AJoByRGkgU",
+  },
+  // Claude Code
+  {
+    id: "claude-code",
+    name: "Claude Code",
+    provider: "Anthropic",
+    type: "agent",
+    section: "agent",
+    category: ["agent", "coding", "terminal"],
+    description: "Kommandozeilen-Tool für agentisches Coding. Forschungs-Preview mit Claude 3.7 Sonnet.",
+    context_window: 200000,
+    pricing_input: 3.00,
+    pricing_output: 15.00,
+    api_available: true,
+    release_date: "2025-02-24",
+    benchmarks: { humaneval: 92.5 },
+    pros: ["Kostenlos (für Preview)", "Integriert mit Claude 3.7", "Sehr mächtig", "GitHub-Integration"],
+    cons: ["Nur Preview", "Terminal-only", "Begrenzte Verfügbarkeit"],
+    best_for: ["Terminal-User", "Claude-Fans", "Debugging", "Refactoring"],
+    video_url: "https://www.youtube.com/embed/-AJoByRGkgU",
+    is_new: true,
+  },
+  // GitHub Copilot
+  {
+    id: "github-copilot-agent",
+    name: "GitHub Copilot",
+    provider: "GitHub/OpenAI",
+    type: "agent",
+    section: "agent",
+    category: ["agent", "coding", "ide"],
+    description: "Der bekannteste Coding-Assistent mit Workspace-Agent. Integriert in VS Code, JetBrains, Neovim.",
+    context_window: 128000,
+    pricing_input: 0,
+    pricing_output: 0,
+    api_available: false,
+    release_date: "2021-06-29",
+    benchmarks: { humaneval: 88.0 },
+    pros: ["Sehr verbreitet", "Gute IDE-Integration", "Zuverlässig", "Große Community"],
+    cons: ["Weniger agentisch als Cursor", "Code bleibt in der Cloud", "Manchmal generisch"],
+    best_for: ["Tägliches Coding", "Einsteiger", "Alle IDEs", "GitHub-User"],
+    video_url: "https://www.youtube.com/embed/-AJoByRGkgU",
+  },
+
+  // ============================================
+  // SEKTION 3: SPEZIAL-KI
+  // Video, Audio, Bildgenerierung, Multimodal-Spezialisten
+  // ============================================
+
+  // Gemini 2.0 Pro
+  {
+    id: "gemini-2-0-pro",
+    name: "Gemini 2.0 Pro",
+    provider: "Google",
+    type: "multimodal",
+    section: "specialist",
+    category: ["multimodal", "vision", "long-context"],
+    description: "Googles leistungsstärkstes Modell mit 2M Token Kontextfenster (experimentell).",
+    context_window: 2000000,
+    pricing_input: 1.25,
+    pricing_output: 10.00,
+    api_available: true,
+    release_date: "2025-02-05",
+    benchmarks: { mmlu: 87.8, humaneval: 90.2, math: 75.0, gpqa: 58.0, arena_elo: 1320 },
+    pros: ["Größtes Kontextfenster (2M)", "Hervorragendes Reasoning", "Multimodal"],
+    cons: ["Noch experimentell", "Höhere Latenz"],
+    best_for: ["Riesige Dokumente", "Codebases", "Forschung", "Enterprise"],
+    video_url: "https://www.youtube.com/embed/-AJoByRGkgU",
+  },
+  // Gemini 2.0 Flash
+  {
+    id: "gemini-2-0-flash",
+    name: "Gemini 2.0 Flash",
+    provider: "Google",
+    type: "multimodal",
+    section: "specialist",
+    category: ["multimodal", "vision", "fast"],
+    description: "Schnelles multimodales Modell mit 1M Token Kontextfenster. Optimiert für Agent-Anwendungen.",
+    context_window: 1000000,
+    pricing_input: 0.10,
+    pricing_output: 0.40,
+    api_available: true,
+    release_date: "2025-02-05",
+    benchmarks: { mmlu: 84.5, humaneval: 87.0, math: 72.0, gpqa: 52.0, arena_elo: 1280 },
+    pros: ["Riesiges 1M Kontextfenster", "Sehr günstig", "Native Tool-Nutzung", "Multimodal"],
+    cons: ["Weniger präzise als Pro", "Inkonsistent bei komplexen Aufgaben"],
+    best_for: ["Lange Dokumente", "Video-Analyse", "Agent-Apps", "Kostenbewusste Projekte"],
+    video_url: "https://www.youtube.com/embed/-AJoByRGkgU",
+  },
+  // GPT-4o (Multimodal)
+  {
+    id: "gpt-4o",
+    name: "GPT-4o",
+    provider: "OpenAI",
+    type: "multimodal",
+    section: "specialist",
+    category: ["multimodal", "vision", "audio"],
+    description: "OpenAIs multimodales Flaggschiff. Text, Bild, Audio und Video in Echtzeit.",
+    context_window: 128000,
+    pricing_input: 2.50,
+    pricing_output: 10.00,
+    api_available: true,
+    release_date: "2024-05-13",
+    benchmarks: { mmlu: 87.2, humaneval: 90.1, math: 76.6, gpqa: 53.6, arena_elo: 1312 },
+    pros: ["Multimodal", "Großes Ökosystem", "Zuverlässige API", "Echtzeit-Audio"],
+    cons: ["Höherer Preis", "Weniger transparent"],
+    best_for: ["Multimodale Apps", "Echtzeit-Anwendungen", "API-Integration"],
+    video_url: "https://www.youtube.com/embed/-AJoByRGkgU",
+  },
+
+  // === ARCHIV SECTION ===
+  // Veraltete Modelle nur für historische Vergleiche
+  
   // ARCHIV: Claude 3.5 Sonnet (veraltet durch 3.7)
   {
     id: "claude-3-5-sonnet",
     name: "Claude 3.5 Sonnet",
     provider: "Anthropic",
     type: "llm",
+    section: "chatbot",
     category: ["llm", "coding", "reasoning", "archiv"],
     description: "[ARCHIV] Ausgezeichnetes Preis-Leistungs-Verhältnis. Von Claude 3.7 Sonnet abgelöst.",
     context_window: 200000,
@@ -311,6 +390,7 @@ export const modelsData: ModelData[] = [
     name: "Midjourney v6",
     provider: "Midjourney",
     type: "image",
+    section: "specialist",
     category: ["image", "art", "archiv"],
     description: "[ARCHIV] Führendes KI-Bildgenerierungsmodell für künstlerische Bilder.",
     context_window: 0,
@@ -331,6 +411,7 @@ export const modelsData: ModelData[] = [
     name: "DALL-E 3",
     provider: "OpenAI",
     type: "image",
+    section: "specialist",
     category: ["image", "api", "archiv"],
     description: "[ARCHIV] OpenAIs Bildgenerierungsmodell mit exzellenter Prompt-Einhaltung.",
     context_window: 0,
@@ -351,6 +432,7 @@ export const modelsData: ModelData[] = [
     name: "Sora",
     provider: "OpenAI",
     type: "video",
+    section: "specialist",
     category: ["video", "multimodal", "archiv"],
     description: "[ARCHIV] KI-Modell für die Generierung realistischer Videos aus Text.",
     context_window: 0,

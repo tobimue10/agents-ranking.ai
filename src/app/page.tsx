@@ -20,7 +20,10 @@ import {
   TrendingUp,
   Zap,
   Bot,
-  Cpu
+  Cpu,
+  MessageSquare,
+  Wand2,
+  Layers
 } from "lucide-react";
 import { 
   Dialog, 
@@ -131,6 +134,22 @@ export default function Home() {
     return result;
   }, [searchQuery, selectedFilters, sortField, sortDirection]);
 
+  // Models nach Sektionen gruppieren
+  const chatbotModels = useMemo(() => 
+    filteredModels.filter(m => m.section === 'chatbot' && !m.is_archived),
+    [filteredModels]
+  );
+  
+  const agentModels = useMemo(() => 
+    filteredModels.filter(m => m.section === 'agent' && !m.is_archived),
+    [filteredModels]
+  );
+  
+  const specialistModels = useMemo(() => 
+    filteredModels.filter(m => m.section === 'specialist' && !m.is_archived),
+    [filteredModels]
+  );
+
   const handleSort = (field: SortField) => {
     if (sortField === field) {
       setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
@@ -163,10 +182,9 @@ export default function Home() {
   const comparisonModels = modelsData.filter(m => compareModels.includes(m.id));
 
   const filterOptions = [
-    { id: 'llm', label: 'LLM', icon: Brain },
-    { id: 'agent', label: 'Agent', icon: Sparkles },
-    { id: 'image', label: 'Bild', icon: Palette },
-    { id: 'video', label: 'Video', icon: Video },
+    { id: 'llm', label: language === 'de' ? 'Chatbots' : 'Chatbots', icon: MessageSquare },
+    { id: 'agent', label: language === 'de' ? 'Agents' : 'Agents', icon: Bot },
+    { id: 'multimodal', label: language === 'de' ? 'Spezial-KI' : 'Specialist AI', icon: Wand2 },
     { id: 'coding', label: 'Coding', icon: Code },
   ];
 
@@ -729,72 +747,279 @@ export default function Home() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {filteredModels.map((model, index) => (
-                      <TableRow 
-                        key={model.id} 
-                        index={index}
-                        className={`group ${model.is_new ? 'bg-green-500/[0.02]' : ''}`}
-                      >
-                        <TableCell>
-                          <Checkbox
-                            checked={compareModels.includes(model.id)}
-                            onCheckedChange={() => toggleCompare(model.id)}
-                            className="border-2"
-                          />
-                        </TableCell>
-                        <TableCell className="font-medium">
-                          <div className="flex items-center gap-2">
-                            {model.name}
-                            {model.is_new && (
-                              <Badge className="bg-green-500/10 text-green-600 border-green-500/20 text-[10px] badge-new">Neu</Badge>
-                            )}
-                          </div>
-                        </TableCell>
-                        <TableCell className="text-muted-foreground">{model.provider}</TableCell>
-                        <TableCell>
-                          <Badge variant="outline" className="capitalize">{model.type}</Badge>
-                        </TableCell>
-                        <TableCell>
-                          {model.pricing_input === 0 ? (
-                            <Badge variant="success">{language === 'de' ? 'Kostenlos' : 'Free'}</Badge>
-                          ) : (
-                            <span className="font-medium">${model.pricing_input}</span>
-                          )}
-                        </TableCell>
-                        <TableCell className="text-muted-foreground">
-                          {model.context_window > 0 ? `${(model.context_window / 1000).toFixed(0)}k` : '-'}
-                        </TableCell>
-                        <TableCell>
-                          {model.benchmarks?.mmlu ? (
-                            <span className="font-semibold text-primary">{model.benchmarks.mmlu}%</span>
-                          ) : (
-                            '-'
-                          )}
-                        </TableCell>
-                        <TableCell>
-                          <Button size="sm" variant="ghost" className="hover:bg-primary/10 hover:text-primary">
-                            {language === 'de' ? 'Details' : 'Details'}
-                          </Button>
-                        </TableCell>
-                      </TableRow>
-                    ))}
+                    {/* SEKTION 1: CHATBOTS & LLMs */}
+                    {chatbotModels.length > 0 && (
+                      <>
+                        <TableRow className="bg-muted/30 hover:bg-muted/30">
+                          <TableCell colSpan={8} className="py-3">
+                            <div className="flex items-center gap-2">
+                              <MessageSquare className="w-4 h-4 text-primary" />
+                              <span className="font-semibold text-sm">
+                                {language === 'de' ? 'Chatbots & LLMs' : 'Chatbots & LLMs'}
+                              </span>
+                              <Badge variant="secondary" className="text-xs">
+                                {chatbotModels.length}
+                              </Badge>
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                        {chatbotModels.map((model, index) => (
+                          <TableRow 
+                            key={model.id} 
+                            className={`group ${model.is_new ? 'bg-green-500/[0.02]' : ''}`}
+                          >
+                            <TableCell>
+                              <Checkbox
+                                checked={compareModels.includes(model.id)}
+                                onCheckedChange={() => toggleCompare(model.id)}
+                                className="border-2"
+                              />
+                            </TableCell>
+                            <TableCell className="font-medium">
+                              <div className="flex items-center gap-2">
+                                {model.name}
+                                {model.is_new && (
+                                  <Badge className="bg-green-500/10 text-green-600 border-green-500/20 text-[10px] badge-new">Neu</Badge>
+                                )}
+                              </div>
+                            </TableCell>
+                            <TableCell className="text-muted-foreground">{model.provider}</TableCell>
+                            <TableCell>
+                              <Badge variant="outline" className="capitalize">{model.type}</Badge>
+                            </TableCell>
+                            <TableCell>
+                              {model.pricing_input === 0 ? (
+                                <Badge variant="success">{language === 'de' ? 'Kostenlos' : 'Free'}</Badge>
+                              ) : (
+                                <span className="font-medium">${model.pricing_input}</span>
+                              )}
+                            </TableCell>
+                            <TableCell className="text-muted-foreground">
+                              {model.context_window > 0 ? `${(model.context_window / 1000).toFixed(0)}k` : '-'}
+                            </TableCell>
+                            <TableCell>
+                              {model.benchmarks?.mmlu ? (
+                                <span className="font-semibold text-primary">{model.benchmarks.mmlu}%</span>
+                              ) : (
+                                '-'
+                              )}
+                            </TableCell>
+                            <TableCell>
+                              <Button size="sm" variant="ghost" className="hover:bg-primary/10 hover:text-primary">
+                                {language === 'de' ? 'Details' : 'Details'}
+                              </Button>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </>
+                    )}
+                    
+                    {/* SEKTION 2: AI AGENTS */}
+                    {agentModels.length > 0 && (
+                      <>
+                        <TableRow className="bg-muted/30 hover:bg-muted/30">
+                          <TableCell colSpan={8} className="py-3">
+                            <div className="flex items-center gap-2">
+                              <Bot className="w-4 h-4 text-violet-500" />
+                              <span className="font-semibold text-sm">
+                                {language === 'de' ? 'AI Agents' : 'AI Agents'}
+                              </span>
+                              <Badge variant="secondary" className="text-xs">
+                                {agentModels.length}
+                              </Badge>
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                        {agentModels.map((model, index) => (
+                          <TableRow 
+                            key={model.id} 
+                            className={`group ${model.is_new ? 'bg-green-500/[0.02]' : ''}`}
+                          >
+                            <TableCell>
+                              <Checkbox
+                                checked={compareModels.includes(model.id)}
+                                onCheckedChange={() => toggleCompare(model.id)}
+                                className="border-2"
+                              />
+                            </TableCell>
+                            <TableCell className="font-medium">
+                              <div className="flex items-center gap-2">
+                                {model.name}
+                                {model.is_new && (
+                                  <Badge className="bg-green-500/10 text-green-600 border-green-500/20 text-[10px] badge-new">Neu</Badge>
+                                )}
+                              </div>
+                            </TableCell>
+                            <TableCell className="text-muted-foreground">{model.provider}</TableCell>
+                            <TableCell>
+                              <Badge variant="outline" className="capitalize bg-violet-500/10 text-violet-600 border-violet-500/20">{model.type}</Badge>
+                            </TableCell>
+                            <TableCell>
+                              {model.pricing_input === 0 ? (
+                                <Badge variant="success">{language === 'de' ? 'Kostenlos' : 'Free'}</Badge>
+                              ) : (
+                                <span className="font-medium">${model.pricing_input}</span>
+                              )}
+                            </TableCell>
+                            <TableCell className="text-muted-foreground">
+                              {model.context_window > 0 ? `${(model.context_window / 1000).toFixed(0)}k` : '-'}
+                            </TableCell>
+                            <TableCell>
+                              {model.benchmarks?.mmlu ? (
+                                <span className="font-semibold text-primary">{model.benchmarks.mmlu}%</span>
+                              ) : (
+                                '-'
+                              )}
+                            </TableCell>
+                            <TableCell>
+                              <Button size="sm" variant="ghost" className="hover:bg-primary/10 hover:text-primary">
+                                {language === 'de' ? 'Details' : 'Details'}
+                              </Button>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </>
+                    )}
+                    
+                    {/* SEKTION 3: SPEZIAL-KI */}
+                    {specialistModels.length > 0 && (
+                      <>
+                        <TableRow className="bg-muted/30 hover:bg-muted/30">
+                          <TableCell colSpan={8} className="py-3">
+                            <div className="flex items-center gap-2">
+                              <Wand2 className="w-4 h-4 text-amber-500" />
+                              <span className="font-semibold text-sm">
+                                {language === 'de' ? 'Spezial-KI (Multimodal, Video, Audio)' : 'Specialist AI (Multimodal, Video, Audio)'}
+                              </span>
+                              <Badge variant="secondary" className="text-xs">
+                                {specialistModels.length}
+                              </Badge>
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                        {specialistModels.map((model, index) => (
+                          <TableRow 
+                            key={model.id} 
+                            className={`group ${model.is_new ? 'bg-green-500/[0.02]' : ''}`}
+                          >
+                            <TableCell>
+                              <Checkbox
+                                checked={compareModels.includes(model.id)}
+                                onCheckedChange={() => toggleCompare(model.id)}
+                                className="border-2"
+                              />
+                            </TableCell>
+                            <TableCell className="font-medium">
+                              <div className="flex items-center gap-2">
+                                {model.name}
+                                {model.is_new && (
+                                  <Badge className="bg-green-500/10 text-green-600 border-green-500/20 text-[10px] badge-new">Neu</Badge>
+                                )}
+                              </div>
+                            </TableCell>
+                            <TableCell className="text-muted-foreground">{model.provider}</TableCell>
+                            <TableCell>
+                              <Badge variant="outline" className="capitalize bg-amber-500/10 text-amber-600 border-amber-500/20">{model.type}</Badge>
+                            </TableCell>
+                            <TableCell>
+                              {model.pricing_input === 0 ? (
+                                <Badge variant="success">{language === 'de' ? 'Kostenlos' : 'Free'}</Badge>
+                              ) : (
+                                <span className="font-medium">${model.pricing_input}</span>
+                              )}
+                            </TableCell>
+                            <TableCell className="text-muted-foreground">
+                              {model.context_window > 0 ? `${(model.context_window / 1000).toFixed(0)}k` : '-'}
+                            </TableCell>
+                            <TableCell>
+                              {model.benchmarks?.mmlu ? (
+                                <span className="font-semibold text-primary">{model.benchmarks.mmlu}%</span>
+                              ) : (
+                                '-'
+                              )}
+                            </TableCell>
+                            <TableCell>
+                              <Button size="sm" variant="ghost" className="hover:bg-primary/10 hover:text-primary">
+                                {language === 'de' ? 'Details' : 'Details'}
+                              </Button>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </>
+                    )}
                   </TableBody>
                 </Table>
               )}
             </div>
           </Card>
 
-          {/* Mobile Cards Grid */}
-          <div className="md:hidden grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {filteredModels.map((model, index) => (
-              <MobileModelCard
-                key={model.id}
-                model={model}
-                isSelected={compareModels.includes(model.id)}
-                onToggleCompare={() => toggleCompare(model.id)}
-                index={index}
-              />
-            ))}
+          {/* Mobile Cards Grid - Grouped by Section */}
+          <div className="md:hidden space-y-8">
+            {/* Chatbots Section */}
+            {chatbotModels.length > 0 && (
+              <div>
+                <div className="flex items-center gap-2 mb-4 px-2">
+                  <MessageSquare className="w-5 h-5 text-primary" />
+                  <h3 className="font-semibold">{language === 'de' ? 'Chatbots & LLMs' : 'Chatbots & LLMs'}</h3>
+                  <Badge variant="secondary">{chatbotModels.length}</Badge>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {chatbotModels.map((model, index) => (
+                    <MobileModelCard
+                      key={model.id}
+                      model={model}
+                      isSelected={compareModels.includes(model.id)}
+                      onToggleCompare={() => toggleCompare(model.id)}
+                      index={index}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+            
+            {/* AI Agents Section */}
+            {agentModels.length > 0 && (
+              <div>
+                <div className="flex items-center gap-2 mb-4 px-2">
+                  <Bot className="w-5 h-5 text-violet-500" />
+                  <h3 className="font-semibold">{language === 'de' ? 'AI Agents' : 'AI Agents'}</h3>
+                  <Badge variant="secondary">{agentModels.length}</Badge>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {agentModels.map((model, index) => (
+                    <MobileModelCard
+                      key={model.id}
+                      model={model}
+                      isSelected={compareModels.includes(model.id)}
+                      onToggleCompare={() => toggleCompare(model.id)}
+                      index={index}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+            
+            {/* Specialist AI Section */}
+            {specialistModels.length > 0 && (
+              <div>
+                <div className="flex items-center gap-2 mb-4 px-2">
+                  <Wand2 className="w-5 h-5 text-amber-500" />
+                  <h3 className="font-semibold">{language === 'de' ? 'Spezial-KI' : 'Specialist AI'}</h3>
+                  <Badge variant="secondary">{specialistModels.length}</Badge>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {specialistModels.map((model, index) => (
+                    <MobileModelCard
+                      key={model.id}
+                      model={model}
+                      isSelected={compareModels.includes(model.id)}
+                      onToggleCompare={() => toggleCompare(model.id)}
+                      index={index}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
 
           {filteredModels.length === 0 && !isLoading && (
