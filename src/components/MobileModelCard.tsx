@@ -25,14 +25,14 @@ interface MobileModelCardProps {
   model: Model;
   isSelected: boolean;
   onToggleCompare: () => void;
-  index: number;
+  index?: number;
 }
 
 export function MobileModelCard({ 
   model, 
   isSelected, 
   onToggleCompare,
-  index 
+  index = 0
 }: MobileModelCardProps) {
   const { language } = useLanguage();
   

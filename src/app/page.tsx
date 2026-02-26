@@ -12,18 +12,13 @@ import {
   Check, 
   X,
   Code,
-  Palette,
-  Video,
   Calculator,
-  Sparkles,
-  Brain,
   TrendingUp,
   Zap,
   Bot,
   Cpu,
   MessageSquare,
-  Wand2,
-  Layers
+  Wand2
 } from "lucide-react";
 import { 
   Dialog, 
@@ -194,6 +189,16 @@ export default function Home() {
       <section className="relative overflow-hidden min-h-[90vh] flex items-center">
         <div className="absolute inset-0 hero-gradient" />
         
+        {/* Floating Particles */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="particle" />
+          <div className="particle" />
+          <div className="particle" />
+          <div className="particle" />
+          <div className="particle" />
+          <div className="particle" />
+        </div>
+        
         <div className="absolute top-1/4 left-[5%] w-[600px] h-[600px] bg-violet-500/15 rounded-full blur-[120px] animate-pulse-glow animate-blob" />
         <div className="absolute bottom-1/4 right-[5%] w-[500px] h-[500px] bg-fuchsia-500/12 rounded-full blur-[100px] animate-pulse-glow delay-700 animate-blob" style={{ animationDelay: '2s' }} />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-blue-500/8 rounded-full blur-[140px] animate-pulse-glow delay-1000" />
@@ -208,19 +213,19 @@ export default function Home() {
         
         <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
           <div className="max-w-4xl mx-auto text-center">
-            <div className="animate-fade-in-up">
+            <div className="animate-text-reveal">
               <Badge 
-                className="mb-6 sm:mb-8 text-xs sm:text-sm px-4 sm:px-5 py-2 sm:py-2.5 bg-green-500/10 backdrop-blur-md text-green-600 border border-green-500/30 hover:bg-green-500/20 transition-all duration-500"
+                className="mb-6 sm:mb-8 text-xs sm:text-sm px-4 sm:px-5 py-2 sm:py-2.5 bg-white/90 dark:bg-white/10 backdrop-blur-md text-foreground border border-border/50 hover:bg-white dark:hover:bg-white/15 transition-all duration-500 shadow-lg hover:shadow-xl hover:scale-105"
                 variant="outline"
               >
-                <span className="w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse" />
+                <span className="w-2 h-2 rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500 mr-2 animate-pulse" />
                 {language === 'de' 
-                  ? 'AKTUELL - Stand: 25. Februar 2026' 
-                  : 'CURRENT - As of: February 25, 2026'}
+                  ? 'Stand: Februar 2025' 
+                  : 'As of: February 2025'}
               </Badge>
             </div>
             
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-6 sm:mb-8 leading-[1.1] tracking-tight animate-fade-in-up delay-100">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-6 sm:mb-8 leading-[1.1] tracking-tight animate-text-reveal" style={{ animationDelay: '100ms' }}>
               <span className="block text-foreground">
                 {language === 'de' ? 'KI Modelle &' : 'AI Models &'}
               </span>
@@ -229,17 +234,17 @@ export default function Home() {
               </span>
             </h1>
             
-            <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed px-4 sm:px-0 animate-fade-in-up delay-200">
+            <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed px-4 sm:px-0 animate-text-reveal" style={{ animationDelay: '200ms' }}>
               {language === 'de' 
-                ? 'Vergleiche KI-Modelle nach Benchmarks, Preisen, Kontextfenster. Aktuelle Daten von OpenAI, Anthropic, Google, DeepSeek.'
-                : 'Compare AI models by benchmarks, pricing, context window. Current data from OpenAI, Anthropic, Google, DeepSeek.'}
+                ? 'Der umfassendste Vergleich für LLMs, AI Agents und KI-Tools. Aktuelle Benchmarks, Preise und Analysen für Februar 2025.'
+                : 'The most comprehensive comparison for LLMs, AI Agents and AI tools. Current benchmarks, pricing and analysis for February 2025.'}
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center animate-fade-in-up delay-300 px-4 sm:px-0">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center animate-text-reveal px-4 sm:px-0" style={{ animationDelay: '300ms' }}>
               <Link href="#top-models" className="w-full sm:w-auto">
                 <Button 
                   size="lg" 
-                  className="gap-2 w-full sm:min-w-[200px] h-12 sm:h-14 text-sm sm:text-base font-medium bg-foreground text-background hover:bg-foreground/90 transition-all duration-300 shadow-lg hover:shadow-2xl hover:-translate-y-1 hover:scale-[1.02] btn-shine"
+                  className="gap-2 w-full sm:min-w-[200px] h-12 sm:h-14 text-sm sm:text-base font-medium bg-foreground text-background hover:bg-foreground/90 transition-all duration-300 shadow-lg hover:shadow-2xl hover:-translate-y-1 hover:scale-[1.02] btn-shine magnetic-btn"
                 >
                   <TrendingUp className="w-4 h-4" />
                   {language === 'de' ? 'Top 5 Modelle' : 'Top 5 Models'}
@@ -249,7 +254,7 @@ export default function Home() {
                 <Button 
                   size="lg" 
                   variant="outline" 
-                  className="gap-2 w-full sm:min-w-[200px] h-12 sm:h-14 text-sm sm:text-base font-medium border-2 hover:bg-muted/50 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] btn-shine"
+                  className="gap-2 w-full sm:min-w-[200px] h-12 sm:h-14 text-sm sm:text-base font-medium border-2 hover:bg-muted/50 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] btn-shine magnetic-btn"
                 >
                   <ArrowUpDown className="w-4 h-4" />
                   {language === 'de' ? 'Alle vergleichen' : 'Compare All'}
@@ -257,15 +262,15 @@ export default function Home() {
               </Link>
             </div>
             
-            <div className="mt-12 sm:mt-16 md:mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 animate-fade-in-up delay-500 px-4 sm:px-0">
+            <div className="mt-12 sm:mt-16 md:mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 animate-text-reveal px-4 sm:px-0" style={{ animationDelay: '500ms' }}>
               {[
                 { value: "50+", label: language === 'de' ? 'KI-Modelle' : 'AI Models' },
                 { value: "10+", label: language === 'de' ? 'AI Agents' : 'AI Agents' },
                 { value: "Feb 2025", label: language === 'de' ? 'Aktualisiert' : 'Updated' },
                 { value: "100%", label: language === 'de' ? 'Unabhängig' : 'Independent' },
-              ].map((stat) => (
-                <div key={stat.label} className="text-center group">
-                  <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-1 group-hover:scale-110 transition-transform duration-300">{stat.value}</div>
+              ].map((stat, idx) => (
+                <div key={stat.label} className="text-center group cursor-default">
+                  <div className={`text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-1 group-hover:scale-110 transition-transform duration-300 count-animate delay-counter-${idx + 1}`}>{stat.value}</div>
                   <div className="text-xs sm:text-sm text-muted-foreground">{stat.label}</div>
                 </div>
               ))}
@@ -296,28 +301,28 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
             {topModels.map((model, index) => (
-              <Card key={model.name} className={`relative overflow-hidden border-0 shadow-soft card-lift ${index === 0 ? 'ring-2 ring-violet-500/50' : ''}`}>
+              <Card key={model.name} className={`relative overflow-hidden border-0 shadow-soft card-lift card-shine tilt-card ${index === 0 ? 'ring-2 ring-violet-500/50' : ''}`}>
                 {index === 0 && (
-                  <div className="absolute top-0 right-0 bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-xs px-2 py-1 rounded-bl-lg font-medium">
+                  <div className="absolute top-0 right-0 bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-xs px-2 py-1 rounded-bl-lg font-medium z-10">
                     #1
                   </div>
                 )}
                 <CardHeader className="pb-3">
                   <div className="flex items-center justify-between mb-2">
-                    <Badge variant="outline" className="text-xs">{model.provider}</Badge>
+                    <Badge variant="outline" className="text-xs glow-border">{model.provider}</Badge>
                     <span className="text-2xl font-bold text-muted-foreground">#{model.rank}</span>
                   </div>
-                  <CardTitle className="text-lg">{model.name}</CardTitle>
+                  <CardTitle className="text-lg hover-underline cursor-default">{model.name}</CardTitle>
                   <CardDescription className="text-xs">{model.highlight}</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <div className="grid grid-cols-2 gap-2 text-sm">
-                    <div className="bg-muted/50 rounded-lg p-2 text-center">
-                      <div className="font-semibold text-primary">{model.arena_elo}</div>
+                    <div className="bg-muted/50 rounded-lg p-2 text-center group/stat">
+                      <div className="font-semibold text-primary group-hover/stat:scale-110 transition-transform">{model.arena_elo}</div>
                       <div className="text-xs text-muted-foreground">Elo</div>
                     </div>
-                    <div className="bg-muted/50 rounded-lg p-2 text-center">
-                      <div className="font-semibold">{model.mmlu}%</div>
+                    <div className="bg-muted/50 rounded-lg p-2 text-center group/stat">
+                      <div className="font-semibold group-hover/stat:scale-110 transition-transform">{model.mmlu}%</div>
                       <div className="text-xs text-muted-foreground">MMLU</div>
                     </div>
                   </div>
@@ -357,15 +362,15 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {newThisWeek.map((item) => (
-              <Card key={item.name} className="border-0 shadow-soft card-lift">
+              <Card key={item.name} className="border-0 shadow-soft card-lift card-shine tilt-card gradient-border">
                 <CardHeader className="pb-3">
                   <div className="flex items-center justify-between mb-2">
-                    <Badge className="bg-green-500/10 text-green-600 border-green-500/20 text-xs">
+                    <Badge className="bg-green-500/10 text-green-600 border-green-500/20 text-xs badge-new">
                       {item.release_date}
                     </Badge>
                     <Badge variant="outline" className="text-xs">{item.category}</Badge>
                   </div>
-                  <CardTitle className="text-lg">{item.name}</CardTitle>
+                  <CardTitle className="text-lg hover-underline cursor-default">{item.name}</CardTitle>
                   <CardDescription className="text-xs">{item.provider}</CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -452,22 +457,22 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {agentsData.slice(0, 6).map((agent) => (
-              <Card key={agent.id} className={`border-0 shadow-soft card-lift ${agent.is_new ? 'ring-1 ring-green-500/30' : ''}`}>
+              <Card key={agent.id} className={`border-0 shadow-soft card-lift card-shine tilt-card ${agent.is_new ? 'ring-1 ring-green-500/30' : ''}`}>
                 <CardHeader className="pb-3">
                   <div className="flex items-center justify-between mb-2">
-                    <Badge variant="outline" className="text-xs">{agent.category}</Badge>
+                    <Badge variant="outline" className="text-xs glow-border">{agent.category}</Badge>
                     {agent.is_new && (
-                      <Badge className="bg-green-500/10 text-green-600 border-green-500/20 text-xs">Neu</Badge>
+                      <Badge className="bg-green-500/10 text-green-600 border-green-500/20 text-xs badge-new">Neu</Badge>
                     )}
                   </div>
-                  <CardTitle className="text-lg">{agent.name}</CardTitle>
+                  <CardTitle className="text-lg hover-underline cursor-default">{agent.name}</CardTitle>
                   <CardDescription className="text-xs">{agent.provider}</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <p className="text-sm text-muted-foreground line-clamp-2">{agent.description}</p>
                   <div className="flex flex-wrap gap-1">
                     {agent.features.slice(0, 3).map((feature) => (
-                      <Badge key={feature} variant="secondary" className="text-xs">
+                      <Badge key={feature} variant="secondary" className="text-xs hover:bg-secondary/80 transition-colors">
                         {feature}
                       </Badge>
                     ))}
@@ -538,9 +543,9 @@ export default function Home() {
                 <CardDescription>Neue Entwicklungen im Ranking</CardDescription>
               </CardHeader>
               <CardContent>
-                <ul className="space-y-2">
-                  {benchmarkUpdates.notable_changes.map((change, index) => (
-                    <li key={index} className="flex items-start gap-2 text-sm">
+                <ul className="space-y-2 list-animate">
+                  {benchmarkUpdates.notable_changes.map((change, idx) => (
+                    <li key={idx} className="flex items-start gap-2 text-sm">
                       <span className="text-green-500 mt-0.5">•</span>
                       <span>{change}</span>
                     </li>
@@ -765,7 +770,7 @@ export default function Home() {
                             </div>
                           </TableCell>
                         </TableRow>
-                        {chatbotModels.map((model, index) => (
+                        {chatbotModels.map((model) => (
                           <TableRow 
                             key={model.id} 
                             className={`group ${model.is_new ? 'bg-green-500/[0.02]' : ''}`}
@@ -832,7 +837,7 @@ export default function Home() {
                             </div>
                           </TableCell>
                         </TableRow>
-                        {agentModels.map((model, index) => (
+                        {agentModels.map((model) => (
                           <TableRow 
                             key={model.id} 
                             className={`group ${model.is_new ? 'bg-green-500/[0.02]' : ''}`}
@@ -899,7 +904,7 @@ export default function Home() {
                             </div>
                           </TableCell>
                         </TableRow>
-                        {specialistModels.map((model, index) => (
+                        {specialistModels.map((model) => (
                           <TableRow 
                             key={model.id} 
                             className={`group ${model.is_new ? 'bg-green-500/[0.02]' : ''}`}
@@ -966,13 +971,12 @@ export default function Home() {
                   <Badge variant="secondary">{chatbotModels.length}</Badge>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {chatbotModels.map((model, index) => (
+                  {chatbotModels.map((model) => (
                     <MobileModelCard
                       key={model.id}
                       model={model}
                       isSelected={compareModels.includes(model.id)}
                       onToggleCompare={() => toggleCompare(model.id)}
-                      index={index}
                     />
                   ))}
                 </div>
@@ -988,13 +992,12 @@ export default function Home() {
                   <Badge variant="secondary">{agentModels.length}</Badge>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {agentModels.map((model, index) => (
+                  {agentModels.map((model) => (
                     <MobileModelCard
                       key={model.id}
                       model={model}
                       isSelected={compareModels.includes(model.id)}
                       onToggleCompare={() => toggleCompare(model.id)}
-                      index={index}
                     />
                   ))}
                 </div>
@@ -1010,13 +1013,12 @@ export default function Home() {
                   <Badge variant="secondary">{specialistModels.length}</Badge>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {specialistModels.map((model, index) => (
+                  {specialistModels.map((model) => (
                     <MobileModelCard
                       key={model.id}
                       model={model}
                       isSelected={compareModels.includes(model.id)}
                       onToggleCompare={() => toggleCompare(model.id)}
-                      index={index}
                     />
                   ))}
                 </div>
