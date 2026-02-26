@@ -6,10 +6,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
-import { 
-  Search, 
-  ArrowUpDown, 
-  Check, 
+import {
+  Search,
+  ArrowUpDown,
+  Check,
   X,
   Code,
   Calculator,
@@ -20,27 +20,33 @@ import {
   MessageSquare,
   Wand2
 } from "lucide-react";
-import { 
-  Dialog, 
-  DialogContent, 
-  DialogHeader, 
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
   DialogTitle
 } from "@/components/ui/dialog";
-import { 
-  Table, 
-  TableBody, 
-  TableCell, 
-  TableHead, 
-  TableHeader, 
-  TableRow 
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow
 } from "@/components/ui/table";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useLanguage } from "@/components/LanguageProvider";
 
-// Dynamisches Datum für den Disclaimer
+// Übersetzungs-Hilfsfunktion
+const getText = (lang: string, de: string, en: string, es: string, fr: string) => {
+  if (lang === 'de') return de;
+  if (lang === 'es') return es;
+  if (lang === 'fr') return fr;
+  return en;
+};
 function useCurrentDate(language: string) {
   const [currentDate, setCurrentDate] = useState("");
-  
+
   useEffect(() => {
     const now = new Date();
     const monthNames = {
@@ -52,7 +58,7 @@ function useCurrentDate(language: string) {
     const month = monthNames[language as keyof typeof monthNames]?.[now.getMonth()] || monthNames.en[now.getMonth()];
     setCurrentDate(`${month} ${now.getFullYear()}`);
   }, [language]);
-  
+
   return currentDate;
 }
 import { modelsData, topModels, newThisWeek, priceComparison } from "@/lib/models-data";
@@ -114,21 +120,21 @@ export default function Home() {
   // Filter and sort models
   const filteredModels = useMemo(() => {
     const result = modelsData.filter(model => {
-      const matchesSearch = 
+      const matchesSearch =
         model.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         model.provider.toLowerCase().includes(searchQuery.toLowerCase()) ||
         model.description.toLowerCase().includes(searchQuery.toLowerCase());
-      
-      const matchesFilter = selectedFilters.length === 0 || 
+
+      const matchesFilter = selectedFilters.length === 0 ||
         selectedFilters.some(filter => model.category.includes(filter));
-      
+
       return matchesSearch && matchesFilter;
     });
 
     result.sort((a, b) => {
       let aValue: string | number;
       let bValue: string | number;
-      
+
       if (sortField === 'mmlu') {
         aValue = a.benchmarks?.mmlu || 0;
         bValue = b.benchmarks?.mmlu || 0;
@@ -136,13 +142,13 @@ export default function Home() {
         aValue = (a as unknown as Record<string, string | number>)[sortField] || 0;
         bValue = (b as unknown as Record<string, string | number>)[sortField] || 0;
       }
-      
+
       if (typeof aValue === 'string') {
-        return sortDirection === 'asc' 
+        return sortDirection === 'asc'
           ? aValue.localeCompare(bValue as string)
           : (bValue as string).localeCompare(aValue);
       }
-      
+
       return sortDirection === 'asc' ? aValue - (bValue as number) : (bValue as number) - aValue;
     });
 
@@ -150,17 +156,17 @@ export default function Home() {
   }, [searchQuery, selectedFilters, sortField, sortDirection]);
 
   // Models nach Sektionen gruppieren
-  const chatbotModels = useMemo(() => 
+  const chatbotModels = useMemo(() =>
     filteredModels.filter(m => m.section === 'chatbot' && !m.is_archived),
     [filteredModels]
   );
-  
-  const agentModels = useMemo(() => 
+
+  const agentModels = useMemo(() =>
     filteredModels.filter(m => m.section === 'agent' && !m.is_archived),
     [filteredModels]
   );
-  
-  const specialistModels = useMemo(() => 
+
+  const specialistModels = useMemo(() =>
     filteredModels.filter(m => m.section === 'specialist' && !m.is_archived),
     [filteredModels]
   );
@@ -175,8 +181,8 @@ export default function Home() {
   };
 
   const toggleFilter = (filter: string) => {
-    setSelectedFilters(prev => 
-      prev.includes(filter) 
+    setSelectedFilters(prev =>
+      prev.includes(filter)
         ? prev.filter(f => f !== filter)
         : [...prev, filter]
     );
@@ -197,9 +203,9 @@ export default function Home() {
   const comparisonModels = modelsData.filter(m => compareModels.includes(m.id));
 
   const filterOptions = [
-    { id: 'llm', label: language === 'de' ? 'Chatbots' : 'Chatbots', icon: MessageSquare },
-    { id: 'agent', label: language === 'de' ? 'Agents' : 'Agents', icon: Bot },
-    { id: 'multimodal', label: language === 'de' ? 'Spezial-KI' : 'Specialist AI', icon: Wand2 },
+    { id: 'llm', label: getText(language, 'Chatbots', 'Chatbots', 'Chatbots', 'Chatbots'), icon: MessageSquare },
+    { id: 'agent', label: getText(language, 'Agents', 'Agents', 'Agentes', 'Agents'), icon: Bot },
+    { id: 'multimodal', label: getText(language, 'Spezial-KI', 'Specialist AI', 'IA Especialista', 'IA Spécialiste'), icon: Wand2 },
     { id: 'coding', label: 'Coding', icon: Code },
   ];
 
@@ -208,7 +214,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative overflow-hidden min-h-[90vh] flex items-center">
         <div className="absolute inset-0 hero-gradient" />
-        
+
         {/* Floating Particles */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="particle" />
@@ -218,44 +224,48 @@ export default function Home() {
           <div className="particle" />
           <div className="particle" />
         </div>
-        
+
         <div className="absolute top-1/4 left-[5%] w-[600px] h-[600px] bg-violet-500/15 rounded-full blur-[120px] animate-pulse-glow animate-blob" />
         <div className="absolute bottom-1/4 right-[5%] w-[500px] h-[500px] bg-fuchsia-500/12 rounded-full blur-[100px] animate-pulse-glow delay-700 animate-blob" style={{ animationDelay: '2s' }} />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-blue-500/8 rounded-full blur-[140px] animate-pulse-glow delay-1000" />
-        
-        <div 
+
+        <div
           className="absolute inset-0 opacity-[0.03] dark:opacity-[0.06]"
           style={{
             backgroundImage: `linear-gradient(rgba(0,0,0,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 1px)`,
             backgroundSize: '80px 80px'
           }}
         />
-        
+
         <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
           <div className="max-w-4xl mx-auto text-center">
             <div className="animate-text-reveal">
-              <Badge 
+              <Badge
                 className="mb-6 sm:mb-8 text-xs sm:text-sm px-4 sm:px-5 py-2 sm:py-2.5 bg-white/90 dark:bg-white/10 backdrop-blur-md text-foreground border border-border/50 hover:bg-white dark:hover:bg-white/15 transition-all duration-500 shadow-lg hover:shadow-xl hover:scale-105"
                 variant="outline"
               >
                 <span className="w-2 h-2 rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500 mr-2 animate-pulse" />
-                {language === 'de' 
-                  ? `Stand: ${currentDate || 'Lade...'}` 
+                {language === 'de'
+                  ? `Stand: ${currentDate || 'Lade...'}`
+                  : language === 'es'
+                  ? `Actualizado: ${currentDate || 'Cargando...'}`
+                  : language === 'fr'
+                  ? `À jour: ${currentDate || 'Chargement...'}`
                   : `As of: ${currentDate || 'Loading...'}`}
               </Badge>
             </div>
-            
+
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-6 sm:mb-8 leading-[1.1] tracking-tight animate-text-reveal" style={{ animationDelay: '100ms' }}>
               <span className="block text-foreground">
-                {language === 'de' ? 'KI Modelle &' : 'AI Models &'}
+                {getText(language, 'KI Modelle &', 'AI Models &', 'Modelos de IA &', 'Modèles IA &')}
               </span>
               <span className="block gradient-text mt-1 sm:mt-2">
-                {language === 'de' ? 'Agent Ranking' : 'Agent Ranking'}
+                {getText(language, 'Agent Ranking', 'Agent Ranking', 'Ranking de Agentes', 'Classement des Agents')}
               </span>
             </h1>
-            
+
             <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed px-4 sm:px-0 animate-text-reveal" style={{ animationDelay: '200ms' }}>
-              {language === 'de' 
+              {language === 'de'
                 ? `Der umfassendste Vergleich für LLMs, AI Agents und KI-Tools. Aktuelle Benchmarks, Preise und Analysen für ${currentDate}.`
                 : language === 'es'
                 ? `La comparación más completa de LLMs, AI Agents y herramientas de IA. Benchmarks actuales, precios y análisis para ${currentDate}.`
@@ -263,29 +273,29 @@ export default function Home() {
                 ? `La comparaison la plus complète des LLMs, AI Agents et outils d'IA. Benchmarks actuels, prix et analyses pour ${currentDate}.`
                 : `The most comprehensive comparison for LLMs, AI Agents and AI tools. Current benchmarks, pricing and analysis for ${currentDate}.`}
             </p>
-            
+
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center animate-text-reveal px-4 sm:px-0" style={{ animationDelay: '300ms' }}>
               <Link href="#top-models" className="w-full sm:w-auto">
-                <Button 
-                  size="lg" 
+                <Button
+                  size="lg"
                   className="gap-2 w-full sm:min-w-[200px] h-12 sm:h-14 text-sm sm:text-base font-medium bg-foreground text-background hover:bg-foreground/90 transition-all duration-300 shadow-lg hover:shadow-2xl hover:-translate-y-1 hover:scale-[1.02] btn-shine magnetic-btn"
                 >
                   <TrendingUp className="w-4 h-4" />
-                  {language === 'de' ? 'Top 5 Modelle' : 'Top 5 Models'}
+                  {getText(language, 'Top 5 Modelle', 'Top 5 Models', 'Top 5 Modelos', 'Top 5 Modèles')}
                 </Button>
               </Link>
               <Link href="#comparison-table" className="w-full sm:w-auto">
-                <Button 
-                  size="lg" 
-                  variant="outline" 
+                <Button
+                  size="lg"
+                  variant="outline"
                   className="gap-2 w-full sm:min-w-[200px] h-12 sm:h-14 text-sm sm:text-base font-medium border-2 hover:bg-muted/50 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] btn-shine magnetic-btn"
                 >
                   <ArrowUpDown className="w-4 h-4" />
-                  {language === 'de' ? 'Alle vergleichen' : 'Compare All'}
+                  {getText(language, 'Alle vergleichen', 'Compare All', 'Comparar Todo', 'Tout Comparer')}
                 </Button>
               </Link>
             </div>
-            
+
             <div className="mt-12 sm:mt-16 md:mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 animate-text-reveal px-4 sm:px-0" style={{ animationDelay: '500ms' }}>
               {[
                 { value: "50+", label: language === 'de' ? 'KI-Modelle' : language === 'es' ? 'Modelos de IA' : language === 'fr' ? 'Modèles IA' : 'AI Models' },
@@ -301,7 +311,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        
+
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
       </section>
 
@@ -317,7 +327,7 @@ export default function Home() {
               {language === 'de' ? `Top 5 KI-Modelle ${currentDate}` : `Top 5 AI Models ${currentDate}`}
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              {language === 'de' 
+              {language === 'de'
                 ? 'Basierend auf LMSYS Arena Elo-Ratings und aktuellen Benchmarks'
                 : 'Based on LMSYS Arena Elo ratings and current benchmarks'}
             </p>
@@ -418,7 +428,7 @@ export default function Home() {
               {language === 'de' ? 'API-Preise pro 1M Tokens' : 'API Prices per 1M Tokens'}
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              {language === 'de' 
+              {language === 'de'
                 ? 'Vergleich der Input/Output-Preise für beliebte Modelle (in USD)'
                 : 'Comparison of input/output prices for popular models (in USD)'}
             </p>
@@ -473,7 +483,7 @@ export default function Home() {
               {language === 'de' ? 'Coding Agents & AI IDEs' : 'Coding Agents & AI IDEs'}
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              {language === 'de' 
+              {language === 'de'
                 ? 'Die besten Tools für agentisches Coding: Cursor, Windsurf, Devin und mehr'
                 : 'The best tools for agentic coding: Cursor, Windsurf, Devin and more'}
             </p>
@@ -526,7 +536,7 @@ export default function Home() {
               {language === 'de' ? 'Aktuelle Benchmark-Scores' : 'Current Benchmark Scores'}
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              {language === 'de' 
+              {language === 'de'
                 ? `Letztes Update: ${benchmarkUpdates.last_updated} | Quelle: ${benchmarkUpdates.source}`
                 : `Last updated: ${benchmarkUpdates.last_updated} | Source: ${benchmarkUpdates.source}`}
             </p>
@@ -588,12 +598,12 @@ export default function Home() {
             <Badge variant="outline" className="mb-4 sm:mb-6 px-3 sm:px-4 py-1.5 text-xs sm:text-sm hover:scale-105 transition-transform">
               <ArrowUpDown className="w-3.5 h-3.5 mr-1.5 inline" />
               {language === 'de' ? 'Interaktiver Vergleich' : 'Interactive Comparison'}
-            </Badge>            
+            </Badge>
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-5 tracking-tight">
               {language === 'de' ? 'Alle KI-Modelle im Vergleich' : 'All AI Models Compared'}
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto text-sm sm:text-base md:text-lg leading-relaxed px-4 sm:px-0">
-              {language === 'de' 
+              {language === 'de'
                 ? 'Vergleiche alle Modelle mit Filter, Sortierung und direktem Modell-Vergleich'
                 : 'Compare all models with filters, sorting and direct model comparison'}
             </p>
@@ -646,8 +656,8 @@ export default function Home() {
                         return (
                           <Badge key={id} variant="secondary" className="gap-1.5 px-3 py-1.5">
                             {model?.name}
-                            <button 
-                              onClick={() => toggleCompare(id)} 
+                            <button
+                              onClick={() => toggleCompare(id)}
                               className="ml-1 hover:bg-muted rounded-full p-0.5 transition-colors"
                             >
                               <X className="w-3 h-3" />
@@ -795,8 +805,8 @@ export default function Home() {
                           </TableCell>
                         </TableRow>
                         {chatbotModels.map((model) => (
-                          <TableRow 
-                            key={model.id} 
+                          <TableRow
+                            key={model.id}
                             className={`group ${model.is_new ? 'bg-green-500/[0.02]' : ''}`}
                           >
                             <TableCell>
@@ -844,7 +854,7 @@ export default function Home() {
                         ))}
                       </>
                     )}
-                    
+
                     {/* SEKTION 2: AI AGENTS */}
                     {agentModels.length > 0 && (
                       <>
@@ -862,8 +872,8 @@ export default function Home() {
                           </TableCell>
                         </TableRow>
                         {agentModels.map((model) => (
-                          <TableRow 
-                            key={model.id} 
+                          <TableRow
+                            key={model.id}
                             className={`group ${model.is_new ? 'bg-green-500/[0.02]' : ''}`}
                           >
                             <TableCell>
@@ -911,7 +921,7 @@ export default function Home() {
                         ))}
                       </>
                     )}
-                    
+
                     {/* SEKTION 3: SPEZIAL-KI */}
                     {specialistModels.length > 0 && (
                       <>
@@ -929,8 +939,8 @@ export default function Home() {
                           </TableCell>
                         </TableRow>
                         {specialistModels.map((model) => (
-                          <TableRow 
-                            key={model.id} 
+                          <TableRow
+                            key={model.id}
                             className={`group ${model.is_new ? 'bg-green-500/[0.02]' : ''}`}
                           >
                             <TableCell>
@@ -1006,7 +1016,7 @@ export default function Home() {
                 </div>
               </div>
             )}
-            
+
             {/* AI Agents Section */}
             {agentModels.length > 0 && (
               <div>
@@ -1027,7 +1037,7 @@ export default function Home() {
                 </div>
               </div>
             )}
-            
+
             {/* Specialist AI Section */}
             {specialistModels.length > 0 && (
               <div>
@@ -1058,9 +1068,9 @@ export default function Home() {
               <p className="text-muted-foreground text-lg">
                 {language === 'de' ? 'Keine Modelle gefunden' : 'No models found'}
               </p>
-              <Button 
-                variant="outline" 
-                className="mt-4" 
+              <Button
+                variant="outline"
+                className="mt-4"
                 onClick={() => {setSearchQuery(''); setSelectedFilters([]);}}
               >
                 {language === 'de' ? 'Filter zurücksetzen' : 'Reset filters'}
@@ -1082,7 +1092,7 @@ export default function Home() {
               {language === 'de' ? 'Detaillierte Benchmark-Vergleiche' : 'Detailed Benchmark Comparisons'}
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              {language === 'de' 
+              {language === 'de'
                 ? 'Alle wichtigen Benchmarks im Überblick - basierend auf aktuellen Daten'
                 : 'All major benchmarks at a glance - based on current data'}
             </p>
@@ -1367,7 +1377,7 @@ export default function Home() {
                   </h2>
                 </div>
               </div>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 <Link href="/blog/beste-ki-fuer-coding-2025">
                   <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer border-violet-200">
@@ -1377,7 +1387,7 @@ export default function Home() {
                         <span className="text-xs text-muted-foreground">26. Feb 2025</span>
                       </div>
                       <CardTitle className="text-lg">
-                        {language === 'de' 
+                        {language === 'de'
                           ? 'Beste KI für Coding 2025: Der ultimative Vergleich'
                           : 'Best AI for Coding 2025: The Ultimate Comparison'}
                       </CardTitle>
@@ -1428,28 +1438,28 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {[
-              { 
-                model: 'Gemini 2.5 Flash-Lite', 
-                provider: 'Google', 
-                price: '$0.075', 
+              {
+                model: 'Gemini 2.5 Flash-Lite',
+                provider: 'Google',
+                price: '$0.075',
                 context: '1M',
                 release: '2025-07',
                 score: language === 'de' ? 'Bestes Budget' : 'Best Budget',
                 color: 'bg-green-500/10 text-green-600 border-green-500/20'
               },
-              { 
-                model: 'Gemini 2.5 Flash', 
-                provider: 'Google', 
-                price: '$0.15', 
+              {
+                model: 'Gemini 2.5 Flash',
+                provider: 'Google',
+                price: '$0.15',
                 context: '1M',
                 release: '2025-06',
                 score: language === 'de' ? 'Beste Balance' : 'Best Balance',
                 color: 'bg-violet-500/10 text-violet-600 border-violet-500/20'
               },
-              { 
-                model: 'Claude 3.7 Sonnet', 
-                provider: 'Anthropic', 
-                price: '$3.00', 
+              {
+                model: 'Claude 3.7 Sonnet',
+                provider: 'Anthropic',
+                price: '$3.00',
                 context: '200K',
                 release: '2025-02',
                 score: language === 'de' ? 'Bestes Coding' : 'Best Coding',
@@ -1480,10 +1490,10 @@ export default function Home() {
               </Card>
             ))}
           </div>
-          
+
           <div className="mt-4 text-center">
             <p className="text-xs text-muted-foreground">
-              {language === 'de' 
+              {language === 'de'
                 ? 'Nur Modelle < 6 Monate alt (Stand: Feb 2026). Aktuelle Preise von Hersteller-Websites.'
                 : 'Only models < 6 months old (as of Feb 2026). Current prices from manufacturer websites.'}
             </p>
