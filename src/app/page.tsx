@@ -38,7 +38,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useLanguage } from "@/components/LanguageProvider";
 
 // Dynamisches Datum für den Disclaimer
-function useCurrentDate() {
+function useCurrentDate(language: string) {
   const [currentDate, setCurrentDate] = useState("");
   
   useEffect(() => {
@@ -49,7 +49,7 @@ function useCurrentDate() {
     };
     const month = monthNames[language as keyof typeof monthNames]?.[now.getMonth()] || monthNames.en[now.getMonth()];
     setCurrentDate(`${month} ${now.getFullYear()}`);
-  }, []);
+  }, [language]);
   
   return currentDate;
 }
@@ -94,7 +94,7 @@ type SortDirection = 'asc' | 'desc';
 
 export default function Home() {
   const { language } = useLanguage();
-  const currentDate = useCurrentDate();
+  const currentDate = useCurrentDate(language);
   const visibleItems = useScrollReveal();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
