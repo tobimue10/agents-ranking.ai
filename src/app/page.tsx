@@ -254,8 +254,8 @@ export default function Home() {
             
             <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed px-4 sm:px-0 animate-text-reveal" style={{ animationDelay: '200ms' }}>
               {language === 'de' 
-                ? 'Der umfassendste Vergleich für LLMs, AI Agents und KI-Tools. Aktuelle Benchmarks, Preise und Analysen für Februar 2025.'
-                : 'The most comprehensive comparison for LLMs, AI Agents and AI tools. Current benchmarks, pricing and analysis for February 2025.'}
+                ? `Der umfassendste Vergleich für LLMs, AI Agents und KI-Tools. Aktuelle Benchmarks, Preise und Analysen für ${currentDate}.`
+                : `The most comprehensive comparison for LLMs, AI Agents and AI tools. Current benchmarks, pricing and analysis for ${currentDate}.`}
             </p>
             
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center animate-text-reveal px-4 sm:px-0" style={{ animationDelay: '300ms' }}>
@@ -284,7 +284,7 @@ export default function Home() {
               {[
                 { value: "50+", label: language === 'de' ? 'KI-Modelle' : 'AI Models' },
                 { value: "10+", label: language === 'de' ? 'AI Agents' : 'AI Agents' },
-                { value: "Feb 2025", label: language === 'de' ? 'Aktualisiert' : 'Updated' },
+                { value: currentDate || "...", label: language === 'de' ? 'Aktualisiert' : 'Updated' },
                 { value: "100%", label: language === 'de' ? 'Unabhängig' : 'Independent' },
               ].map((stat, idx) => (
                 <div key={stat.label} className="text-center group cursor-default">
@@ -308,7 +308,7 @@ export default function Home() {
               {language === 'de' ? 'LMSYS Arena Rankings' : 'LMSYS Arena Rankings'}
             </Badge>
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              {language === 'de' ? 'Top 5 KI-Modelle Februar 2025' : 'Top 5 AI Models February 2025'}
+              {language === 'de' ? `Top 5 KI-Modelle ${currentDate}` : `Top 5 AI Models ${currentDate}`}
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               {language === 'de' 
