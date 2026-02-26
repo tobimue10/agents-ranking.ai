@@ -45,7 +45,9 @@ function useCurrentDate(language: string) {
     const now = new Date();
     const monthNames = {
       de: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
-      en: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+      en: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+      es: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+      fr: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"]
     };
     const month = monthNames[language as keyof typeof monthNames]?.[now.getMonth()] || monthNames.en[now.getMonth()];
     setCurrentDate(`${month} ${now.getFullYear()}`);
@@ -255,6 +257,10 @@ export default function Home() {
             <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed px-4 sm:px-0 animate-text-reveal" style={{ animationDelay: '200ms' }}>
               {language === 'de' 
                 ? `Der umfassendste Vergleich für LLMs, AI Agents und KI-Tools. Aktuelle Benchmarks, Preise und Analysen für ${currentDate}.`
+                : language === 'es'
+                ? `La comparación más completa de LLMs, AI Agents y herramientas de IA. Benchmarks actuales, precios y análisis para ${currentDate}.`
+                : language === 'fr'
+                ? `La comparaison la plus complète des LLMs, AI Agents et outils d'IA. Benchmarks actuels, prix et analyses pour ${currentDate}.`
                 : `The most comprehensive comparison for LLMs, AI Agents and AI tools. Current benchmarks, pricing and analysis for ${currentDate}.`}
             </p>
             
@@ -282,10 +288,10 @@ export default function Home() {
             
             <div className="mt-12 sm:mt-16 md:mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 animate-text-reveal px-4 sm:px-0" style={{ animationDelay: '500ms' }}>
               {[
-                { value: "50+", label: language === 'de' ? 'KI-Modelle' : 'AI Models' },
-                { value: "10+", label: language === 'de' ? 'AI Agents' : 'AI Agents' },
-                { value: currentDate || "...", label: language === 'de' ? 'Aktualisiert' : 'Updated' },
-                { value: "100%", label: language === 'de' ? 'Unabhängig' : 'Independent' },
+                { value: "50+", label: language === 'de' ? 'KI-Modelle' : language === 'es' ? 'Modelos de IA' : language === 'fr' ? 'Modèles IA' : 'AI Models' },
+                { value: "10+", label: language === 'de' ? 'AI Agents' : language === 'es' ? 'Agentes IA' : language === 'fr' ? 'Agents IA' : 'AI Agents' },
+                { value: currentDate || "...", label: language === 'de' ? 'Aktualisiert' : language === 'es' ? 'Actualizado' : language === 'fr' ? 'Mis à jour' : 'Updated' },
+                { value: "100%", label: language === 'de' ? 'Unabhängig' : language === 'es' ? 'Independiente' : language === 'fr' ? 'Indépendant' : 'Independent' },
               ].map((stat, idx) => (
                 <div key={stat.label} className="text-center group cursor-default">
                   <div className={`text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-1 group-hover:scale-110 transition-transform duration-300 count-animate delay-counter-${idx + 1}`}>{stat.value}</div>
@@ -1346,6 +1352,48 @@ export default function Home() {
               </Table>
             </div>
           </Card>
+
+          {/* Blog Section - Interne Verlinkung */}
+          <section id="blog-section" data-reveal className="mt-12">
+            <div className={`transition-all duration-700 ${visibleItems.has('blog-section') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <Badge variant="outline" className="mb-2 px-3 py-1.5">
+                    <TrendingUp className="w-3.5 h-3.5 mr-1.5 inline" />
+                    {language === 'de' ? 'Blog' : 'Blog'}
+                  </Badge>
+                  <h2 className="text-2xl md:text-3xl font-bold">
+                    {language === 'de' ? 'KI-Vergleiche & Guides' : 'AI Comparisons & Guides'}
+                  </h2>
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <Link href="/blog/beste-ki-fuer-coding-2025">
+                  <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer border-violet-200">
+                    <CardHeader className="pb-3">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Badge className="bg-violet-100 text-violet-700">Coding</Badge>
+                        <span className="text-xs text-muted-foreground">26. Feb 2025</span>
+                      </div>
+                      <CardTitle className="text-lg">
+                        {language === 'de' 
+                          ? 'Beste KI für Coding 2025: Der ultimative Vergleich'
+                          : 'Best AI for Coding 2025: The Ultimate Comparison'}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm text-muted-foreground line-clamp-3">
+                        {language === 'de'
+                          ? 'Claude 4.6 Opus, GPT-5.2, Gemini 2.5 Pro & DeepSeek-V3 im direkten Benchmark-Test. Preise, Performance und Use-Cases verglichen.'
+                          : 'Claude 4.6 Opus, GPT-5.2, Gemini 2.5 Pro & DeepSeek-V3 compared in benchmarks. Prices, performance, and use cases.'}
+                      </p>
+                    </CardContent>
+                  </Card>
+                </Link>
+              </div>
+            </div>
+          </section>
 
           {/* Benchmark Legende */}
           <div className="mt-8 grid grid-cols-2 md:grid-cols-5 gap-4">
