@@ -1,0 +1,97 @@
+# Changelog - Agents Ranking
+
+Alle wichtigen Änderungen an diesem Projekt werden in dieser Datei dokumentiert.
+
+## [2026-02-26] - Täglicher Modelle-Check
+
+### Hinzugefügt
+- **Gemini 3.1 Pro** (Google, 2026-02-19)
+  - 77.1% auf ARC-AGI-2 (mehr als doppelt so gut wie Gemini 3 Pro)
+  - 80.6% auf SWE-Bench Verified
+  - 94.3% auf GPQA Diamond
+  - 1M Token Kontextfenster
+  - Preis: $2.00/$12.00 pro 1M Tokens
+  - MMLU: 91.8
+
+- **Gemini 3 Flash** (Google, 2026-02-05)
+  - Schnelles multimodales Modell
+  - 1M Token Kontextfenster
+  - Preis: $0.50/$3.00 pro 1M Tokens
+  - MMLU: 88.0
+
+- **GPT-5.3-Codex** (OpenAI, 2026-02-05)
+  - Der fähigste agentische Coding-Modell bis heute
+  - 77.3% auf Terminal-Bench 2.0
+  - 56.8% auf SWE-Bench Pro
+  - Preis: $1.75/$14.00 pro 1M Tokens
+
+- **GPT-5.1** (OpenAI, 2025-11-13)
+  - Verbesserte Version von GPT-5
+  - Konfigurierbares Reasoning
+  - Preis: $1.25/$10.00 pro 1M Tokens
+  - MMLU: 89.8
+
+### Aktualisiert
+- **Claude Opus 4.6** Preise korrigiert
+  - Alt: $15.00/$75.00
+  - Neu: $5.00/$25.00 pro 1M Tokens
+  - Kontextfenster aktualisiert: 200K → 1M Token (Beta)
+  - GPQA: 72.0 → 91.3
+
+### Archiviert (älter als 6 Monate - vor 26.08.2025)
+- Gemini 2.5 Pro → durch Gemini 3.1 Pro ersetzt
+- Gemini 2.5 Flash → durch Gemini 3 Flash ersetzt
+- Gemini 2.5 Flash-Lite → durch Gemini 3 Flash ersetzt
+- Gemini 2.0 Pro → archiviert
+- Gemini 2.0 Flash → archiviert
+- Grok 3 (Feb 2025) → archiviert
+- DeepSeek R1 (Jan 2025) → archiviert
+- DeepSeek V3 (Dec 2024) → archiviert
+- Qwen 2.5 Max (Jan 2025) → archiviert
+- Llama 3.3 70B (Dec 2024) → archiviert
+- GPT-4o Mini (Jul 2024) → archiviert
+- Mistral Large 2 (Jul 2024) → archiviert
+- GPT-4o (May 2024) → archiviert
+- Claude 3.7 Sonnet → durch Opus 4.6 ersetzt
+- GPT-4.5 → durch GPT-5-Familie ersetzt
+- Claude Code → durch Opus 4.6 ersetzt
+- Devin → durch GPT-5.3-Codex ersetzt
+- Claude 3.5 Sonnet → archiviert
+- Midjourney v6 → archiviert
+- DALL-E 3 → archiviert
+- Sora → archiviert
+
+### Neue Top 5 (Februar 2026)
+1. **Claude Opus 4.6** (Anthropic) - MMLU: 91.0, Elo: 1380
+2. **Gemini 3.1 Pro** (Google) - MMLU: 91.8, Elo: 1370
+3. **GPT-5.2** (OpenAI) - MMLU: 90.5, Elo: 1375
+4. **GPT-5.1** (OpenAI) - MMLU: 89.8, Elo: 1365
+5. **GPT-5** (OpenAI) - MMLU: 89.5, Elo: 1360
+
+### Preisänderungen
+- Claude Opus 4.6: $15/$75 → $5/$25 (deutliche Preissenkung!)
+- Gemini 3.1 Pro: Gleicher Preis wie Gemini 2.5 Pro ($2/$12)
+- Gemini 3 Flash: $0.50/$3.00 (neues Budget-Modell mit 1M Kontext)
+
+---
+
+## [2025-02-25] - Vorheriger Stand
+
+### Enthaltene Modelle
+- Claude Opus 4.6 (Anthropic)
+- GPT-5.2, GPT-5, GPT-5 Mini (OpenAI)
+- Gemini 2.5 Pro, 2.5 Flash, 2.5 Flash-Lite (Google)
+- Grok 3 (xAI)
+- DeepSeek R1, V3 (DeepSeek)
+- Qwen 2.5 Max (Alibaba)
+- Llama 3.3 70B (Meta)
+- Und weitere...
+
+### Archivierte Modelle
+- Claude 3.7 Sonnet
+- GPT-4.5
+- Claude 3.5 Sonnet
+- Gemini 2.0 Pro/Flash
+- Midjourney v6
+- DALL-E 3
+- Sora
