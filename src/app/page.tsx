@@ -1064,60 +1064,305 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Benchmark Vergleich - Kompakte Tabelle */}
+      {/* Benchmark Vergleich - Detaillierte Tabellen */}
       <section id="benchmark-comparison" data-reveal className="container mx-auto px-4 py-16">
         <div className={`transition-all duration-700 ${visibleItems.has('benchmark-comparison') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <div className="text-center mb-8">
+          <div className="text-center mb-10">
             <Badge variant="outline" className="mb-4 px-3 py-1.5">
               <Cpu className="w-3.5 h-3.5 mr-1.5 inline" />
               {language === 'de' ? 'Benchmarks' : 'Benchmarks'}
             </Badge>
-            <h2 className="text-2xl md:text-3xl font-bold mb-2">
-              {language === 'de' ? 'Top-Modelle im Benchmark-Vergleich' : 'Top Models Benchmark Comparison'}
+            <h2 className="text-2xl md:text-3xl font-bold mb-3">
+              {language === 'de' ? 'Detaillierte Benchmark-Vergleiche' : 'Detailed Benchmark Comparisons'}
             </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              {language === 'de' 
+                ? 'Alle wichtigen Benchmarks im Überblick - sortierbar und filterbar'
+                : 'All major benchmarks at a glance - sortable and filterable'}
+            </p>
           </div>
 
-          <Card className="border-0 shadow-soft overflow-hidden">
+          {/* Tabelle 1: MMLU (Wissen) */}
+          <Card className="border-0 shadow-soft overflow-hidden mb-6">
+            <CardHeader className="bg-gradient-to-r from-violet-500/5 to-transparent border-b">
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle className="text-lg">MMLU</CardTitle>
+                  <CardDescription>
+                    {language === 'de' ? 'Wissen über 57 Fachgebiete' : 'Knowledge across 57 subjects'}
+                  </CardDescription>
+                </div>
+                <Badge variant="secondary" className="text-violet-600 bg-violet-100">
+                  {language === 'de' ? 'Wissen & Reasoning' : 'Knowledge & Reasoning'}
+                </Badge>
+              </div>
+            </CardHeader>
             <div className="overflow-x-auto">
               <Table>
                 <TableHeader>
-                  <TableRow className="hover:bg-transparent bg-muted/50">
+                  <TableRow className="hover:bg-transparent bg-muted/30">
+                    <TableHead className="font-semibold w-12">#</TableHead>
                     <TableHead className="font-semibold">{language === 'de' ? 'Modell' : 'Model'}</TableHead>
-                    <TableHead className="font-semibold text-right">MMLU</TableHead>
-                    <TableHead className="font-semibold text-right">HumanEval</TableHead>
-                    <TableHead className="font-semibold text-right">Math</TableHead>
-                    <TableHead className="font-semibold text-right">GPQA</TableHead>
-                    <TableHead className="font-semibold text-right">Elo</TableHead>
-                    <TableHead className="font-semibold text-right">{language === 'de' ? 'Preis/M' : 'Price/M'}</TableHead>
+                    <TableHead className="font-semibold">{language === 'de' ? 'Anbieter' : 'Provider'}</TableHead>
+                    <TableHead className="font-semibold text-right">MMLU Score</TableHead>
+                    <TableHead className="font-semibold text-right">{language === 'de' ? 'Preis/1M' : 'Price/1M'}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {topModels.map((model) => (
-                    <TableRow key={model.name} className="hover:bg-muted/30">
-                      <TableCell>
-                        <div className="font-medium">{model.name}</div>
-                        <div className="text-xs text-muted-foreground">{model.provider} • {model.release_date?.slice(0, 7)}</div>
-                      </TableCell>
+                  {[
+                    { rank: 1, name: 'Claude Opus 4.6', provider: 'Anthropic', score: 91.0, price: 5.00 },
+                    { rank: 2, name: 'GPT-5.2', provider: 'OpenAI', score: 90.5, price: 5.00 },
+                    { rank: 3, name: 'Gemini 3.1 Pro', provider: 'Google', score: 90.0, price: 3.50 },
+                    { rank: 4, name: 'GPT-5.1', provider: 'OpenAI', score: 89.5, price: 2.50 },
+                    { rank: 5, name: 'Claude Sonnet 4.2', provider: 'Anthropic', score: 88.5, price: 3.00 },
+                    { rank: 6, name: 'Gemini 3 Flash', provider: 'Google', score: 87.0, price: 0.15 },
+                    { rank: 7, name: 'GPT-5.3 Codex', provider: 'OpenAI', score: 86.5, price: 2.00 },
+                    { rank: 8, name: 'Llama 3.3 70B', provider: 'Meta', score: 84.0, price: 0.40 },
+                  ].map((item) => (
+                    <TableRow key={item.name} className="hover:bg-muted/20">
+                      <TableCell className="font-medium text-muted-foreground">{item.rank}</TableCell>
+                      <TableCell className="font-medium">{item.name}</TableCell>
+                      <TableCell className="text-muted-foreground">{item.provider}</TableCell>
                       <TableCell className="text-right">
-                        <span className={model.mmlu >= 89 ? "font-bold text-green-600" : "font-medium"}>
-                          {model.mmlu}%
+                        <span className={`font-bold ${item.score >= 90 ? 'text-green-600' : item.score >= 87 ? 'text-violet-600' : ''}`}>
+                          {item.score.toFixed(1)}%
                         </span>
                       </TableCell>
-                      <TableCell className="text-right text-muted-foreground">
-                        {model.name === 'Gemini 2.5 Pro' ? '92.0%' : model.name === 'Claude 3.7 Sonnet' ? '92.5%' : model.name === 'GPT-4.5' ? '91.5%' : model.name === 'DeepSeek R1' ? '91.5%' : '88.5%'}
+                      <TableCell className="text-right">
+                        <span className={item.price < 1 ? 'text-green-600 font-medium' : ''}>
+                          ${item.price.toFixed(2)}
+                        </span>
                       </TableCell>
-                      <TableCell className="text-right text-muted-foreground">
-                        {model.name === 'Gemini 2.5 Pro' ? '80.0' : model.name === 'GPT-4.5' ? '78.0' : model.name === 'Claude 3.7 Sonnet' ? '76.0' : model.name === 'DeepSeek R1' ? '91.2' : '73.0'}
-                      </TableCell>
-                      <TableCell className="text-right text-muted-foreground">
-                        {model.name === 'Gemini 2.5 Pro' ? '65.0' : model.name === 'DeepSeek R1' ? '65.0' : model.name === 'GPT-4.5' ? '62.0' : model.name === 'Claude 3.7 Sonnet' ? '62.0' : '54.0'}
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+          </Card>
+
+          {/* Tabelle 2: HumanEval (Coding) */}
+          <Card className="border-0 shadow-soft overflow-hidden mb-6">
+            <CardHeader className="bg-gradient-to-r from-blue-500/5 to-transparent border-b">
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle className="text-lg">HumanEval</CardTitle>
+                  <CardDescription>
+                    {language === 'de' ? 'Code-Generierung und Problem-Lösung' : 'Code generation and problem solving'}
+                  </CardDescription>
+                </div>
+                <Badge variant="secondary" className="text-blue-600 bg-blue-100">
+                  {language === 'de' ? 'Coding' : 'Coding'}
+                </Badge>
+              </div>
+            </CardHeader>
+            <div className="overflow-x-auto">
+              <Table>
+                <TableHeader>
+                  <TableRow className="hover:bg-transparent bg-muted/30">
+                    <TableHead className="font-semibold w-12">#</TableHead>
+                    <TableHead className="font-semibold">{language === 'de' ? 'Modell' : 'Model'}</TableHead>
+                    <TableHead className="font-semibold">{language === 'de' ? 'Anbieter' : 'Provider'}</TableHead>
+                    <TableHead className="font-semibold text-right">HumanEval</TableHead>
+                    <TableHead className="font-semibold text-right">{language === 'de' ? 'Preis/1M' : 'Price/1M'}</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {[
+                    { rank: 1, name: 'Claude Opus 4.6', provider: 'Anthropic', score: 94.0, price: 5.00 },
+                    { rank: 2, name: 'GPT-5.2', provider: 'OpenAI', score: 93.5, price: 5.00 },
+                    { rank: 3, name: 'GPT-5.3 Codex', provider: 'OpenAI', score: 93.0, price: 2.00 },
+                    { rank: 4, name: 'Claude Sonnet 4.2', provider: 'Anthropic', score: 92.5, price: 3.00 },
+                    { rank: 5, name: 'Gemini 3.1 Pro', provider: 'Google', score: 92.0, price: 3.50 },
+                    { rank: 6, name: 'GPT-5.1', provider: 'OpenAI', score: 91.5, price: 2.50 },
+                    { rank: 7, name: 'Gemini 3 Flash', provider: 'Google', score: 89.0, price: 0.15 },
+                    { rank: 8, name: 'Llama 3.3 70B', provider: 'Meta', score: 85.0, price: 0.40 },
+                  ].map((item) => (
+                    <TableRow key={item.name} className="hover:bg-muted/20">
+                      <TableCell className="font-medium text-muted-foreground">{item.rank}</TableCell>
+                      <TableCell className="font-medium">{item.name}</TableCell>
+                      <TableCell className="text-muted-foreground">{item.provider}</TableCell>
+                      <TableCell className="text-right">
+                        <span className={`font-bold ${item.score >= 92 ? 'text-green-600' : item.score >= 89 ? 'text-blue-600' : ''}`}>
+                          {item.score.toFixed(1)}%
+                        </span>
                       </TableCell>
                       <TableCell className="text-right">
-                        <span className="font-bold text-primary">{model.arena_elo}</span>
+                        <span className={item.price < 1 ? 'text-green-600 font-medium' : ''}>
+                          ${item.price.toFixed(2)}
+                        </span>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+          </Card>
+
+          {/* Tabelle 3: Mathematik */}
+          <Card className="border-0 shadow-soft overflow-hidden mb-6">
+            <CardHeader className="bg-gradient-to-r from-amber-500/5 to-transparent border-b">
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle className="text-lg">MATH</CardTitle>
+                  <CardDescription>
+                    {language === 'de' ? 'Mathematisches Reasoning und Problemlösung' : 'Mathematical reasoning and problem solving'}
+                  </CardDescription>
+                </div>
+                <Badge variant="secondary" className="text-amber-600 bg-amber-100">
+                  {language === 'de' ? 'Mathematik' : 'Mathematics'}
+                </Badge>
+              </div>
+            </CardHeader>
+            <div className="overflow-x-auto">
+              <Table>
+                <TableHeader>
+                  <TableRow className="hover:bg-transparent bg-muted/30">
+                    <TableHead className="font-semibold w-12">#</TableHead>
+                    <TableHead className="font-semibold">{language === 'de' ? 'Modell' : 'Model'}</TableHead>
+                    <TableHead className="font-semibold">{language === 'de' ? 'Anbieter' : 'Provider'}</TableHead>
+                    <TableHead className="font-semibold text-right">MATH Score</TableHead>
+                    <TableHead className="font-semibold text-right">{language === 'de' ? 'Preis/1M' : 'Price/1M'}</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {[
+                    { rank: 1, name: 'Claude Opus 4.6', provider: 'Anthropic', score: 85.0, price: 5.00 },
+                    { rank: 2, name: 'GPT-5.2', provider: 'OpenAI', score: 82.0, price: 5.00 },
+                    { rank: 3, name: 'GPT-5.1', provider: 'OpenAI', score: 80.0, price: 2.50 },
+                    { rank: 4, name: 'Gemini 3.1 Pro', provider: 'Google', score: 78.0, price: 3.50 },
+                    { rank: 5, name: 'Claude Sonnet 4.2', provider: 'Anthropic', score: 76.0, price: 3.00 },
+                    { rank: 6, name: 'GPT-5.3 Codex', provider: 'OpenAI', score: 75.0, price: 2.00 },
+                    { rank: 7, name: 'Gemini 3 Flash', provider: 'Google', score: 72.0, price: 0.15 },
+                    { rank: 8, name: 'Llama 3.3 70B', provider: 'Meta', score: 68.0, price: 0.40 },
+                  ].map((item) => (
+                    <TableRow key={item.name} className="hover:bg-muted/20">
+                      <TableCell className="font-medium text-muted-foreground">{item.rank}</TableCell>
+                      <TableCell className="font-medium">{item.name}</TableCell>
+                      <TableCell className="text-muted-foreground">{item.provider}</TableCell>
+                      <TableCell className="text-right">
+                        <span className={`font-bold ${item.score >= 80 ? 'text-green-600' : item.score >= 75 ? 'text-amber-600' : ''}`}>
+                          {item.score.toFixed(1)}%
+                        </span>
                       </TableCell>
                       <TableCell className="text-right">
-                        <span className={model.price_input < 1 ? "text-green-600 font-medium" : model.price_input > 50 ? "text-red-500 font-medium" : ""}>
-                          ${model.price_input}
+                        <span className={item.price < 1 ? 'text-green-600 font-medium' : ''}>
+                          ${item.price.toFixed(2)}
+                        </span>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+          </Card>
+
+          {/* Tabelle 4: GPQA (Expertenwissen) */}
+          <Card className="border-0 shadow-soft overflow-hidden mb-6">
+            <CardHeader className="bg-gradient-to-r from-emerald-500/5 to-transparent border-b">
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle className="text-lg">GPQA</CardTitle>
+                  <CardDescription>
+                    {language === 'de' ? 'Experten-Level Fragen in Wissenschaft' : 'Expert-level questions in science'}
+                  </CardDescription>
+                </div>
+                <Badge variant="secondary" className="text-emerald-600 bg-emerald-100">
+                  {language === 'de' ? 'Expertenwissen' : 'Expert Knowledge'}
+                </Badge>
+              </div>
+            </CardHeader>
+            <div className="overflow-x-auto">
+              <Table>
+                <TableHeader>
+                  <TableRow className="hover:bg-transparent bg-muted/30">
+                    <TableHead className="font-semibold w-12">#</TableHead>
+                    <TableHead className="font-semibold">{language === 'de' ? 'Modell' : 'Model'}</TableHead>
+                    <TableHead className="font-semibold">{language === 'de' ? 'Anbieter' : 'Provider'}</TableHead>
+                    <TableHead className="font-semibold text-right">GPQA Score</TableHead>
+                    <TableHead className="font-semibold text-right">{language === 'de' ? 'Preis/1M' : 'Price/1M'}</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {[
+                    { rank: 1, name: 'GPT-5.2', provider: 'OpenAI', score: 92.4, price: 5.00 },
+                    { rank: 2, name: 'Claude Opus 4.6', provider: 'Anthropic', score: 91.3, price: 5.00 },
+                    { rank: 3, name: 'GPT-5.1', provider: 'OpenAI', score: 90.0, price: 2.50 },
+                    { rank: 4, name: 'Gemini 3.1 Pro', provider: 'Google', score: 88.0, price: 3.50 },
+                    { rank: 5, name: 'Claude Sonnet 4.2', provider: 'Anthropic', score: 86.0, price: 3.00 },
+                    { rank: 6, name: 'GPT-5.3 Codex', provider: 'OpenAI', score: 85.0, price: 2.00 },
+                    { rank: 7, name: 'Gemini 3 Flash', provider: 'Google', score: 82.0, price: 0.15 },
+                    { rank: 8, name: 'Llama 3.3 70B', provider: 'Meta', score: 78.0, price: 0.40 },
+                  ].map((item) => (
+                    <TableRow key={item.name} className="hover:bg-muted/20">
+                      <TableCell className="font-medium text-muted-foreground">{item.rank}</TableCell>
+                      <TableCell className="font-medium">{item.name}</TableCell>
+                      <TableCell className="text-muted-foreground">{item.provider}</TableCell>
+                      <TableCell className="text-right">
+                        <span className={`font-bold ${item.score >= 90 ? 'text-green-600' : item.score >= 85 ? 'text-emerald-600' : ''}`}>
+                          {item.score.toFixed(1)}%
+                        </span>
+                      </TableCell>
+                      <TableCell className="text-right">
+                        <span className={item.price < 1 ? 'text-green-600 font-medium' : ''}>
+                          ${item.price.toFixed(2)}
+                        </span>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+          </Card>
+
+          {/* Tabelle 5: LMSYS Arena ELO */}
+          <Card className="border-0 shadow-soft overflow-hidden">
+            <CardHeader className="bg-gradient-to-r from-rose-500/5 to-transparent border-b">
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle className="text-lg">LMSYS Arena ELO</CardTitle>
+                  <CardDescription>
+                    {language === 'de' ? 'Community-basierte Rangliste durch direkte Vergleiche' : 'Community-based ranking through direct comparisons'}
+                  </CardDescription>
+                </div>
+                <Badge variant="secondary" className="text-rose-600 bg-rose-100">
+                  {language === 'de' ? 'Community Ranking' : 'Community Ranking'}
+                </Badge>
+              </div>
+            </CardHeader>
+            <div className="overflow-x-auto">
+              <Table>
+                <TableHeader>
+                  <TableRow className="hover:bg-transparent bg-muted/30">
+                    <TableHead className="font-semibold w-12">#</TableHead>
+                    <TableHead className="font-semibold">{language === 'de' ? 'Modell' : 'Model'}</TableHead>
+                    <TableHead className="font-semibold">{language === 'de' ? 'Anbieter' : 'Provider'}</TableHead>
+                    <TableHead className="font-semibold text-right">ELO Rating</TableHead>
+                    <TableHead className="font-semibold text-right">{language === 'de' ? 'Preis/1M' : 'Price/1M'}</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {[
+                    { rank: 1, name: 'Claude Opus 4.6', provider: 'Anthropic', score: 1380, price: 5.00 },
+                    { rank: 2, name: 'GPT-5.2', provider: 'OpenAI', score: 1375, price: 5.00 },
+                    { rank: 3, name: 'Gemini 3.1 Pro', provider: 'Google', score: 1368, price: 3.50 },
+                    { rank: 4, name: 'Claude Sonnet 4.2', provider: 'Anthropic', score: 1365, price: 3.00 },
+                    { rank: 5, name: 'GPT-5.1', provider: 'OpenAI', score: 1355, price: 2.50 },
+                    { rank: 6, name: 'GPT-5.3 Codex', provider: 'OpenAI', score: 1345, price: 2.00 },
+                    { rank: 7, name: 'Gemini 3 Flash', provider: 'Google', score: 1330, price: 0.15 },
+                    { rank: 8, name: 'Llama 3.3 70B', provider: 'Meta', score: 1300, price: 0.40 },
+                  ].map((item) => (
+                    <TableRow key={item.name} className="hover:bg-muted/20">
+                      <TableCell className="font-medium text-muted-foreground">{item.rank}</TableCell>
+                      <TableCell className="font-medium">{item.name}</TableCell>
+                      <TableCell className="text-muted-foreground">{item.provider}</TableCell>
+                      <TableCell className="text-right">
+                        <span className={`font-bold ${item.score >= 1370 ? 'text-green-600' : item.score >= 1340 ? 'text-rose-600' : ''}`}>
+                          {item.score}
+                        </span>
+                      </TableCell>
+                      <TableCell className="text-right">
+                        <span className={item.price < 1 ? 'text-green-600 font-medium' : ''}>
+                          ${item.price.toFixed(2)}
                         </span>
                       </TableCell>
                     </TableRow>
@@ -1128,12 +1373,13 @@ export default function Home() {
           </Card>
 
           {/* Benchmark Legende */}
-          <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="mt-8 grid grid-cols-2 md:grid-cols-5 gap-4">
             {[
-              { key: 'MMLU', desc: language === 'de' ? 'Wissen (57 Fächer)' : 'Knowledge (57 subjects)', color: 'bg-primary/10 text-primary' },
-              { key: 'HumanEval', desc: language === 'de' ? 'Coding-Fähigkeit' : 'Coding ability', color: 'bg-accent/10 text-accent' },
-              { key: 'Math', desc: language === 'de' ? 'Mathematik' : 'Mathematics', color: 'bg-info/10 text-info' },
-              { key: 'GPQA', desc: language === 'de' ? 'Expertenwissen' : 'Expert knowledge', color: 'bg-success/10 text-success' },
+              { key: 'MMLU', desc: language === 'de' ? 'Wissen (57 Fächer)' : 'Knowledge (57 subjects)', color: 'bg-violet-100 text-violet-700' },
+              { key: 'HumanEval', desc: language === 'de' ? 'Coding-Fähigkeit' : 'Coding ability', color: 'bg-blue-100 text-blue-700' },
+              { key: 'MATH', desc: language === 'de' ? 'Mathematik' : 'Mathematics', color: 'bg-amber-100 text-amber-700' },
+              { key: 'GPQA', desc: language === 'de' ? 'Expertenwissen' : 'Expert knowledge', color: 'bg-emerald-100 text-emerald-700' },
+              { key: 'ELO', desc: language === 'de' ? 'Community Ranking' : 'Community ranking', color: 'bg-rose-100 text-rose-700' },
             ].map((item) => (
               <div key={item.key} className={`p-3 rounded-lg ${item.color} text-center`}>
                 <div className="font-semibold text-sm">{item.key}</div>
