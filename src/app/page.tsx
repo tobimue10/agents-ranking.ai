@@ -1064,7 +1064,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Benchmark Vergleich - Detaillierte Tabellen */}
+      {/* Benchmark Vergleich - Detaillierte Tabellen mit echten Daten */}
       <section id="benchmark-comparison" data-reveal className="container mx-auto px-4 py-16">
         <div className={`transition-all duration-700 ${visibleItems.has('benchmark-comparison') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="text-center mb-10">
@@ -1077,12 +1077,12 @@ export default function Home() {
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               {language === 'de' 
-                ? 'Alle wichtigen Benchmarks im Überblick - sortierbar und filterbar'
-                : 'All major benchmarks at a glance - sortable and filterable'}
+                ? 'Alle wichtigen Benchmarks im Überblick - basierend auf aktuellen Daten'
+                : 'All major benchmarks at a glance - based on current data'}
             </p>
           </div>
 
-          {/* Tabelle 1: MMLU (Wissen) */}
+          {/* Tabelle 1: MMLU (Wissen) - Echte Daten */}
           <Card className="border-0 shadow-soft overflow-hidden mb-6">
             <CardHeader className="bg-gradient-to-r from-violet-500/5 to-transparent border-b">
               <div className="flex items-center justify-between">
@@ -1109,38 +1109,33 @@ export default function Home() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {[
-                    { rank: 1, name: 'Claude Opus 4.6', provider: 'Anthropic', score: 91.0, price: 5.00 },
-                    { rank: 2, name: 'GPT-5.2', provider: 'OpenAI', score: 90.5, price: 5.00 },
-                    { rank: 3, name: 'Gemini 3.1 Pro', provider: 'Google', score: 90.0, price: 3.50 },
-                    { rank: 4, name: 'GPT-5.1', provider: 'OpenAI', score: 89.5, price: 2.50 },
-                    { rank: 5, name: 'Claude Sonnet 4.2', provider: 'Anthropic', score: 88.5, price: 3.00 },
-                    { rank: 6, name: 'Gemini 3 Flash', provider: 'Google', score: 87.0, price: 0.15 },
-                    { rank: 7, name: 'GPT-5.3 Codex', provider: 'OpenAI', score: 86.5, price: 2.00 },
-                    { rank: 8, name: 'Llama 3.3 70B', provider: 'Meta', score: 84.0, price: 0.40 },
-                  ].map((item) => (
-                    <TableRow key={item.name} className="hover:bg-muted/20">
-                      <TableCell className="font-medium text-muted-foreground">{item.rank}</TableCell>
-                      <TableCell className="font-medium">{item.name}</TableCell>
-                      <TableCell className="text-muted-foreground">{item.provider}</TableCell>
-                      <TableCell className="text-right">
-                        <span className={`font-bold ${item.score >= 90 ? 'text-green-600' : item.score >= 87 ? 'text-violet-600' : ''}`}>
-                          {item.score.toFixed(1)}%
-                        </span>
-                      </TableCell>
-                      <TableCell className="text-right">
-                        <span className={item.price < 1 ? 'text-green-600 font-medium' : ''}>
-                          ${item.price.toFixed(2)}
-                        </span>
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                  {modelsData
+                    .filter(m => m.benchmarks?.mmlu && !m.is_archived)
+                    .sort((a, b) => (b.benchmarks?.mmlu || 0) - (a.benchmarks?.mmlu || 0))
+                    .slice(0, 8)
+                    .map((model, index) => (
+                      <TableRow key={model.id} className="hover:bg-muted/20">
+                        <TableCell className="font-medium text-muted-foreground">{index + 1}</TableCell>
+                        <TableCell className="font-medium">{model.name}</TableCell>
+                        <TableCell className="text-muted-foreground">{model.provider}</TableCell>
+                        <TableCell className="text-right">
+                          <span className={`font-bold ${(model.benchmarks?.mmlu || 0) >= 90 ? 'text-green-600' : (model.benchmarks?.mmlu || 0) >= 87 ? 'text-violet-600' : ''}`}>
+                            {model.benchmarks?.mmlu?.toFixed(1)}%
+                          </span>
+                        </TableCell>
+                        <TableCell className="text-right">
+                          <span className={model.pricing_input < 1 ? 'text-green-600 font-medium' : ''}>
+                            ${model.pricing_input.toFixed(2)}
+                          </span>
+                        </TableCell>
+                      </TableRow>
+                    ))}
                 </TableBody>
               </Table>
             </div>
           </Card>
 
-          {/* Tabelle 2: HumanEval (Coding) */}
+          {/* Tabelle 2: HumanEval (Coding) - Echte Daten */}
           <Card className="border-0 shadow-soft overflow-hidden mb-6">
             <CardHeader className="bg-gradient-to-r from-blue-500/5 to-transparent border-b">
               <div className="flex items-center justify-between">
@@ -1167,38 +1162,33 @@ export default function Home() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {[
-                    { rank: 1, name: 'Claude Opus 4.6', provider: 'Anthropic', score: 94.0, price: 5.00 },
-                    { rank: 2, name: 'GPT-5.2', provider: 'OpenAI', score: 93.5, price: 5.00 },
-                    { rank: 3, name: 'GPT-5.3 Codex', provider: 'OpenAI', score: 93.0, price: 2.00 },
-                    { rank: 4, name: 'Claude Sonnet 4.2', provider: 'Anthropic', score: 92.5, price: 3.00 },
-                    { rank: 5, name: 'Gemini 3.1 Pro', provider: 'Google', score: 92.0, price: 3.50 },
-                    { rank: 6, name: 'GPT-5.1', provider: 'OpenAI', score: 91.5, price: 2.50 },
-                    { rank: 7, name: 'Gemini 3 Flash', provider: 'Google', score: 89.0, price: 0.15 },
-                    { rank: 8, name: 'Llama 3.3 70B', provider: 'Meta', score: 85.0, price: 0.40 },
-                  ].map((item) => (
-                    <TableRow key={item.name} className="hover:bg-muted/20">
-                      <TableCell className="font-medium text-muted-foreground">{item.rank}</TableCell>
-                      <TableCell className="font-medium">{item.name}</TableCell>
-                      <TableCell className="text-muted-foreground">{item.provider}</TableCell>
-                      <TableCell className="text-right">
-                        <span className={`font-bold ${item.score >= 92 ? 'text-green-600' : item.score >= 89 ? 'text-blue-600' : ''}`}>
-                          {item.score.toFixed(1)}%
-                        </span>
-                      </TableCell>
-                      <TableCell className="text-right">
-                        <span className={item.price < 1 ? 'text-green-600 font-medium' : ''}>
-                          ${item.price.toFixed(2)}
-                        </span>
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                  {modelsData
+                    .filter(m => m.benchmarks?.humaneval && !m.is_archived)
+                    .sort((a, b) => (b.benchmarks?.humaneval || 0) - (a.benchmarks?.humaneval || 0))
+                    .slice(0, 8)
+                    .map((model, index) => (
+                      <TableRow key={model.id} className="hover:bg-muted/20">
+                        <TableCell className="font-medium text-muted-foreground">{index + 1}</TableCell>
+                        <TableCell className="font-medium">{model.name}</TableCell>
+                        <TableCell className="text-muted-foreground">{model.provider}</TableCell>
+                        <TableCell className="text-right">
+                          <span className={`font-bold ${(model.benchmarks?.humaneval || 0) >= 92 ? 'text-green-600' : (model.benchmarks?.humaneval || 0) >= 89 ? 'text-blue-600' : ''}`}>
+                            {model.benchmarks?.humaneval?.toFixed(1)}%
+                          </span>
+                        </TableCell>
+                        <TableCell className="text-right">
+                          <span className={model.pricing_input < 1 ? 'text-green-600 font-medium' : ''}>
+                            ${model.pricing_input.toFixed(2)}
+                          </span>
+                        </TableCell>
+                      </TableRow>
+                    ))}
                 </TableBody>
               </Table>
             </div>
           </Card>
 
-          {/* Tabelle 3: Mathematik */}
+          {/* Tabelle 3: Mathematik - Echte Daten */}
           <Card className="border-0 shadow-soft overflow-hidden mb-6">
             <CardHeader className="bg-gradient-to-r from-amber-500/5 to-transparent border-b">
               <div className="flex items-center justify-between">
@@ -1225,38 +1215,33 @@ export default function Home() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {[
-                    { rank: 1, name: 'Claude Opus 4.6', provider: 'Anthropic', score: 85.0, price: 5.00 },
-                    { rank: 2, name: 'GPT-5.2', provider: 'OpenAI', score: 82.0, price: 5.00 },
-                    { rank: 3, name: 'GPT-5.1', provider: 'OpenAI', score: 80.0, price: 2.50 },
-                    { rank: 4, name: 'Gemini 3.1 Pro', provider: 'Google', score: 78.0, price: 3.50 },
-                    { rank: 5, name: 'Claude Sonnet 4.2', provider: 'Anthropic', score: 76.0, price: 3.00 },
-                    { rank: 6, name: 'GPT-5.3 Codex', provider: 'OpenAI', score: 75.0, price: 2.00 },
-                    { rank: 7, name: 'Gemini 3 Flash', provider: 'Google', score: 72.0, price: 0.15 },
-                    { rank: 8, name: 'Llama 3.3 70B', provider: 'Meta', score: 68.0, price: 0.40 },
-                  ].map((item) => (
-                    <TableRow key={item.name} className="hover:bg-muted/20">
-                      <TableCell className="font-medium text-muted-foreground">{item.rank}</TableCell>
-                      <TableCell className="font-medium">{item.name}</TableCell>
-                      <TableCell className="text-muted-foreground">{item.provider}</TableCell>
-                      <TableCell className="text-right">
-                        <span className={`font-bold ${item.score >= 80 ? 'text-green-600' : item.score >= 75 ? 'text-amber-600' : ''}`}>
-                          {item.score.toFixed(1)}%
-                        </span>
-                      </TableCell>
-                      <TableCell className="text-right">
-                        <span className={item.price < 1 ? 'text-green-600 font-medium' : ''}>
-                          ${item.price.toFixed(2)}
-                        </span>
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                  {modelsData
+                    .filter(m => m.benchmarks?.math && !m.is_archived)
+                    .sort((a, b) => (b.benchmarks?.math || 0) - (a.benchmarks?.math || 0))
+                    .slice(0, 8)
+                    .map((model, index) => (
+                      <TableRow key={model.id} className="hover:bg-muted/20">
+                        <TableCell className="font-medium text-muted-foreground">{index + 1}</TableCell>
+                        <TableCell className="font-medium">{model.name}</TableCell>
+                        <TableCell className="text-muted-foreground">{model.provider}</TableCell>
+                        <TableCell className="text-right">
+                          <span className={`font-bold ${(model.benchmarks?.math || 0) >= 80 ? 'text-green-600' : (model.benchmarks?.math || 0) >= 75 ? 'text-amber-600' : ''}`}>
+                            {model.benchmarks?.math?.toFixed(1)}%
+                          </span>
+                        </TableCell>
+                        <TableCell className="text-right">
+                          <span className={model.pricing_input < 1 ? 'text-green-600 font-medium' : ''}>
+                            ${model.pricing_input.toFixed(2)}
+                          </span>
+                        </TableCell>
+                      </TableRow>
+                    ))}
                 </TableBody>
               </Table>
             </div>
           </Card>
 
-          {/* Tabelle 4: GPQA (Expertenwissen) */}
+          {/* Tabelle 4: GPQA (Expertenwissen) - Echte Daten */}
           <Card className="border-0 shadow-soft overflow-hidden mb-6">
             <CardHeader className="bg-gradient-to-r from-emerald-500/5 to-transparent border-b">
               <div className="flex items-center justify-between">
@@ -1283,38 +1268,33 @@ export default function Home() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {[
-                    { rank: 1, name: 'GPT-5.2', provider: 'OpenAI', score: 92.4, price: 5.00 },
-                    { rank: 2, name: 'Claude Opus 4.6', provider: 'Anthropic', score: 91.3, price: 5.00 },
-                    { rank: 3, name: 'GPT-5.1', provider: 'OpenAI', score: 90.0, price: 2.50 },
-                    { rank: 4, name: 'Gemini 3.1 Pro', provider: 'Google', score: 88.0, price: 3.50 },
-                    { rank: 5, name: 'Claude Sonnet 4.2', provider: 'Anthropic', score: 86.0, price: 3.00 },
-                    { rank: 6, name: 'GPT-5.3 Codex', provider: 'OpenAI', score: 85.0, price: 2.00 },
-                    { rank: 7, name: 'Gemini 3 Flash', provider: 'Google', score: 82.0, price: 0.15 },
-                    { rank: 8, name: 'Llama 3.3 70B', provider: 'Meta', score: 78.0, price: 0.40 },
-                  ].map((item) => (
-                    <TableRow key={item.name} className="hover:bg-muted/20">
-                      <TableCell className="font-medium text-muted-foreground">{item.rank}</TableCell>
-                      <TableCell className="font-medium">{item.name}</TableCell>
-                      <TableCell className="text-muted-foreground">{item.provider}</TableCell>
-                      <TableCell className="text-right">
-                        <span className={`font-bold ${item.score >= 90 ? 'text-green-600' : item.score >= 85 ? 'text-emerald-600' : ''}`}>
-                          {item.score.toFixed(1)}%
-                        </span>
-                      </TableCell>
-                      <TableCell className="text-right">
-                        <span className={item.price < 1 ? 'text-green-600 font-medium' : ''}>
-                          ${item.price.toFixed(2)}
-                        </span>
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                  {modelsData
+                    .filter(m => m.benchmarks?.gpqa && !m.is_archived)
+                    .sort((a, b) => (b.benchmarks?.gpqa || 0) - (a.benchmarks?.gpqa || 0))
+                    .slice(0, 8)
+                    .map((model, index) => (
+                      <TableRow key={model.id} className="hover:bg-muted/20">
+                        <TableCell className="font-medium text-muted-foreground">{index + 1}</TableCell>
+                        <TableCell className="font-medium">{model.name}</TableCell>
+                        <TableCell className="text-muted-foreground">{model.provider}</TableCell>
+                        <TableCell className="text-right">
+                          <span className={`font-bold ${(model.benchmarks?.gpqa || 0) >= 90 ? 'text-green-600' : (model.benchmarks?.gpqa || 0) >= 85 ? 'text-emerald-600' : ''}`}>
+                            {model.benchmarks?.gpqa?.toFixed(1)}%
+                          </span>
+                        </TableCell>
+                        <TableCell className="text-right">
+                          <span className={model.pricing_input < 1 ? 'text-green-600 font-medium' : ''}>
+                            ${model.pricing_input.toFixed(2)}
+                          </span>
+                        </TableCell>
+                      </TableRow>
+                    ))}
                 </TableBody>
               </Table>
             </div>
           </Card>
 
-          {/* Tabelle 5: LMSYS Arena ELO */}
+          {/* Tabelle 5: LMSYS Arena ELO - Echte Daten */}
           <Card className="border-0 shadow-soft overflow-hidden">
             <CardHeader className="bg-gradient-to-r from-rose-500/5 to-transparent border-b">
               <div className="flex items-center justify-between">
@@ -1341,32 +1321,27 @@ export default function Home() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {[
-                    { rank: 1, name: 'Claude Opus 4.6', provider: 'Anthropic', score: 1380, price: 5.00 },
-                    { rank: 2, name: 'GPT-5.2', provider: 'OpenAI', score: 1375, price: 5.00 },
-                    { rank: 3, name: 'Gemini 3.1 Pro', provider: 'Google', score: 1368, price: 3.50 },
-                    { rank: 4, name: 'Claude Sonnet 4.2', provider: 'Anthropic', score: 1365, price: 3.00 },
-                    { rank: 5, name: 'GPT-5.1', provider: 'OpenAI', score: 1355, price: 2.50 },
-                    { rank: 6, name: 'GPT-5.3 Codex', provider: 'OpenAI', score: 1345, price: 2.00 },
-                    { rank: 7, name: 'Gemini 3 Flash', provider: 'Google', score: 1330, price: 0.15 },
-                    { rank: 8, name: 'Llama 3.3 70B', provider: 'Meta', score: 1300, price: 0.40 },
-                  ].map((item) => (
-                    <TableRow key={item.name} className="hover:bg-muted/20">
-                      <TableCell className="font-medium text-muted-foreground">{item.rank}</TableCell>
-                      <TableCell className="font-medium">{item.name}</TableCell>
-                      <TableCell className="text-muted-foreground">{item.provider}</TableCell>
-                      <TableCell className="text-right">
-                        <span className={`font-bold ${item.score >= 1370 ? 'text-green-600' : item.score >= 1340 ? 'text-rose-600' : ''}`}>
-                          {item.score}
-                        </span>
-                      </TableCell>
-                      <TableCell className="text-right">
-                        <span className={item.price < 1 ? 'text-green-600 font-medium' : ''}>
-                          ${item.price.toFixed(2)}
-                        </span>
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                  {modelsData
+                    .filter(m => m.benchmarks?.arena_elo && !m.is_archived)
+                    .sort((a, b) => (b.benchmarks?.arena_elo || 0) - (a.benchmarks?.arena_elo || 0))
+                    .slice(0, 8)
+                    .map((model, index) => (
+                      <TableRow key={model.id} className="hover:bg-muted/20">
+                        <TableCell className="font-medium text-muted-foreground">{index + 1}</TableCell>
+                        <TableCell className="font-medium">{model.name}</TableCell>
+                        <TableCell className="text-muted-foreground">{model.provider}</TableCell>
+                        <TableCell className="text-right">
+                          <span className={`font-bold ${(model.benchmarks?.arena_elo || 0) >= 1370 ? 'text-green-600' : (model.benchmarks?.arena_elo || 0) >= 1340 ? 'text-rose-600' : ''}`}>
+                            {model.benchmarks?.arena_elo}
+                          </span>
+                        </TableCell>
+                        <TableCell className="text-right">
+                          <span className={model.pricing_input < 1 ? 'text-green-600 font-medium' : ''}>
+                            ${model.pricing_input.toFixed(2)}
+                          </span>
+                        </TableCell>
+                      </TableRow>
+                    ))}
                 </TableBody>
               </Table>
             </div>
