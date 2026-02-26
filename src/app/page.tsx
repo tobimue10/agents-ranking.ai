@@ -36,6 +36,23 @@ import {
 } from "@/components/ui/table";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useLanguage } from "@/components/LanguageProvider";
+
+// Dynamisches Datum für den Disclaimer
+function useCurrentDate() {
+  const [currentDate, setCurrentDate] = useState("");
+  
+  useEffect(() => {
+    const now = new Date();
+    const monthNames = {
+      de: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
+      en: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    };
+    const month = monthNames[language as keyof typeof monthNames]?.[now.getMonth()] || monthNames.en[now.getMonth()];
+    setCurrentDate(`${month} ${now.getFullYear()}`);
+  }, []);
+  
+  return currentDate;
+}
 import { modelsData, topModels, newThisWeek, priceComparison } from "@/lib/models-data";
 import { agentsData } from "@/lib/agents-data";
 import { benchmarkUpdates } from "@/lib/news-data";
@@ -77,6 +94,7 @@ type SortDirection = 'asc' | 'desc';
 
 export default function Home() {
   const { language } = useLanguage();
+  const currentDate = useCurrentDate();
   const visibleItems = useScrollReveal();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
@@ -220,8 +238,8 @@ export default function Home() {
               >
                 <span className="w-2 h-2 rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500 mr-2 animate-pulse" />
                 {language === 'de' 
-                  ? 'Stand: Februar 2025' 
-                  : 'As of: February 2025'}
+                  ? `Stand: ${currentDate || 'Lade...'}` 
+                  : `As of: ${currentDate || 'Loading...'}`}
               </Badge>
             </div>
             

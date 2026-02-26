@@ -308,21 +308,19 @@
   background-clip: text;
 }
 
-/* Hero Gradient Background - Vibrant Aurora */
+/* Hero Gradient Background - Cleaner & Lighter */
 .hero-gradient {
   background: 
-    radial-gradient(ellipse 100% 60% at 50% -10%, hsl(var(--brand-violet) / 0.2), transparent),
-    radial-gradient(ellipse 80% 50% at 20% 80%, hsl(var(--brand-fuchsia) / 0.12), transparent),
-    radial-gradient(ellipse 70% 40% at 80% 60%, hsl(var(--brand-blue) / 0.15), transparent),
-    radial-gradient(ellipse 60% 30% at 30% 20%, hsl(var(--brand-cyan) / 0.08), transparent);
+    radial-gradient(ellipse 100% 60% at 50% -10%, hsl(var(--brand-violet) / 0.08), transparent),
+    radial-gradient(ellipse 80% 50% at 20% 80%, hsl(var(--brand-fuchsia) / 0.05), transparent),
+    radial-gradient(ellipse 70% 40% at 80% 60%, hsl(var(--brand-blue) / 0.06), transparent);
 }
 
 .dark .hero-gradient {
   background: 
-    radial-gradient(ellipse 100% 60% at 50% -10%, hsl(var(--brand-violet) / 0.35), transparent),
-    radial-gradient(ellipse 80% 50% at 20% 80%, hsl(var(--brand-fuchsia) / 0.25), transparent),
-    radial-gradient(ellipse 70% 40% at 80% 60%, hsl(var(--brand-blue) / 0.3), transparent),
-    radial-gradient(ellipse 60% 30% at 30% 20%, hsl(var(--brand-cyan) / 0.15), transparent);
+    radial-gradient(ellipse 100% 60% at 50% -10%, hsl(var(--brand-violet) / 0.2), transparent),
+    radial-gradient(ellipse 80% 50% at 20% 80%, hsl(var(--brand-fuchsia) / 0.12), transparent),
+    radial-gradient(ellipse 70% 40% at 80% 60%, hsl(var(--brand-blue) / 0.15), transparent);
 }
 
 /* Aurora Background Effect */
@@ -441,15 +439,13 @@
   pointer-events: none;
 }
 
-/* Mesh Gradient Background */
+/* Mesh Gradient Background - Subtle & Clean */
 .mesh-gradient {
   background-color: hsl(var(--background));
   background-image: 
-    radial-gradient(at 40% 20%, hsl(var(--brand-violet) / 0.15) 0px, transparent 50%),
-    radial-gradient(at 80% 0%, hsl(var(--brand-fuchsia) / 0.1) 0px, transparent 50%),
-    radial-gradient(at 0% 50%, hsl(var(--brand-blue) / 0.1) 0px, transparent 50%),
-    radial-gradient(at 80% 50%, hsl(var(--brand-cyan) / 0.08) 0px, transparent 50%),
-    radial-gradient(at 0% 100%, hsl(var(--brand-purple) / 0.12) 0px, transparent 50%);
+    radial-gradient(at 40% 20%, hsl(var(--brand-violet) / 0.06) 0px, transparent 50%),
+    radial-gradient(at 80% 0%, hsl(var(--brand-fuchsia) / 0.04) 0px, transparent 50%),
+    radial-gradient(at 0% 50%, hsl(var(--brand-blue) / 0.04) 0px, transparent 50%);
 }
 
 /* Improved Scrollbar */
@@ -713,41 +709,41 @@
    ENHANCED ANIMATIONS - Feb 2025 Polish
    ============================================ */
 
-/* Floating Particles Background */
+/* Floating Particles Background - More Subtle */
 @keyframes float-particle {
   0%, 100% {
     transform: translateY(0) translateX(0) rotate(0deg);
-    opacity: 0.3;
+    opacity: 0.15;
   }
   25% {
-    transform: translateY(-30px) translateX(10px) rotate(90deg);
-    opacity: 0.6;
+    transform: translateY(-20px) translateX(8px) rotate(90deg);
+    opacity: 0.3;
   }
   50% {
-    transform: translateY(-20px) translateX(-10px) rotate(180deg);
-    opacity: 0.4;
+    transform: translateY(-15px) translateX(-8px) rotate(180deg);
+    opacity: 0.2;
   }
   75% {
-    transform: translateY(-40px) translateX(5px) rotate(270deg);
-    opacity: 0.5;
+    transform: translateY(-25px) translateX(4px) rotate(270deg);
+    opacity: 0.25;
   }
 }
 
 .particle {
   position: absolute;
-  width: 4px;
-  height: 4px;
-  background: hsl(var(--brand-violet) / 0.4);
+  width: 3px;
+  height: 3px;
+  background: hsl(var(--brand-violet) / 0.25);
   border-radius: 50%;
-  animation: float-particle 8s ease-in-out infinite;
+  animation: float-particle 10s ease-in-out infinite;
 }
 
 .particle:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
-.particle:nth-child(2) { left: 20%; top: 60%; animation-delay: 1s; background: hsl(var(--brand-fuchsia) / 0.4); }
-.particle:nth-child(3) { left: 30%; top: 40%; animation-delay: 2s; background: hsl(var(--brand-blue) / 0.4); }
-.particle:nth-child(4) { left: 70%; top: 30%; animation-delay: 3s; }
-.particle:nth-child(5) { left: 80%; top: 70%; animation-delay: 4s; background: hsl(var(--brand-cyan) / 0.4); }
-.particle:nth-child(6) { left: 50%; top: 80%; animation-delay: 5s; background: hsl(var(--brand-purple) / 0.4); }
+.particle:nth-child(2) { left: 20%; top: 60%; animation-delay: 1.5s; background: hsl(var(--brand-fuchsia) / 0.25); }
+.particle:nth-child(3) { left: 30%; top: 40%; animation-delay: 3s; background: hsl(var(--brand-blue) / 0.25); }
+.particle:nth-child(4) { left: 70%; top: 30%; animation-delay: 4.5s; }
+.particle:nth-child(5) { left: 80%; top: 70%; animation-delay: 6s; background: hsl(var(--brand-cyan) / 0.25); }
+.particle:nth-child(6) { left: 50%; top: 80%; animation-delay: 7.5s; background: hsl(var(--brand-purple) / 0.25); }
 
 /* Enhanced Hero Text Animation */
 @keyframes text-reveal {
