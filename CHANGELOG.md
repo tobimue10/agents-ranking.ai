@@ -2,6 +2,55 @@
 
 Alle wichtigen Änderungen an diesem Projekt werden in dieser Datei dokumentiert.
 
+## [2026-02-27] - Täglicher Modelle-Check
+
+### Hinzugefügt
+- **Claude Sonnet 4.6** (Anthropic, 2026-02-17)
+  - Anthropics leistungsstärkstes Sonnet-Modell
+  - Opus-level Performance bei deutlich niedrigerem Preis
+  - 1M Token Kontextfenster (Beta)
+  - Preis: $3.00/$15.00 pro 1M Tokens
+  - MMLU: 90.2, Elo: 1372
+  - Hervorragende Computer Use Fähigkeiten
+  - Bessere Instruction Following, weniger Overengineering
+
+### Aktualisiert
+- **Top 5 Modelle** (Februar 2026)
+  1. Gemini 3.1 Pro (Google) - MMLU: 91.8, Elo: 1370
+  2. Claude Opus 4.6 (Anthropic) - MMLU: 91.0, Elo: 1380
+  3. Claude Sonnet 4.6 (Anthropic) - MMLU: 90.2, Elo: 1372
+  4. GPT-5.2 (OpenAI) - MMLU: 90.5, Elo: 1375
+  5. GPT-5.1 (OpenAI) - MMLU: 89.8, Elo: 1365
+
+### Archiv-Status
+- Keine neuen Archivierungen (keine Modelle älter als 6 Monate seit letztem Check)
+- Alle Modelle vor 27. August 2025 bleiben archiviert
+
+### Preisvergleich aktualisiert
+- Claude Sonnet 4.6 hinzugefügt: $3/$15 (1M Kontext)
+- Reihenfolge nach Input-Preis sortiert
+
+---
+
+## [2026-02-26] - Mobile UI Polish
+
+### Visuelle Verbesserungen
+- **MobileModelCard Redesign**: Vollständige Überarbeitung der mobilen Modellkarten
+  - Provider-Farbcodierung (jeder Anbieter hat einzigartige Farbidentität)
+  - Gradient-Top-Border für visuelle Hierarchie
+  - "NEU" und "TOP" Badges mit Glow-Effekt
+  - Verbesserte Stat-Boxen mit Hover-Effekten
+  - MMLU Highlight für Scores ≥85%
+  - Slide-Up Animationen mit Stagger-Effekt
+  - Touch-Feedback für mobile Geräte
+
+### Technische Änderungen
+- Neue CSS-Animationen: `mobileCardSlideUp`, Touch-Feedback
+- Provider-Color-Mapping in MobileModelCard
+- Verbesserte Interaktivität mit Hover-Transitions
+
+---
+
 ## [2026-02-26] - Täglicher Modelle-Check
 
 ### Hinzugefügt

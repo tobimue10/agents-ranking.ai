@@ -852,6 +852,69 @@
   animation: count-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+/* ============================================
+   MOBILE CARD ANIMATIONS - Feb 2025 Polish
+   ============================================ */
+
+/* Mobile Card Slide Up Animation */
+@keyframes mobileCardSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Mobile Card Stagger Delays */
+.mobile-card-stagger-1 { animation-delay: 80ms; }
+.mobile-card-stagger-2 { animation-delay: 160ms; }
+.mobile-card-stagger-3 { animation-delay: 240ms; }
+.mobile-card-stagger-4 { animation-delay: 320ms; }
+.mobile-card-stagger-5 { animation-delay: 400ms; }
+.mobile-card-stagger-6 { animation-delay: 480ms; }
+.mobile-card-stagger-7 { animation-delay: 560ms; }
+.mobile-card-stagger-8 { animation-delay: 640ms; }
+
+/* Enhanced Touch Feedback for Mobile */
+@media (hover: none) {
+  .mobile-touch-feedback {
+    transition: transform 0.15s ease, background-color 0.15s ease;
+  }
+  
+  .mobile-touch-feedback:active {
+    transform: scale(0.97);
+    background-color: hsl(var(--muted) / 0.8);
+  }
+}
+
+/* Mobile-optimized card shadows */
+.shadow-mobile-card {
+  box-shadow: 
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -2px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+.dark .shadow-mobile-card {
+  box-shadow: 
+    0 4px 6px -1px rgba(0, 0, 0, 0.3),
+    0 2px 4px -2px rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+/* Mobile card hover enhancement */
+@media (hover: hover) {
+  .mobile-card-hover:hover {
+    transform: translateY(-6px) scale(1.01);
+    box-shadow: 
+      0 20px 40px -12px rgba(0, 0, 0, 0.15),
+      0 0 0 1px hsl(var(--brand-violet) / 0.1);
+  }
+}
+
 /* Smooth Image Zoom */
 .img-zoom {
   overflow: hidden;
