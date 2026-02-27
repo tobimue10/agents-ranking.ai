@@ -2,6 +2,34 @@
 
 Alle wichtigen Änderungen an diesem Projekt werden in dieser Datei dokumentiert.
 
+## [2026-02-27] - SEO-Optimierung (Content Update 13 Uhr)
+
+### Hinzugefügt
+- **FAQ Schema.org Markup** für Rich Snippets in Google
+  - 4 häufige Fragen mit strukturierten Antworten
+  - Verbesserte Chance auf Featured Snippets
+  - JSON-LD Format für maximale Kompatibilität
+
+- **Erweiterte interne Verlinkung**
+  - Footer: Neue "Vergleiche"-Sektion mit direkten Links zu populären Modell-Seiten
+  - Footer: Aktualisierte Links zu DeepSeek-R1, Grok 3, Llama 3.3
+  - Models-Page: Erweiterte FAQ-Sektion mit internen Links
+  - Mehr kontextuelle Links zwischen Modell-Seiten
+
+- **SEO-Content Erweiterungen**
+  - Models-Page: Erweiterte FAQ-Sektion mit 3 Fragen
+  - Keyword-optimierte Beschreibungen
+  - Interne Verlinkung zu spezifischen Modell-Seiten
+
+### Aktualisiert
+- **Sitemap.xml**: Neue Modelle hinzugefügt
+  - gpt-4-5, claude-3-7-sonnet, gemini-2-5-pro
+  - Duplikate entfernt (kimi-k2-5)
+
+- **Footer Grid**: Angepasstes Layout für 6 Spalten (inkl. Vergleiche)
+
+---
+
 ## [2026-02-27] - Täglicher Modelle-Check
 
 ### Hinzugefügt

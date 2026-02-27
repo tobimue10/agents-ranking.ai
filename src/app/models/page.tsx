@@ -370,11 +370,11 @@ export default function ModelsPage() {
         </div>
 
         {/* SEO Content */}
-        <Card className="mt-16">
+        <Card className="mt-16" id="faq">
           <CardHeader>
             <CardTitle>Der umfassendste LLM Vergleich 2025</CardTitle>
             <CardDescription>
-              Finde das beste KI-Modell für dein Projekt
+              Finde das beste KI-Modell für dein Projekt - Unabhängige Benchmarks & aktuelle Preise
             </CardDescription>
           </CardHeader>
           <CardContent className="prose dark:prose-invert max-w-none">
@@ -382,26 +382,56 @@ export default function ModelsPage() {
               agents-ranking.ai bietet den umfassendsten <strong>KI Vergleich</strong> für 
               Large Language Models (LLMs), AI Agents und spezialisierte KI-Tools. Unsere 
               unabhängigen Benchmarks helfen dir, das beste Modell für deine Anforderungen zu finden.
+              Aktuell vergleichen wir über 50 KI-Modelle mit täglich aktualisierten Daten.
             </p>
             
-            <h3 className="text-lg font-semibold mt-4">Beliebte Vergleiche</h3>
+            <h3 className="text-lg font-semibold mt-6">Beliebte Vergleiche 2025</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-              <Link href="/models/gpt-4-turbo" className="p-4 border rounded-lg hover:bg-muted transition-colors">
-                <p className="font-medium">GPT-4 Turbo vs Claude 3.5</p>
-                <p className="text-sm text-muted-foreground">Der Klassiker unter den LLM-Vergleichen</p>
+              <Link href="/models/gpt-4o" className="p-4 border rounded-lg hover:bg-muted transition-colors">
+                <p className="font-medium">GPT-4o vs Claude 3.5 Sonnet</p>
+                <p className="text-sm text-muted-foreground">Der Klassiker unter den LLM-Vergleichen - Wer gewinnt 2025?</p>
               </Link>
-              <Link href="/models/gemini-pro-1-5" className="p-4 border rounded-lg hover:bg-muted transition-colors">
-                <p className="font-medium">Gemini Pro 1.5 vs GPT-4</p>
-                <p className="text-sm text-muted-foreground">Wer hat das größere Kontextfenster?</p>
+              <Link href="/models/deepseek-r1" className="p-4 border rounded-lg hover:bg-muted transition-colors">
+                <p className="font-medium">DeepSeek-R1 vs o3-mini</p>
+                <p className="text-sm text-muted-foreground">Reasoning-Modelle im direkten Vergleich</p>
               </Link>
-              <Link href="/models/llama-3-1-405b" className="p-4 border rounded-lg hover:bg-muted transition-colors">
-                <p className="font-medium">Llama 3.1 vs kommerzielle Modelle</p>
-                <p className="text-sm text-muted-foreground">Open Source vs. Closed Source</p>
+              <Link href="/models/grok-3" className="p-4 border rounded-lg hover:bg-muted transition-colors">
+                <p className="font-medium">Grok 3 Test & Benchmarks</p>
+                <p className="text-sm text-muted-foreground">xAI's neuestes Modell im Detail</p>
               </Link>
-              <Link href="/models/kimi-k2-5" className="p-4 border rounded-lg hover:bg-muted transition-colors">
-                <p className="font-medium">Kimi K2.5 vs Claude 3.5</p>
-                <p className="text-sm text-muted-foreground">Das beste Preis-Leistungs-Verhältnis?</p>
+              <Link href="/models/llama-3-3-70b" className="p-4 border rounded-lg hover:bg-muted transition-colors">
+                <p className="font-medium">Llama 3.3 vs kommerzielle Modelle</p>
+                <p className="text-sm text-muted-foreground">Open Source vs. Closed Source - Lohnt sich der Umstieg?</p>
               </Link>
+            </div>
+
+            <h3 className="text-lg font-semibold mt-6">Häufig gestellte Fragen (FAQ)</h3>
+            <div className="space-y-4 mt-4">
+              <div className="p-4 bg-muted/50 rounded-lg">
+                <p className="font-medium">Was ist das beste KI-Modell 2025?</p>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Das beste KI-Modell hängt vom Anwendungsfall ab. Für Coding empfehlen wir 
+                  <Link href="/models/claude-3-5-sonnet" className="text-primary hover:underline"> Claude 3.5 Sonnet</Link>, 
+                  für multimodale Aufgaben <Link href="/models/gpt-4o" className="text-primary hover:underline">GPT-4o</Link>, 
+                  und für kostenlose Nutzung <Link href="/models/llama-3-3-70b" className="text-primary hover:underline">Llama 3.3</Link>.
+                </p>
+              </div>
+              <div className="p-4 bg-muted/50 rounded-lg">
+                <p className="font-medium">Welche KI ist besser als ChatGPT?</p>
+                <p className="text-sm text-muted-foreground mt-1">
+                  <Link href="/models/claude-3-5-sonnet" className="text-primary hover:underline">Claude 3.5 Sonnet</Link> übertrifft 
+                  ChatGPT bei Coding und langen Dokumenten. <Link href="/models/deepseek-r1" className="text-primary hover:underline">DeepSeek-R1</Link> ist 
+                  besser für komplexes Reasoning und deutlich günstiger.
+                </p>
+              </div>
+              <div className="p-4 bg-muted/50 rounded-lg">
+                <p className="font-medium">Ist Llama 3.3 wirklich kostenlos?</p>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Ja, <Link href="/models/llama-3-3-70b" className="text-primary hover:underline">Llama 3.3</Link> ist Open Source und 
+                  vollständig kostenlos für kommerzielle Nutzung. Du kannst es selbst hosten oder über 
+                  Anbieter wie Groq kostenlos nutzen.
+                </p>
+              </div>
             </div>
           </CardContent>
         </Card>

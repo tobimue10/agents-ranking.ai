@@ -100,6 +100,45 @@ const websiteSchema = {
   },
 };
 
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Was ist das beste KI-Modell 2025?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Das beste KI-Modell 2025 hängt vom Anwendungsfall ab. GPT-4o führt bei multimodalen Aufgaben, Claude 3.5 Sonnet bei Reasoning und Coding, während DeepSeek-R1 bei mathematischen Problemen überzeugt. Für kostenlose Nutzung ist Llama 3.3 die beste Wahl.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'Welche KI ist besser als ChatGPT?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Claude 3.5 Sonnet übertrifft ChatGPT (GPT-4o) bei Coding und langen Dokumenten. DeepSeek-R1 ist besser für komplexes Reasoning. Gemini 2.0 Pro bietet das größte Kontextfenster. Die beste Alternative hängt von deinen spezifischen Anforderungen ab.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'Ist Llama 3.3 wirklich kostenlos?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Ja, Llama 3.3 ist Open Source und vollständig kostenlos für kommerzielle Nutzung. Du kannst es selbst hosten oder über Anbieter wie Groq, Together AI oder Fireworks AI nutzen. Die selbst gehostete Version erfordert jedoch leistungsstarke Hardware.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'Was kostet GPT-4o?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'GPT-4o kostet über die API $2.50 pro 1 Million Input-Tokens und $10.00 pro 1 Million Output-Tokens. Über ChatGPT Plus ist es für $20/Monat verfügbar. Es gibt auch eine kostenlose Version mit eingeschränkten Nutzungslimits.'
+      }
+    }
+  ]
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -112,7 +151,7 @@ export default function RootLayout({
           id="schema-org"
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify([organizationSchema, websiteSchema]),
+            __html: JSON.stringify([organizationSchema, websiteSchema, faqSchema]),
           }}
         />
       </head>

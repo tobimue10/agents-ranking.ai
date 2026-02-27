@@ -31,19 +31,22 @@ export default function Footer() {
       { label: language === "de" ? "Modelle" : "Models", href: "/models" },
       { label: language === "de" ? "Vergleich" : "Compare", href: "/#comparison-table" },
       { label: language === "de" ? "Benchmarks" : "Benchmarks", href: "/models" },
-      { label: "API", href: "#" },
+      { label: language === "de" ? "Preise" : "Pricing", href: "/#price-comparison" },
+    ],
+    comparisons: [
+      { label: "GPT-4o vs Claude 3.5", href: "/models/gpt-4o" },
+      { label: "DeepSeek-R1 Test", href: "/models/deepseek-r1" },
+      { label: "Grok 3 Benchmark", href: "/models/grok-3" },
+      { label: "Llama 3.3 Kostenlos", href: "/models/llama-3-3-70b" },
     ],
     resources: [
-      { label: language === "de" ? "Blog" : "Blog", href: "#" },
-      { label: language === "de" ? "Dokumentation" : "Documentation", href: "#" },
-      { label: language === "de" ? "Tutorials" : "Tutorials", href: "#" },
-      { label: language === "de" ? "FAQ" : "FAQ", href: "#" },
+      { label: language === "de" ? "Blog" : "Blog", href: "/blog/beste-ki-fuer-coding-2025" },
+      { label: language === "de" ? "Beste KI für Coding" : "Best AI for Coding", href: "/blog/beste-ki-fuer-coding-2025" },
+      { label: language === "de" ? "FAQ" : "FAQ", href: "#faq" },
     ],
     company: [
       { label: language === "de" ? "Über uns" : "About", href: "#" },
       { label: language === "de" ? "Kontakt" : "Contact", href: "#" },
-      { label: language === "de" ? "Karriere" : "Careers", href: "#" },
-      { label: language === "de" ? "Presse" : "Press", href: "#" },
     ],
     legal: [
       { label: language === "de" ? "Datenschutz" : "Privacy", href: "#" },
@@ -98,8 +101,8 @@ export default function Footer() {
         </div>
 
         {/* Links Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 py-12">
-          <div className="col-span-2 md:col-span-4 lg:col-span-1">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 py-12">
+          <div className="col-span-2 md:col-span-3 lg:col-span-2">
             <Link href="/" className="flex items-center gap-2 mb-4 group">
               <div className="w-8 h-8 bg-gradient-to-br from-primary to-purple-600 rounded-lg flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
                 <span className="text-white font-bold text-sm">AR</span>
@@ -145,10 +148,10 @@ export default function Footer() {
 
           <div>
             <h4 className="font-semibold mb-3">
-              {language === "de" ? "Ressourcen" : "Resources"}
+              {language === "de" ? "Vergleiche" : "Comparisons"}
             </h4>
             <ul className="space-y-2">
-              {footerLinks.resources.map((link) => (
+              {footerLinks.comparisons.map((link) => (
                 <li key={link.href}>
                   <FooterLink href={link.href} label={link.label} />
                 </li>
@@ -158,10 +161,10 @@ export default function Footer() {
 
           <div>
             <h4 className="font-semibold mb-3">
-              {language === "de" ? "Unternehmen" : "Company"}
+              {language === "de" ? "Ressourcen" : "Resources"}
             </h4>
             <ul className="space-y-2">
-              {footerLinks.company.map((link) => (
+              {footerLinks.resources.map((link) => (
                 <li key={link.href}>
                   <FooterLink href={link.href} label={link.label} />
                 </li>

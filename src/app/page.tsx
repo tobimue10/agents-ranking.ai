@@ -18,7 +18,9 @@ import {
   Bot,
   Cpu,
   MessageSquare,
-  Wand2
+  Wand2,
+  Target,
+  Scale
 } from "lucide-react";
 import {
   Dialog,
@@ -66,6 +68,9 @@ import { agentsData } from "@/lib/agents-data";
 import { benchmarkUpdates } from "@/lib/news-data";
 import { NewsletterSignup } from "@/components/NewsletterSignup";
 import { MobileModelCard } from "@/components/MobileModelCard";
+import { ModelRecommender } from "@/components/ModelRecommender";
+import { UseCaseRecommendations } from "@/components/UseCaseRecommendations";
+import { SmartComparison } from "@/components/SmartComparison";
 
 // Animation hook for scroll reveal
 function useScrollReveal() {
@@ -377,6 +382,59 @@ export default function Home() {
                 </CardContent>
               </Card>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Model Recommender Section */}
+      <section id="model-recommender" data-reveal className="container mx-auto px-4 py-16 sm:py-20">
+        <div className={`transition-all duration-1000 ease-out ${visibleItems.has('model-recommender') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+          <div className="max-w-3xl mx-auto">
+            <ModelRecommender />
+          </div>
+        </div>
+      </section>
+
+      {/* Use Case Recommendations Section */}
+      <section id="use-cases" data-reveal className="container mx-auto px-4 py-16 sm:py-20">
+        <div className={`transition-all duration-1000 ease-out ${visibleItems.has('use-cases') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+          <div className="text-center mb-10">
+            <Badge variant="outline" className="mb-4 px-3 py-1.5">
+              <Target className="w-3.5 h-3.5 mr-1.5 inline" />
+              {language === 'de' ? 'Empfohlen für' : 'Recommended for'}
+            </Badge>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              {language === 'de' ? 'Für deinen Use-Case' : 'For Your Use Case'}
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              {language === 'de'
+                ? 'Schnelle Empfehlungen für die häufigsten Anwendungsfälle'
+                : 'Quick recommendations for the most common use cases'}
+            </p>
+          </div>
+          <UseCaseRecommendations />
+        </div>
+      </section>
+
+      {/* Smart Comparison Section */}
+      <section id="smart-comparison" data-reveal className="container mx-auto px-4 py-16 sm:py-20">
+        <div className={`transition-all duration-1000 ease-out ${visibleItems.has('smart-comparison') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+          <div className="text-center mb-10">
+            <Badge variant="outline" className="mb-4 px-3 py-1.5">
+              <Scale className="w-3.5 h-3.5 mr-1.5 inline" />
+              {language === 'de' ? 'Direkte Vergleiche' : 'Direct Comparisons'}
+            </Badge>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              {language === 'de' ? 'Häufige Vergleiche' : 'Common Comparisons'}
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              {language === 'de'
+                ? 'Die wichtigsten Unterschiede auf einen Blick'
+                : 'The key differences at a glance'}
+            </p>
+          </div>
+          <div className="max-w-4xl mx-auto">
+            <SmartComparison />
           </div>
         </div>
       </section>

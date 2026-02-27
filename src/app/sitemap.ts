@@ -22,6 +22,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'mistral-large-2',
     'qwen-2-5',
     'command-r-plus',
+    'kimi-k2-5',
+    'gpt-4-5',
+    'claude-3-7-sonnet',
+    'gemini-2-5-pro',
   ];
   
   return [
