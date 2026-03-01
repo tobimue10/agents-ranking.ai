@@ -24,7 +24,7 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "agents-ranking.ai | KI Vergleich 2025 - Agent & LLM Vergleichsplattform",
   description: "Der umfassendste KI Vergleich 2025: Vergleiche GPT-4o, Claude 3.5, Gemini Pro, Llama 3.1 & 50+ weitere KI-Modelle. Unabhängige Benchmarks, aktuelle Preise, detaillierte Tests. Finde das beste LLM für Coding, Text & mehr!",
-  keywords: ["KI Vergleich", "KI Vergleich 2025", "LLM Vergleich", "Agent Vergleich", "GPT-4o vs Claude 3.5", "bestes KI Modell", "KI Modelle Vergleich", "AI Vergleich", "ChatGPT Alternative", "Claude vs GPT", "Llama 3.1 Test", "Künstliche Intelligenz Vergleich", "KI Benchmarks", "LLM Ranking", "beste AI 2025"],
+  keywords: ["KI Vergleich", "KI Vergleich 2025", "LLM Vergleich", "Agent Vergleich", "GPT-4o vs Claude 3.5", "bestes KI Modell", "KI Modelle Vergleich", "AI Vergleich", "ChatGPT Alternative", "Claude vs GPT", "Llama 3.1 Test", "Künstliche Intelligenz Vergleich", "KI Benchmarks", "LLM Ranking", "beste AI 2025", "GPT-4.5", "Claude 3.7 Sonnet", "Gemini 2.5 Pro", "DeepSeek R1", "Grok 3", "Llama 3.3"],
   authors: [{ name: "agents-ranking.ai" }],
   creator: "agents-ranking.ai",
   publisher: "agents-ranking.ai",

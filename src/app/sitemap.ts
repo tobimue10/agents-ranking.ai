@@ -5,12 +5,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
   
   const modelPages = [
     'gpt-4-turbo',
-    'claude-3-5-sonnet', 
+    'claude-3-5-sonnet',
     'gemini-pro-1-5',
     'llama-3-1-405b',
     'kimi-k2-5',
     'gpt-4o',
     'claude-3-opus',
+    'gpt-4-5',
+    'claude-3-7-sonnet',
+    'gemini-2-5-pro',
+    'deepseek-r1',
+    'grok-3',
+    'llama-3-3',
   ];
   
   return [

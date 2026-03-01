@@ -50,6 +50,14 @@ export default function Footer() {
       { label: language === "de" ? "AGB" : "Terms", href: "#" },
       { label: language === "de" ? "Impressum" : "Imprint", href: "#" },
     ],
+    comparisons: [
+      { label: "GPT-4o", href: "/models/gpt-4o" },
+      { label: "Claude 3.7 Sonnet", href: "/models/claude-3-7-sonnet" },
+      { label: "Gemini 2.5 Pro", href: "/models/gemini-2-5-pro" },
+      { label: "DeepSeek R1", href: "/models/deepseek-r1" },
+      { label: "Grok 3", href: "/models/grok-3" },
+      { label: "Llama 3.3", href: "/models/llama-3-3" },
+    ],
   };
 
   return (
@@ -89,8 +97,8 @@ export default function Footer() {
         </div>
 
         {/* Links Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 py-12">
-          <div className="col-span-2 md:col-span-4 lg:col-span-1">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 py-12">
+          <div className="col-span-2 md:col-span-3 lg:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-4">
               <div className="w-8 h-8 bg-gradient-to-br from-primary to-purple-600 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-sm">AR</span>
@@ -181,6 +189,24 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2">
               {footerLinks.legal.map((link) => (
+                <li key={link.href}>
+                  <Link 
+                    href={link.href} 
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-3">
+              {language === "de" ? "Vergleiche" : "Comparisons"}
+            </h4>
+            <ul className="space-y-2">
+              {footerLinks.comparisons.map((link) => (
                 <li key={link.href}>
                   <Link 
                     href={link.href} 
