@@ -34,14 +34,18 @@ export default function Footer() {
       { label: language === "de" ? "Preise" : "Pricing", href: "/#price-comparison" },
     ],
     comparisons: [
-      { label: "GPT-4o vs Claude 3.5", href: "/models/gpt-4o" },
+      { label: "GPT-4o vs Claude 3.7", href: "/models/gpt-4o" },
       { label: "DeepSeek-R1 Test", href: "/models/deepseek-r1" },
       { label: "Grok 3 Benchmark", href: "/models/grok-3" },
       { label: "Llama 3.3 Kostenlos", href: "/models/llama-3-3-70b" },
+      { label: "Qwen 2.5 vs GPT-4o", href: "/models/qwen-2-5" },
+      { label: "Gemini 2.0 Flash", href: "/models/gemini-2-0-flash" },
     ],
     resources: [
       { label: language === "de" ? "Blog" : "Blog", href: "/blog/beste-ki-fuer-coding-2025" },
       { label: language === "de" ? "Beste KI für Coding" : "Best AI for Coding", href: "/blog/beste-ki-fuer-coding-2025" },
+      { label: language === "de" ? "Open Source LLMs" : "Open Source LLMs", href: "/models/llama-3-3-70b" },
+      { label: language === "de" ? "Reasoning Modelle" : "Reasoning Models", href: "/models/deepseek-r1" },
       { label: language === "de" ? "FAQ" : "FAQ", href: "#faq" },
     ],
     company: [

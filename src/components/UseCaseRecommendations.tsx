@@ -1,20 +1,21 @@
 "use client";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { 
-  Code, 
-  Wallet, 
-  Zap, 
+import {
+  Code,
+  Wallet,
+  Zap,
   GraduationCap,
   Briefcase,
   Sparkles,
-  ArrowRight,
-  Check
 } from "lucide-react";
-import { modelsData } from "@/lib/models-data";
-import { agentsData } from "@/lib/agents-data";
 import { useLanguage } from "@/components/LanguageProvider";
 
 interface UseCaseCard {

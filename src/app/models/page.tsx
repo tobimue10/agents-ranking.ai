@@ -1,7 +1,8 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import Link from 'next/link';
 import { 
   Search, 
   Filter,
@@ -11,183 +12,29 @@ import {
   Palette,
   Video,
   Zap
-} from "lucide-react";
-import { Input } from "@/components/ui/input";
+} from 'lucide-react';
 
-// Extended models data
-const models = [
-  {
-    id: "gpt-4-turbo",
-    name: "GPT-4 Turbo",
-    provider: "OpenAI",
-    type: "llm",
-    description: "Leistungsstarkes LLM mit 128k Kontextfenster. Hervorragend für Coding und komplexe Aufgaben.",
-    context_window: 128000,
-    pricing_input: 0.01,
-    pricing_output: 0.03,
-    api_available: true,
-    release_date: "2023-11-06",
-    benchmarks: { mmlu: 86.4, humaneval: 87.2, math: 72.9, gpqa: 48.0 },
-    features: ["128k Kontext", "JSON Mode", "Function Calling", "Vision"],
-    pros: ["Hervorragende Code-Generierung", "Großes Ökosystem", "Zuverlässige API"],
-    cons: ["Höherer Preis", "Manchmal übermäßig vorsichtig"],
-    best_for: ["Coding", "API-Integration", "Komplexe Aufgaben"],
-  },
-  {
-    id: "claude-3-5-sonnet",
-    name: "Claude 3.5 Sonnet",
-    provider: "Anthropic",
-    type: "llm",
-    description: "Hervorragendes Reasoning und Coding. 200k Kontextfenster für lange Dokumente.",
-    context_window: 200000,
-    pricing_input: 0.003,
-    pricing_output: 0.015,
-    api_available: true,
-    release_date: "2024-06-20",
-    benchmarks: { mmlu: 88.7, humaneval: 92.0, math: 71.1, gpqa: 59.4 },
-    features: ["200k Kontext", "Artifacts", "Computer Use", "Vision"],
-    pros: ["Exzellentes Reasoning", "Großes Kontextfenster", "Natürliche Konversation"],
-    cons: ["Kein Internet-Zugriff", "Manchmal langsam"],
-    best_for: ["Recherche", "Dokumentenanalyse", "Schreiben"],
-  },
-  {
-    id: "gemini-pro-1-5",
-    name: "Gemini Pro 1.5",
-    provider: "Google",
-    type: "llm",
-    description: "Bis zu 1 Million Token Kontextfenster. Stark in Multimodal-Aufgaben.",
-    context_window: 1000000,
-    pricing_input: 0.0035,
-    pricing_output: 0.0105,
-    api_available: true,
-    release_date: "2024-02-15",
-    benchmarks: { mmlu: 85.9, humaneval: 84.1, math: 67.7, gpqa: 46.0 },
-    features: ["1M Kontext", "Multimodal", "Google Integration", "Vision"],
-    pros: ["Riesiges Kontextfenster", "Google-Integration", "Multimodal"],
-    cons: ["Inkonsistente Ergebnisse", "Weniger beliebt"],
-    best_for: ["Lange Dokumente", "Video-Analyse", "Google-Ökosystem"],
-  },
-  {
-    id: "llama-3-1-405b",
-    name: "Llama 3.1 405B",
-    provider: "Meta",
-    type: "llm",
-    description: "Open Source LLM mit 405B Parametern. Kostenlos nutzbar für kommerzielle Zwecke.",
-    context_window: 128000,
-    pricing_input: 0,
-    pricing_output: 0,
-    api_available: true,
-    release_date: "2024-07-23",
-    benchmarks: { mmlu: 85.2, humaneval: 89.0, math: 73.0, gpqa: 50.0 },
-    features: ["Open Source", "405B Parameter", "Kostenlos", "Commercial Use"],
-    pros: ["Kostenlos", "Open Source", "Hohe Privatsphäre"],
-    cons: ["Hohe Hardware-Anforderungen", "Komplexe Einrichtung"],
-    best_for: ["Selbst-Hosting", "Datenschutz", "Forschung"],
-  },
-  {
-    id: "kimi-k2-5",
-    name: "Kimi K2.5",
-    provider: "Moonshot AI",
-    type: "llm",
-    description: "Starke Performance in Coding und Reasoning. 256k Kontextfenster.",
-    context_window: 256000,
-    pricing_input: 0.002,
-    pricing_output: 0.008,
-    api_available: true,
-    release_date: "2025-01-20",
-    benchmarks: { mmlu: 87.2, humaneval: 90.5, math: 75.2, gpqa: 55.0 },
-    features: ["256k Kontext", "Coding", "Reasoning", "Vision"],
-    pros: ["Sehr günstig", "Langer Kontext", "Starke Performance"],
-    cons: ["Weniger bekannt", "Begrenzte Dokumentation"],
-    best_for: ["Coding", "Budget-Projekte", "Asiatische Sprachen"],
-  },
-  {
-    id: "gpt-4o",
-    name: "GPT-4o",
-    provider: "OpenAI",
-    type: "multimodal",
-    description: "OpenAIs schnellstes multimodales Modell. Text, Bild und Audio in Echtzeit.",
-    context_window: 128000,
-    pricing_input: 0.005,
-    pricing_output: 0.015,
-    api_available: true,
-    release_date: "2024-05-13",
-    benchmarks: { mmlu: 88.7, humaneval: 90.2, math: 76.6, gpqa: 53.6 },
-    features: ["Multimodal", "Echtzeit", "Vision", "Audio"],
-    pros: ["Schnell", "Multimodal", "Gute Preis-Leistung"],
-    cons: ["Weniger leistungsfähig als Turbo", "Begrenzte Vision"],
-    best_for: ["Echtzeit-Anwendungen", "Bildanalyse", "Sprachassistenten"],
-  },
-  {
-    id: "claude-3-opus",
-    name: "Claude 3 Opus",
-    provider: "Anthropic",
-    type: "llm",
-    description: "Anthropics leistungsstärkstes Modell für komplexe Aufgaben.",
-    context_window: 200000,
-    pricing_input: 0.015,
-    pricing_output: 0.075,
-    api_available: true,
-    release_date: "2024-03-04",
-    benchmarks: { mmlu: 86.8, humaneval: 84.9, math: 60.1, gpqa: 50.4 },
-    features: ["Premium Qualität", "200k Kontext", "Reasoning"],
-    pros: ["Höchste Qualität", "Tiefe Analyse", "Kreativität"],
-    cons: ["Sehr teuer", "Langsamer"],
-    best_for: ["Premium-Projekte", "Kreative Arbeit", "Forschung"],
-  },
-  {
-    id: "mistral-large",
-    name: "Mistral Large",
-    provider: "Mistral AI",
-    type: "llm",
-    description: "Europäisches LLM mit starken multilingualen Fähigkeiten.",
-    context_window: 128000,
-    pricing_input: 0.003,
-    pricing_output: 0.009,
-    api_available: true,
-    release_date: "2024-02-26",
-    benchmarks: { mmlu: 81.2, humaneval: 81.2, math: 61.2, gpqa: 40.0 },
-    features: ["Multilingual", "EU-basiert", "128k Kontext"],
-    pros: ["EU-Datenschutz", "Gute Preise", "Multilingual"],
-    cons: ["Weniger bekannt", "Kleinere Community"],
-    best_for: ["EU-Projekte", "Mehrsprachigkeit", "Datenschutz"],
-  },
-];
-
-const typeColors: Record<string, string> = {
-  llm: "bg-blue-500",
-  multimodal: "bg-purple-500",
-  agent: "bg-green-500",
-  image: "bg-pink-500",
-  video: "bg-red-500",
-  audio: "bg-yellow-500",
-};
-
-const typeLabels: Record<string, string> = {
-  llm: "LLM",
-  multimodal: "Multimodal",
-  agent: "Agent",
-  image: "Bild",
-  video: "Video",
-  audio: "Audio",
-};
+import { models, TYPE_COLORS, TYPE_LABELS } from './data';
+import { formatContextWindow, formatPricing, formatDate, getModelsCountByType } from './data';
 
 // Generate metadata for SEO
 export const metadata = {
-  title: "KI Modelle Vergleich 2025 | GPT-4o, Claude 3.5, DeepSeek, Grok 3, Gemini 2.0",
-  description: "Vergleiche über 50 KI-Modelle 2025: GPT-4o, Claude 3.5 Sonnet, DeepSeek-R1, Grok 3, Gemini 2.0, Llama 3.3, Kimi K2.5 & mehr. Aktuelle Benchmarks, Preise & Features. Finde das beste LLM für Coding, Reasoning & KI-Agents! Aktualisiert: Februar 2025.",
-  keywords: ["KI Modelle 2025", "LLM Vergleich", "KI Modelle Vergleich", "GPT-4o", "Claude 3.5", "DeepSeek-R1", "Grok 3", "Gemini 2.0", "Llama 3.3", "Kimi K2.5", "bestes KI Modell", "AI Agents", "KI Benchmarks", "DeepSeek Test", "Grok 3 Test"],
+  title: 'KI Modelle Vergleich 2025 | 60+ LLMs: GPT-4o, Claude 3.7, DeepSeek, Grok 3, Gemini 2.0',
+  description: '✓ Vergleiche über 60 KI-Modelle 2025: GPT-4o, Claude 3.7 Sonnet, DeepSeek-R1, Grok 3, Gemini 2.0 Flash, Llama 3.3, Kimi K2.5 & mehr. Aktuelle Benchmarks, Preise & Features. Finde das beste LLM für Coding, Reasoning & KI-Agents!',
+  keywords: ['KI Modelle 2025', 'LLM Vergleich', 'KI Modelle Vergleich', 'GPT-4o', 'Claude 3.7', 'DeepSeek-R1', 'Grok 3', 'Gemini 2.0', 'Llama 3.3', 'Kimi K2.5', 'bestes KI Modell', 'AI Agents', 'KI Benchmarks', 'DeepSeek Test', 'Grok 3 Test', 'Open Source LLM', 'kostenlose KI Modelle', 'LLM Ranking', 'KI für Coding', 'Reasoning Modelle', 'Qwen 2.5', 'Mistral Large', 'Perplexity AI', 'Copilot Alternative', 'KI Tools Vergleich', 'LLM Preise 2025', 'OpenAI Alternative', 'Anthropic Claude', 'Google Gemini', 'xAI Grok', 'Meta Llama', 'Enterprise KI'],
   alternates: {
-    canonical: "https://agents-ranking.ai/models",
+    canonical: 'https://agents-ranking.ai/models',
   },
   openGraph: {
-    title: "KI Modelle Vergleich 2025 | GPT-4o, Claude 3.5, DeepSeek, Grok 3, Gemini 2.0",
-    description: "Vergleiche über 50 KI-Modelle 2025: GPT-4o, Claude 3.5, DeepSeek-R1, Grok 3, Gemini 2.0, Llama 3.3 & mehr. Aktuelle Benchmarks & Preise. Aktualisiert: Februar 2025.",
-    url: "https://agents-ranking.ai/models",
+    title: 'KI Modelle Vergleich 2025 | 60+ LLMs: GPT-4o, Claude 3.7, DeepSeek, Grok 3',
+    description: '✓ Vergleiche über 60 KI-Modelle 2025: GPT-4o, Claude 3.7, DeepSeek-R1, Grok 3, Gemini 2.0, Llama 3.3 & mehr. Aktuelle Benchmarks & Preise.',
+    url: 'https://agents-ranking.ai/models',
   },
 };
 
-export default function ModelsPage() {
+export default function ModelsPage(): JSX.Element {
+  const llmCount = getModelsCountByType('llm');
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted">
       <section className="container mx-auto px-4 py-12">
@@ -237,7 +84,7 @@ export default function ModelsPage() {
               </div>
               <div>
                 <p className="font-medium">LLMs</p>
-                <p className="text-sm text-muted-foreground">{models.filter(m => m.type === 'llm').length} Modelle</p>
+                <p className="text-sm text-muted-foreground">{llmCount} Modelle</p>
               </div>
             </CardContent>
           </Card>
@@ -286,8 +133,8 @@ export default function ModelsPage() {
               <Card className="hover:shadow-lg transition-shadow cursor-pointer h-full group">
                 <CardHeader>
                   <div className="flex items-center justify-between mb-2">
-                    <Badge className={typeColors[model.type]}>
-                      {typeLabels[model.type]}
+                    <Badge className={TYPE_COLORS[model.type]}>
+                      {TYPE_LABELS[model.type]}
                     </Badge>
                     <div className="flex gap-1">
                       {model.api_available && (
@@ -334,7 +181,7 @@ export default function ModelsPage() {
                       <div className="flex justify-between">
                         <span className="text-muted-foreground">Kontext:</span>
                         <span className="font-medium">
-                          {(model.context_window / 1000).toFixed(0)}k Tokens
+                          {formatContextWindow(model.context_window)}
                         </span>
                       </div>
                     )}
@@ -344,14 +191,14 @@ export default function ModelsPage() {
                         {model.pricing_input === 0 ? (
                           <Badge variant="secondary" className="text-xs">Kostenlos</Badge>
                         ) : (
-                          `$${model.pricing_input}/1M tokens`
+                          formatPricing(model.pricing_input)
                         )}
                       </span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">Release:</span>
                       <span className="font-medium">
-                        {new Date(model.release_date).toLocaleDateString('de-DE')}
+                        {formatDate(model.release_date)}
                       </span>
                     </div>
                   </div>
@@ -382,13 +229,13 @@ export default function ModelsPage() {
               agents-ranking.ai bietet den umfassendsten <strong>KI Vergleich</strong> für 
               Large Language Models (LLMs), AI Agents und spezialisierte KI-Tools. Unsere 
               unabhängigen Benchmarks helfen dir, das beste Modell für deine Anforderungen zu finden.
-              Aktuell vergleichen wir über 50 KI-Modelle mit täglich aktualisierten Daten.
+              Aktuell vergleichen wir über 60 KI-Modelle mit täglich aktualisierten Daten.
             </p>
             
             <h3 className="text-lg font-semibold mt-6">Beliebte Vergleiche 2025</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
               <Link href="/models/gpt-4o" className="p-4 border rounded-lg hover:bg-muted transition-colors">
-                <p className="font-medium">GPT-4o vs Claude 3.5 Sonnet</p>
+                <p className="font-medium">GPT-4o vs Claude 3.7 Sonnet</p>
                 <p className="text-sm text-muted-foreground">Der Klassiker unter den LLM-Vergleichen - Wer gewinnt 2025?</p>
               </Link>
               <Link href="/models/deepseek-r1" className="p-4 border rounded-lg hover:bg-muted transition-colors">
@@ -397,11 +244,19 @@ export default function ModelsPage() {
               </Link>
               <Link href="/models/grok-3" className="p-4 border rounded-lg hover:bg-muted transition-colors">
                 <p className="font-medium">Grok 3 Test & Benchmarks</p>
-                <p className="text-sm text-muted-foreground">xAI's neuestes Modell im Detail</p>
+                <p className="text-sm text-muted-foreground">xAI&apos;s neuestes Modell im Detail</p>
               </Link>
               <Link href="/models/llama-3-3-70b" className="p-4 border rounded-lg hover:bg-muted transition-colors">
-                <p className="font-medium">Llama 3.3 vs kommerzielle Modelle</p>
+                <p className="font-medium">Llama 3.3 vs Qwen 2.5 vs kommerzielle Modelle</p>
                 <p className="text-sm text-muted-foreground">Open Source vs. Closed Source - Lohnt sich der Umstieg?</p>
+              </Link>
+              <Link href="/models/gemini-2-0-flash" className="p-4 border rounded-lg hover:bg-muted transition-colors">
+                <p className="font-medium">Gemini 2.0 Flash vs GPT-4o mini</p>
+                <p className="text-sm text-muted-foreground">Schnelle Modelle für Echtzeit-Anwendungen</p>
+              </Link>
+              <Link href="/models/mistral-large" className="p-4 border rounded-lg hover:bg-muted transition-colors">
+                <p className="font-medium">Mistral Large 2 im Test</p>
+                <p className="text-sm text-muted-foreground">Europäische Alternative zu OpenAI und Anthropic</p>
               </Link>
             </div>
 
@@ -411,17 +266,19 @@ export default function ModelsPage() {
                 <p className="font-medium">Was ist das beste KI-Modell 2025?</p>
                 <p className="text-sm text-muted-foreground mt-1">
                   Das beste KI-Modell hängt vom Anwendungsfall ab. Für Coding empfehlen wir 
-                  <Link href="/models/claude-3-5-sonnet" className="text-primary hover:underline"> Claude 3.5 Sonnet</Link>, 
+                  <Link href="/models/claude-3-7-sonnet" className="text-primary hover:underline"> Claude 3.7 Sonnet</Link>, 
                   für multimodale Aufgaben <Link href="/models/gpt-4o" className="text-primary hover:underline">GPT-4o</Link>, 
-                  und für kostenlose Nutzung <Link href="/models/llama-3-3-70b" className="text-primary hover:underline">Llama 3.3</Link>.
+                  und für kostenlose Nutzung <Link href="/models/llama-3-3-70b" className="text-primary hover:underline">Llama 3.3</Link> oder 
+                  <Link href="/models/qwen-2-5" className="text-primary hover:underline"> Qwen 2.5</Link>.
                 </p>
               </div>
               <div className="p-4 bg-muted/50 rounded-lg">
                 <p className="font-medium">Welche KI ist besser als ChatGPT?</p>
                 <p className="text-sm text-muted-foreground mt-1">
-                  <Link href="/models/claude-3-5-sonnet" className="text-primary hover:underline">Claude 3.5 Sonnet</Link> übertrifft 
+                  <Link href="/models/claude-3-7-sonnet" className="text-primary hover:underline">Claude 3.7 Sonnet</Link> übertrifft 
                   ChatGPT bei Coding und langen Dokumenten. <Link href="/models/deepseek-r1" className="text-primary hover:underline">DeepSeek-R1</Link> ist 
-                  besser für komplexes Reasoning und deutlich günstiger.
+                  besser für komplexes Reasoning und deutlich günstiger. 
+                  <Link href="/models/gemini-2-0-pro" className="text-primary hover:underline">Gemini 2.0 Pro</Link> bietet das größte Kontextfenster.
                 </p>
               </div>
               <div className="p-4 bg-muted/50 rounded-lg">
@@ -429,7 +286,15 @@ export default function ModelsPage() {
                 <p className="text-sm text-muted-foreground mt-1">
                   Ja, <Link href="/models/llama-3-3-70b" className="text-primary hover:underline">Llama 3.3</Link> ist Open Source und 
                   vollständig kostenlos für kommerzielle Nutzung. Du kannst es selbst hosten oder über 
-                  Anbieter wie Groq kostenlos nutzen.
+                  Anbieter wie Groq kostenlos nutzen. Auch <Link href="/models/qwen-2-5" className="text-primary hover:underline">Qwen 2.5</Link> ist eine starke kostenlose Alternative.
+                </p>
+              </div>
+              <div className="p-4 bg-muted/50 rounded-lg">
+                <p className="font-medium">Welche KI ist am besten für Coding?</p>
+                <p className="text-sm text-muted-foreground mt-1">
+                  <Link href="/models/claude-3-7-sonnet" className="text-primary hover:underline">Claude 3.7 Sonnet</Link> ist aktuell die beste KI für Coding 
+                  mit über 92% HumanEval Score. Für Budget-Projekte ist 
+                  <Link href="/models/deepseek-v3" className="text-primary hover:underline"> DeepSeek-V3</Link> die beste Wahl.
                 </p>
               </div>
             </div>

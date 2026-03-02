@@ -2,6 +2,30 @@
 
 Alle wichtigen Änderungen an diesem Projekt werden in dieser Datei dokumentiert.
 
+## [2026-03-01] - SEO-Optimierung Tag 2 & Backlink-Recherche
+
+### SEO-Optimierungen
+- **Keywords erweitert**: Von 22 auf 40+ Begriffe
+  - Neue Keywords: AI Modelle Vergleich, LLM Ranking 2025, ChatGPT Alternative 2025
+  - Neue Modelle: Claude 3.7 Sonnet, Gemini 2.0 Flash, Mistral Large, Qwen 2.5
+  - Enterprise-Fokus: KI für Unternehmen, Enterprise LLM Vergleich
+  - Tool-Vergleiche: KI Tools Vergleich, AI Agent Vergleich, LLM Preise
+- **Schema.org FAQ erweitert**: 2 neue FAQ-Einträge (6 statt 4)
+- **Interne Verlinkung verbessert**: Neue Vergleichs-Links in Footer und Models-Page
+
+### Backlink-Recherche
+- **Product Hunt (DR 91)**: Als neue Top-Priorität identifiziert
+- **Hacker News (DR 94)**: Show HN Post geplant
+- **Reddit r/LocalLLaMA (DR 91)**: Community-Engagement geplant
+
+### Code-Qualitäts-Verbesserungen
+- **TypeScript**: Zentrale Typendefinitionen in `src/types/model.ts`
+- **Daten-Layer**: Refactored in `src/app/models/data.ts`
+- **ESLint**: Erweiterte Regeln für bessere Code-Qualität
+- **Security**: Headers in `next.config.mjs` hinzugefügt
+
+---
+
 ## [2026-02-27] - SEO-Optimierung (Content Update 13 Uhr)
 
 ### Hinzugefügt

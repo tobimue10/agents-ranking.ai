@@ -9,7 +9,8 @@ import {
   Wallet, 
   Zap, 
   Scale,
-  ArrowRight
+  ArrowRight,
+  Check
 } from "lucide-react";
 import { modelsData } from "@/lib/models-data";
 import { useLanguage } from "@/components/LanguageProvider";
@@ -88,7 +89,7 @@ export function SmartComparison() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {models.map((model, idx) => (
+          {models.filter((m): m is NonNullable<typeof m> => Boolean(m)).map((model, idx) => (
             <Card key={model.id} className={`border-0 shadow-soft ${
               idx === 0 ? 'ring-2 ring-violet-500/30' : ''
             }`}>

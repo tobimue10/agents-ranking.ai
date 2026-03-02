@@ -16,6 +16,7 @@ export interface AgentData {
   release_date: string;
   website: string;
   is_new?: boolean;
+  is_archived?: boolean;
 }
 
 export const agentsData: AgentData[] = [

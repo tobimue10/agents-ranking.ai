@@ -110,20 +110,21 @@ export const newsData: NewsItem[] = [
 
 // Benchmark Updates
 export const benchmarkUpdates = {
-  last_updated: "2025-02-27",
-  source: "LMSYS Arena",
+  last_updated: "2026-02-28",
+  source: "LMSYS Arena (lmarena.ai)",
   top_5: [
-    { rank: 1, model: "GPT-4.5", provider: "OpenAI", elo: 1340 },
-    { rank: 2, model: "Claude 3.7 Sonnet", provider: "Anthropic", elo: 1335 },
-    { rank: 3, model: "Qwen 2.5 Max", provider: "Alibaba", elo: 1332 },
-    { rank: 4, model: "Gemini 2.0 Pro", provider: "Google", elo: 1320 },
-    { rank: 5, model: "GPT-4o", provider: "OpenAI", elo: 1312 },
+    { rank: 1, model: "Claude Opus 4.6 Thinking", provider: "Anthropic", elo: 1506 },
+    { rank: 2, model: "Claude Opus 4.6", provider: "Anthropic", elo: 1502 },
+    { rank: 3, model: "Gemini 3.1 Pro", provider: "Google", elo: 1500 },
+    { rank: 4, model: "Gemini 3 Pro", provider: "Google", elo: 1486 },
+    { rank: 5, model: "GPT-5.2", provider: "OpenAI", elo: 1478 },
   ],
   notable_changes: [
-    "GPT-4.5 debütiert auf Platz 1 (neu)",
-    "Claude 3.7 Sonnet auf Platz 2 (neu)",
-    "Qwen 2.5 Max überholt Gemini 2.0 Pro",
-    "Top 3 komplett neu durch OpenAI und Anthropic",
+    "Claude Opus 4.6 Thinking führt mit 1506 Elo (neu)",
+    "Anthropic dominiert Top 2 mit Opus 4.6 Serie",
+    "Gemini 3.1 Pro erreicht 1500 Elo Marke (neu)",
+    "Google mit Gemini 3 Pro auf Platz 4",
+    "GPT-5.2 komplettiert Top 5",
   ],
 };
 

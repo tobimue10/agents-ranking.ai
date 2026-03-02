@@ -316,23 +316,23 @@ export function ModelRecommender() {
                           {rec.type === 'model' ? (
                             <>
                               <span className="text-muted-foreground">
-                                {rec.item.pricing_input === 0 && rec.item.pricing_output === 0 
+                                {(rec.item as ModelData).pricing_input === 0 && (rec.item as ModelData).pricing_output === 0
                                   ? (language === 'de' ? "Kostenlos" : "Free")
-                                  : `$${rec.item.pricing_input}/1M tokens`
+                                  : `$${(rec.item as ModelData).pricing_input}/1M tokens`
                                 }
                               </span>
-                              {rec.item.benchmarks?.mmlu && (
+                              {(rec.item as ModelData).benchmarks?.mmlu && (
                                 <span className="text-muted-foreground">
-                                  MMLU: {rec.item.benchmarks.mmlu}%
+                                  MMLU: {(rec.item as ModelData).benchmarks.mmlu}%
                                 </span>
                               )}
                             </>
                           ) : (
                             <span className="text-muted-foreground">
-                              {rec.item.pricing.free 
+                              {(rec.item as AgentData).pricing.free
                                 ? (language === 'de' ? "Kostenlos" : "Free")
-                                : rec.item.pricing.monthly 
-                                  ? `$${rec.item.pricing.monthly}/Monat`
+                                : (rec.item as AgentData).pricing.monthly
+                                  ? `$${(rec.item as AgentData).pricing.monthly}/Monat`
                                   : ''
                               }
                             </span>
