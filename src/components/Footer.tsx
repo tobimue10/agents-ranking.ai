@@ -40,13 +40,17 @@ export default function Footer() {
       { label: "Llama 3.3 Kostenlos", href: "/models/llama-3-3-70b" },
       { label: "Qwen 2.5 vs GPT-4o", href: "/models/qwen-2-5" },
       { label: "Gemini 2.0 Flash", href: "/models/gemini-2-0-flash" },
+      { label: "Claude 3.7 Sonnet", href: "/models/claude-3-7-sonnet" },
+      { label: "Kimi K2.5 Test", href: "/models/kimi-k2-5" },
     ],
     resources: [
       { label: language === "de" ? "Blog" : "Blog", href: "/blog/beste-ki-fuer-coding-2025" },
       { label: language === "de" ? "Beste KI für Coding" : "Best AI for Coding", href: "/blog/beste-ki-fuer-coding-2025" },
       { label: language === "de" ? "Open Source LLMs" : "Open Source LLMs", href: "/models/llama-3-3-70b" },
       { label: language === "de" ? "Reasoning Modelle" : "Reasoning Models", href: "/models/deepseek-r1" },
-      { label: language === "de" ? "FAQ" : "FAQ", href: "#faq" },
+      { label: language === "de" ? "KI Modelle Übersicht" : "AI Models Overview", href: "/models" },
+      { label: language === "de" ? "Preisvergleich" : "Price Comparison", href: "/#price-comparison" },
+      { label: language === "de" ? "FAQ" : "FAQ", href: "/models#faq" },
     ],
     company: [
       { label: language === "de" ? "Über uns" : "About", href: "#" },
