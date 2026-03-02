@@ -2,6 +2,72 @@
 
 Alle wichtigen Änderungen an diesem Projekt werden in dieser Datei dokumentiert.
 
+## [2026-03-02] - Täglicher Modelle-Check
+
+### Hinzugefügt
+- **Gemini 3.1 Pro** (Google, 2026-02-19)
+  - 77.1% auf ARC-AGI-2 (mehr als doppelt so gut wie Gemini 3 Pro)
+  - 80.6% auf SWE-Bench Verified
+  - 94.3% auf GPQA Diamond
+  - 1M Token Kontextfenster
+  - Preis: $2.00/$12.00 pro 1M Tokens
+  - MMLU: 91.8
+
+- **Claude Opus 4.6** (Anthropic, 2026-02-05)
+  - Anthropics leistungsstärkstes Modell
+  - Führend bei Humanity's Last Exam und Terminal-Bench 2.0
+  - 1M Token Kontextfenster (Beta)
+  - Preis: $5.00/$25.00 pro 1M Tokens
+  - MMLU: 91.0, GPQA: 91.3
+
+- **Claude Sonnet 4.6** (Anthropic, 2026-02-17)
+  - Opus-level Performance bei deutlich niedrigerem Preis
+  - 1M Token Kontextfenster (Beta)
+  - Preis: $3.00/$15.00 pro 1M Tokens
+  - MMLU: 90.2, GPQA: 89.9
+  - Hervorragende Computer Use Fähigkeiten
+
+- **GPT-5.3-Codex** (OpenAI, 2026-02-05)
+  - Der fähigste agentische Coding-Modell bis heute
+  - 77.3% auf Terminal-Bench 2.0
+  - 56.8% auf SWE-Bench Pro
+  - Preis: $1.75/$14.00 pro 1M Tokens
+  - 25% schneller als Vorgänger
+
+- **Gemini 3 Flash** (Google, 2026-02-05)
+  - Schnelles multimodales Modell
+  - 1M Token Kontextfenster
+  - Preis: $0.50/$3.00 pro 1M Tokens
+  - MMLU: 88.0
+
+### Archiviert (älter als 6 Monate - vor 02.09.2025)
+- GPT-4 Turbo (Nov 2023) → durch GPT-5-Familie ersetzt
+- Claude 3.5 Sonnet (Jun 2024) → durch Sonnet 4.6 ersetzt
+- Gemini Pro 1.5 (Feb 2024) → durch Gemini 3.1 Pro ersetzt
+- Llama 3.1 405B (Jul 2024) → archiviert
+- GPT-4o (May 2024) → durch GPT-5-Familie ersetzt
+- Claude 3 Opus (Mar 2024) → durch Opus 4.6 ersetzt
+- Mistral Large (Feb 2024) → archiviert
+
+### Neue Top 5 (März 2026)
+1. **Gemini 3.1 Pro** (Google) - MMLU: 91.8, GPQA: 94.3
+2. **Claude Opus 4.6** (Anthropic) - MMLU: 91.0, GPQA: 91.3
+3. **Claude Sonnet 4.6** (Anthropic) - MMLU: 90.2, GPQA: 89.9
+4. **GPT-5.2** (OpenAI) - MMLU: 90.5, GPQA: 92.4
+5. **GPT-5.1** (OpenAI) - MMLU: 89.8, GPQA: 90.0
+
+### Technische Änderungen
+- **is_archived Feld hinzugefügt**: Neue Modelle haben `is_archived` Flag
+- **getTop5Models() Funktion**: Automatische Sortierung nach MMLU → GPQA → Release-Datum
+- **getActiveModels() / getArchivedModels()**: Neue Filter-Funktionen
+
+### Deployment
+- Git Commit: `e07d5b1`
+- Push zu origin/main erfolgreich
+- GitHub Actions Build ausgelöst
+
+---
+
 ## [2026-03-01] - SEO-Optimierung Tag 2 & Backlink-Recherche
 
 ### SEO-Optimierungen
